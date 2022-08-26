@@ -27,20 +27,20 @@ POST /data/invoices
 }
 ```
 
-Invoices PDFs are generated in /schedule-data-service/invoices
-
-
-
+Invoices PDFs are generated in /schedule-data-service/invoices</br>
+</br>
+</br>
+</br>
 Initial setup for running with Docker while having db persistency and not be bothered by git on changed database file ever.
 
-Create a directory named 'schemademo-database' one level above this project's main directory...
-> mkdir ../schemademo-database
-
-...and copy the database file to the new directory.
-> cp schedule-data-service/database/nodehill_schedule.db ../schemademo-database/
-
-Run in Docker with
-> docker compose -p devops21-agile1 up -d
-
-Tear down the services with
-> docker compose -p devops21-agile1 down
+Create a directory named 'schemademo-database' one level above this project's main directory...<br>
+`> mkdir ../schemademo-database`</br>
+</br>
+...and copy the database file to the new directory.</br>
+`> cp schedule-data-service/database/nodehill_schedule.db ../schemademo-database/`</br>
+</br>
+Run in Docker with</br>
+`> docker compose -p devops21-agile1 up -d`</br>
+</br>
+Tear down the services with</br>
+`> docker compose -p devops21-agile1 down`</br>
