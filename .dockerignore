@@ -1,0 +1,6 @@
+**/.idea
+**/.DS_Store
+**/node_modules
+**/pdfs-generated
+**/all-invoices.zip
+**/.vscode

@@ -1,0 +1,44 @@
+
+networks:
+  frontend:
+    name: frontend
+  backend:
+    name: backend
+
+services:
+  schemademo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: schemademo
+    hostname: schemademo
+    restart: unless-stopped
+    init: true
+    volumes:
+      - ../schemademo-database:/schemademo/schedule-data-service/database
+    networks:
+      - frontend
+    ports:
+      - "30080:7666"
+    environment:
+      PORT: 7666
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.docker.network=frontend"
+    #   - "traefik.web.port=30080"
+    #   - "traefik.web.frontend.rule=Host:schemademo"
+
+  # traefik:
+  #   image: traefik:1.7-alpine
+  #   container_name: traefik
+  #   restart: unless-stopped
+  #   init: true
+  #   volumes:
+  #     - ../traefik/conf/traefik.toml:/etc/traefik/traefik.toml:ro
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   networks:
+  #     - frontend
+  #     - backend
+  #   ports:
+  #     - "80:80"
+  #   restart: unless-stopped
