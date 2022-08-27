@@ -2,7 +2,7 @@ const db = require("./modules/db.js")()
 const express = require("express")
 const server = express()
 server.use(express.json())
-const port = 7666
+const port = process.env.PORT ? process.env.PORT : 30080;
 const host = `http://localhost:${port}`
 
 // sessions
@@ -51,9 +51,9 @@ server.get("/data", async (req, res) => {
 })
 
 server.get('/data/calendar/:from/:to', (req, res)=>{
-    const cal = calendar.makeCalendar(req.params.from, req.params.to, req.params.locale)
-    const populated = calendar.populateCalendar(cal)
-    res.json(populated)
+  const cal = calendar.makeCalendar(req.params.from, req.params.to, req.params.locale)
+  const populated = calendar.populateCalendar(cal)
+  res.json(populated)
 })
 
 server.get('/data/courses/:from/:to', (req, res)=>{
@@ -107,5 +107,27 @@ server.post('/data/generate-schedule', generateSchedule)
 server.get('/data/:table', (req, res)=>{ // but limit which tables to query with ACL
   let query = "SELECT * FROM " + req.params.table
   let result = db.prepare(query).all()
+  res.setHeader( 'Content-Range', result.length);
+  res.setHeader( 'X-Total-Count', result.length);
   res.json(result)
 })
+
+server.get('/data/:table/:id', (req, res)=>{ // but limit which tables to query with ACL
+  let query = "SELECT * FROM " + req.params.table + " WHERE id = @id"
+  let result = db.prepare(query).get({id: req.params.id})
+  // res.setHeader( 'Content-Range', result.length);
+  // res.setHeader( 'X-Total-Count', result.length);
+  res.json(result)
+})
+
+
+// server.put('/data/classes', (request, response) => {
+//   let c = request.body
+//   let result
+//   try{
+//     result = db.prepare('UPDATE classes SET name = ?, shortName = ?, school = ?, bloghide = ?, defaultStartTime = ?, defaultEndTime = ?, defaultInvoiceItem = ?, defaultHoursPerDay = ? WHERE email = ?').run([ c.id, c.name, c.shortName, c.school, c.bloghide, c.defaultStartTime, c.defaultEndTime, c.defaultInvoiceItem, c.defaultHoursPerDay])
+//   }catch(e){
+//     console.error(e)
+//   }
+//   response.json(result)
+// })

@@ -3,8 +3,18 @@ const encrypt = require('../modules/encrypt.js')
 module.exports = function(server, db){
 
   server.get('/data/teachers', (req, res)=>{
-    let query = "SELECT id, firstname, lastname, initials, phone, email, color, hide  FROM teachers ORDER BY initials"
+    let query = "SELECT id, firstname, lastname, initials, phone, email, color, hide FROM teachers ORDER BY initials"
     let result = db.prepare(query).all()
+    res.setHeader( 'Content-Range', result.length);
+    res.setHeader( 'X-Total-Count', result.length);
+    res.json(result)
+  })
+
+  server.get('/data/teachers/:id', (req, res)=>{
+    let query = "SELECT id, firstname, lastname, initials, phone, email, color, hide FROM teachers WHERE id = @id"
+    let result = db.prepare(query).get({id: req.params.id})
+    // res.setHeader( 'Content-Range', result.length);
+    // res.setHeader( 'X-Total-Count', result.length);
     res.json(result)
   })
 
