@@ -5,7 +5,7 @@ import { Admin, Resource, ListGuesser, fetchUtils, EditGuesser, List } from 'rea
 import { TeacherList } from './teachers';
 // import { ClassList } from './classes';
 import { CourseList } from "./courses";
-import { CourseEdit } from "./course-edit";
+import { CourseEdit } from "./courses-edit";
 import { SchoolList } from "./schools";
 import jsonServerProvider from 'ra-data-json-server';
 import simpleRestProvider from 'ra-data-simple-rest';
