@@ -15,7 +15,8 @@ services:
     restart: unless-stopped
     init: true
     volumes:
-      - ../schemademo-database:/schemademo/schedule-data-service/database
+      - .:/schemademo
+      # - ../schemademo-database:/schemademo/schedule-data-service/database
     networks:
       - frontend
     ports:

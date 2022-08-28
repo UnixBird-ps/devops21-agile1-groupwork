@@ -2,7 +2,7 @@ const db = require("./modules/db.js")()
 const express = require("express")
 const server = express()
 server.use(express.json())
-const port = 7666
+const port = process.env.PORT ? process.env.PORT : 30080;
 const host = `http://localhost:${port}`
 
 // sessions
@@ -39,10 +39,12 @@ server.use('/', express.static('../www'))
 server.use('/admin', express.static('../admin/dist'))
 server.use('/assets', express.static('../admin/dist/assets'))
 
-// REST API routes
-
-require('./routes/teachers.js')(server, db)
+// Specialized REST API routes
 require('./routes/login.js')(server, db)
+require('./routes/teachers.js')(server, db)
+require('./routes/courses.js')(server, db)
+require('./routes/classes.js')(server, db)
+require('./routes/schools.js')(server, db)
 
 const apiDescription = require('./api-description.js')(host)
 
@@ -51,22 +53,9 @@ server.get("/data", async (req, res) => {
 })
 
 server.get('/data/calendar/:from/:to', (req, res)=>{
-    const cal = calendar.makeCalendar(req.params.from, req.params.to, req.params.locale)
-    const populated = calendar.populateCalendar(cal)
-    res.json(populated)
-})
-
-server.get('/data/courses/:from/:to', (req, res)=>{
-  let query = "SELECT * FROM courses WHERE startDate >= @startDate AND endDate <= @endDate"
-  let result = db.prepare(query).all({startDate: req.params.from, endDate: req.params.to})
-  res.json(result)
-})
-
-server.post('/data/courses', (req, res)=>{
-  let query = "INSERT INTO courses VALUES(@id, @name, @shortName, @class, @points, @startDate, @endDate, @plan, @invoiceItem, @hoursPerDay)"
-  let statement = db.prepare(query)
-  let result = statement.run(req.body)
-  res.json(result)
+  const cal = calendar.makeCalendar(req.params.from, req.params.to, req.params.locale)
+  const populated = calendar.populateCalendar(cal)
+  res.json(populated)
 })
 
 server.get('/data/classes_view/:all?', (req, res)=>{
@@ -90,22 +79,34 @@ server.get('/data/classes_view/:all?', (req, res)=>{
 
 const createInvoice = require('./services/create-invoice.js')
 
-server.post('/data/invoices/', (req, res)=>{
-  if(!req.body.startDate || !req.body.endDate || !req.body.school){
-    res.json({
+server.post('/data/invoices/', (request, response)=>{
+  if(!request.body.startDate || !request.body.endDate || !request.body.school){
+    response.json({
       error: "Insufficient request data"
     })
   }
-  let createdInvoice = createInvoice(req.body, db)
-  res.json(createdInvoice)
+  let createdInvoice = createInvoice(request.body, db)
+  response.json(createdInvoice)
 })
 
 server.post('/data/generate-schedule', generateSchedule)
 
 // generic one-to-one table API
 
-server.get('/data/:table', (req, res)=>{ // but limit which tables to query with ACL
-  let query = "SELECT * FROM " + req.params.table
-  let result = db.prepare(query).all()
-  res.json(result)
-})
+server.get('/data/:table', (request, response) =>
+  { // but limit which tables to query with ACL
+    let query = "SELECT * FROM " + request.params.table
+    let result = db.prepare(query).all()
+    response.setHeader( 'Content-Range', result.length);
+    response.setHeader( 'X-Total-Count', result.length);
+    response.json(result)
+  }
+)
+
+server.get('/data/:table/:id', (request, response) =>
+  { // but limit which tables to query with ACL
+    let query = "SELECT * FROM " + request.params.table + " WHERE id = @id"
+    let result = db.prepare(query).get({id: request.params.id})
+    response.json(result)
+  }
+)
