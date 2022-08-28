@@ -1,7 +1,7 @@
 import { Datagrid, List, TextField, NumberField, DateField, BooleanField } from 'react-admin';
 
 export const CourseList = () => (
-  <List>
+  <List bulkActionButtons={false}>
     <Datagrid rowClick="edit">
       <NumberField source="id" />
       <TextField source="name" />
@@ -13,7 +13,7 @@ export const CourseList = () => (
       <TextField source="plan" />
       <TextField source="invoiceItem" />
       <NumberField source="hoursPerDay" />
-      <BooleanField source="hide" />
+      <TextField source="hide" />
     </Datagrid>
   </List>
 );

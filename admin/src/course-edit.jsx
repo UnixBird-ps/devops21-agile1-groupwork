@@ -17,7 +17,7 @@ export const CourseEdit = () => (
         <AutocompleteInput label="Invoice" />
       </ReferenceInput>
       <NumberInput source="hoursPerDay" />
-      <BooleanInput source="hide" parse={v => v ? 1 : 0} format={ v => v == 1} />
+      <BooleanInput source="hide" parse={v => v ? 1 : 0} format={ v => v != 0} />
     </SimpleForm>
   </Edit>
 );

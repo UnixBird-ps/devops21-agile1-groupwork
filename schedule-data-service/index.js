@@ -39,11 +39,12 @@ server.use('/', express.static('../www'))
 server.use('/admin', express.static('../admin/dist'))
 server.use('/assets', express.static('../admin/dist/assets'))
 
-// REST API routes
-
+// Specialized REST API routes
 require('./routes/login.js')(server, db)
 require('./routes/teachers.js')(server, db)
 require('./routes/courses.js')(server, db)
+require('./routes/classes.js')(server, db)
+require('./routes/schools.js')(server, db)
 
 const apiDescription = require('./api-description.js')(host)
 
@@ -78,48 +79,34 @@ server.get('/data/classes_view/:all?', (req, res)=>{
 
 const createInvoice = require('./services/create-invoice.js')
 
-server.post('/data/invoices/', (req, res)=>{
-  if(!req.body.startDate || !req.body.endDate || !req.body.school){
-    res.json({
+server.post('/data/invoices/', (request, response)=>{
+  if(!request.body.startDate || !request.body.endDate || !request.body.school){
+    response.json({
       error: "Insufficient request data"
     })
   }
-  let createdInvoice = createInvoice(req.body, db)
-  res.json(createdInvoice)
+  let createdInvoice = createInvoice(request.body, db)
+  response.json(createdInvoice)
 })
 
 server.post('/data/generate-schedule', generateSchedule)
 
 // generic one-to-one table API
 
-server.get('/data/:table', (req, res) =>
+server.get('/data/:table', (request, response) =>
   { // but limit which tables to query with ACL
-    let query = "SELECT * FROM " + req.params.table
+    let query = "SELECT * FROM " + request.params.table
     let result = db.prepare(query).all()
-    res.setHeader( 'Content-Range', result.length);
-    res.setHeader( 'X-Total-Count', result.length);
-    res.json(result)
+    response.setHeader( 'Content-Range', result.length);
+    response.setHeader( 'X-Total-Count', result.length);
+    response.json(result)
   }
 )
 
-server.get('/data/:table/:id', (req, res) =>
+server.get('/data/:table/:id', (request, response) =>
   { // but limit which tables to query with ACL
-    let query = "SELECT * FROM " + req.params.table + " WHERE id = @id"
-    let result = db.prepare(query).get({id: req.params.id})
-    // res.setHeader( 'Content-Range', result.length);
-    // res.setHeader( 'X-Total-Count', result.length);
-    res.json(result)
+    let query = "SELECT * FROM " + request.params.table + " WHERE id = @id"
+    let result = db.prepare(query).get({id: request.params.id})
+    response.json(result)
   }
 )
-
-
-// server.put('/data/classes', (request, response) => {
-//   let c = request.body
-//   let result
-//   try{
-//     result = db.prepare('UPDATE classes SET name = ?, shortName = ?, school = ?, bloghide = ?, defaultStartTime = ?, defaultEndTime = ?, defaultInvoiceItem = ?, defaultHoursPerDay = ? WHERE email = ?').run([ c.id, c.name, c.shortName, c.school, c.bloghide, c.defaultStartTime, c.defaultEndTime, c.defaultInvoiceItem, c.defaultHoursPerDay])
-//   }catch(e){
-//     console.error(e)
-//   }
-//   response.json(result)
-// })

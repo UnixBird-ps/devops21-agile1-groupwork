@@ -1,4 +1,4 @@
-import { Datagrid, List, ReferenceField, TextField, EditButton, ReferenceInput, SelectInput, TextInput } from 'react-admin';
+import { Datagrid, List, TextField, BooleanField } from 'react-admin';
 
 // const postFilters = [
 //   <TextInput source="q" label="Search" alwaysOn />,
@@ -21,13 +21,14 @@ import { Datagrid, List, ReferenceField, TextField, EditButton, ReferenceInput, 
 // );
 
 export const ClassList = () => (
-  <List>
+  <List bulkActionButtons={false}>
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <TextField source="name" />
       <TextField source="shortName" />
       <TextField source="school" />
-      <TextField source="bloghide" />
+      <TextField source="blog" />
+      <TextField source="hide" />
       <TextField source="defaultStartTime" />
       <TextField source="defaultEndTime" />
       <TextField source="defaultInvoiceItem" />
