@@ -27,20 +27,16 @@ POST /data/invoices
 }
 ```
 
-Invoices PDFs are generated in /schedule-data-service/invoices
+Invoices PDFs are generated in /schedule-data-service/invoices<br>
+<br><br>
 
+Install all dependencies...
+> cd admin ; npm install ; npm audit fix ; cd ..
+> cd schedule-data-service ; npm install ; npm audit fix ; cd ..
+> npm install ; npm audit fix
 
+Build React-Admin
+> cd admin ; npm run build ; cd ..
 
-Initial setup for running with Docker while having db persistency and not be bothered by git on changed database file ever.
-
-Create a directory named 'schemademo-database' one level above this project's main directory...
-> mkdir ../schemademo-database
-
-...and copy the database file to the new directory.
-> cp schedule-data-service/database/nodehill_schedule.db ../schemademo-database/
-
-Run in Docker with
-> docker compose -p devops21-agile1 up -d
-
-Tear down the services with
-> docker compose -p devops21-agile1 down
+Run like this...
+> npm run dev
