@@ -31,12 +31,18 @@ Invoices PDFs are generated in /schedule-data-service/invoices<br>
 <br><br>
 
 Install all dependencies...
-> cd admin ; npm install ; npm audit fix ; cd ..
-> cd schedule-data-service ; npm install ; npm audit fix ; cd ..
-> npm install ; npm audit fix
+```bash
+cd admin ; npm install ; npm audit fix ; cd ..
+cd schedule-data-service ; npm install ; npm audit fix ; cd ..
+npm install ; npm audit fix
+```
 
-Build React-Admin
-> cd admin ; npm run build ; cd ..
+Build React-Admin...
+```bash
+cd admin ; npm run build ; cd ..
+```
 
 Run like this...
-> npm run dev
+```bash
+npm run dev
+```
