@@ -41,8 +41,9 @@ server.use('/assets', express.static('../admin/dist/assets'))
 
 // REST API routes
 
-require('./routes/teachers.js')(server, db)
 require('./routes/login.js')(server, db)
+require('./routes/teachers.js')(server, db)
+require('./routes/courses.js')(server, db)
 
 const apiDescription = require('./api-description.js')(host)
 
@@ -54,19 +55,6 @@ server.get('/data/calendar/:from/:to', (req, res)=>{
   const cal = calendar.makeCalendar(req.params.from, req.params.to, req.params.locale)
   const populated = calendar.populateCalendar(cal)
   res.json(populated)
-})
-
-server.get('/data/courses/:from/:to', (req, res)=>{
-  let query = "SELECT * FROM courses WHERE startDate >= @startDate AND endDate <= @endDate"
-  let result = db.prepare(query).all({startDate: req.params.from, endDate: req.params.to})
-  res.json(result)
-})
-
-server.post('/data/courses', (req, res)=>{
-  let query = "INSERT INTO courses VALUES(@id, @name, @shortName, @class, @points, @startDate, @endDate, @plan, @invoiceItem, @hoursPerDay)"
-  let statement = db.prepare(query)
-  let result = statement.run(req.body)
-  res.json(result)
 })
 
 server.get('/data/classes_view/:all?', (req, res)=>{
@@ -104,21 +92,25 @@ server.post('/data/generate-schedule', generateSchedule)
 
 // generic one-to-one table API
 
-server.get('/data/:table', (req, res)=>{ // but limit which tables to query with ACL
-  let query = "SELECT * FROM " + req.params.table
-  let result = db.prepare(query).all()
-  res.setHeader( 'Content-Range', result.length);
-  res.setHeader( 'X-Total-Count', result.length);
-  res.json(result)
-})
+server.get('/data/:table', (req, res) =>
+  { // but limit which tables to query with ACL
+    let query = "SELECT * FROM " + req.params.table
+    let result = db.prepare(query).all()
+    res.setHeader( 'Content-Range', result.length);
+    res.setHeader( 'X-Total-Count', result.length);
+    res.json(result)
+  }
+)
 
-server.get('/data/:table/:id', (req, res)=>{ // but limit which tables to query with ACL
-  let query = "SELECT * FROM " + req.params.table + " WHERE id = @id"
-  let result = db.prepare(query).get({id: req.params.id})
-  // res.setHeader( 'Content-Range', result.length);
-  // res.setHeader( 'X-Total-Count', result.length);
-  res.json(result)
-})
+server.get('/data/:table/:id', (req, res) =>
+  { // but limit which tables to query with ACL
+    let query = "SELECT * FROM " + req.params.table + " WHERE id = @id"
+    let result = db.prepare(query).get({id: req.params.id})
+    // res.setHeader( 'Content-Range', result.length);
+    // res.setHeader( 'X-Total-Count', result.length);
+    res.json(result)
+  }
+)
 
 
 // server.put('/data/classes', (request, response) => {

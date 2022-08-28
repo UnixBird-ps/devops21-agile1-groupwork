@@ -2,16 +2,20 @@ const encrypt = require('../modules/encrypt.js')
 
 module.exports = function(server, db){
 
-  server.get('/data/teachers', (req, res)=>{
-    let query = "SELECT id, firstname, lastname, initials, phone, email, color, hide FROM teachers ORDER BY initials"
-    let result = db.prepare(query).all()
-    res.setHeader( 'Content-Range', result.length);
-    res.setHeader( 'X-Total-Count', result.length);
-    res.json(result)
-  })
+  server.get('/data/teachers', (req, res) =>
+    {
+      // let query = "SELECT id, firstname, lastname, initials, phone, email, color, hide FROM teachers ORDER BY initials"
+      let query = "SELECT * FROM teachers ORDER BY initials"
+      let result = db.prepare(query).all()
+      res.setHeader( 'Content-Range', result.length);
+      res.setHeader( 'X-Total-Count', result.length);
+      res.json(result)
+    }
+  )
 
   server.get('/data/teachers/:id', (req, res)=>{
-    let query = "SELECT id, firstname, lastname, initials, phone, email, color, hide FROM teachers WHERE id = @id"
+    // let query = "SELECT id, firstname, lastname, initials, phone, email, color, hide FROM teachers WHERE id = @id"
+    let query = "SELECT * FROM teachers WHERE id = @id"
     let result = db.prepare(query).get({id: req.params.id})
     // res.setHeader( 'Content-Range', result.length);
     // res.setHeader( 'X-Total-Count', result.length);
@@ -19,30 +23,41 @@ module.exports = function(server, db){
   })
 
   // registrera en ny lärare
-  server.post('/data/teachers', (request, response) => {
-    let user = request.body
-    let encryptedPassword = encrypt(user.password)
-    let result
-    try{
-      result = db.prepare('INSERT INTO teachers (email, password) VALUES(?,?)').run([user.email, encryptedPassword])
-    }catch(e){
-      console.error(e)
+  server.post('/data/teachers', (request, response) =>
+    {
+      let user = request.body
+      let encryptedPassword = encrypt(user.password)
+      let result
+      try
+      {
+        result = db.prepare('INSERT INTO teachers (email, password) VALUES(?,?)').run([user.email, encryptedPassword]) }
+      catch(e)
+      {
+        console.error(e)
+      }
+      response.json(result)
     }
-    response.json(result)
-  })
+  )
 
 
   // komplettera profil för användare
-  server.put('/data/teachers', (request, response) => {
-    let user = request.body
-    let result
-    try{
-      result = db.prepare('UPDATE teachers SET firstname = ?, lastname = ?, initials = ?, phone = ?, color = ?, hide = ? WHERE email = ?').run([user.firstname, user.lastname, user.initials, user.phone, user.color, user.hide, user.email])
-    }catch(e){
-      console.error(e)
+  server.put('/data/teachers', (request, response) =>
+    {
+      let user = request.body
+      let result
+      try
+      {
+        result = db.prepare(
+          'UPDATE teachers SET firstname = ?, lastname = ?, initials = ?, phone = ?, color = ?, hide = ? WHERE email = ?'
+        ).run([user.firstname, user.lastname, user.initials, user.phone, user.color, user.hide, user.email])
+      }
+      catch(e)
+      {
+        console.error(e)
+      }
+      response.json(result)
     }
-    response.json(result)
-  })
+  )
 
 
   // begär ändring av lösenord för användare

@@ -5,8 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    watch: {
-      // https://rollupjs.org/guide/en/#watch-options
-    }
+    watch: false
+    // {
+    //   // https://rollupjs.org/guide/en/#watch-options
+    // }
   }
 })

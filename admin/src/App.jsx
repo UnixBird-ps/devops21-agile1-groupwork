@@ -4,6 +4,7 @@ import { Admin, Resource, ListGuesser, fetchUtils, EditGuesser, List } from 'rea
 import { TeacherList } from './teachers';
 import { ClassList } from './classes';
 import { CourseList } from "./courses";
+import { CourseEdit } from "./course-edit";
 import { SchoolList} from "./schools";
 import jsonServerProvider from 'ra-data-json-server';
 import simpleRestProvider from 'ra-data-simple-rest';
@@ -19,7 +20,7 @@ const App = () => (
    <Admin dataProvider={dataProvider} dashboard={Dashboard} disableTelemetry>
       <Resource name="teachers" list={TeacherList} edit={EditGuesser} icon={UserIcon} />
       <Resource name="classes" list={ClassList} edit={EditGuesser} />
-      <Resource name="courses" list={CourseList} edit={EditGuesser} />
+      <Resource name="courses" list={CourseList} edit={CourseEdit} />
       <Resource name="schools" list={SchoolList} edit={EditGuesser} />
       {/* <Resource name="users" list={UserList} create={PostCreate} icon={UserIcon} /> */}
    </Admin>

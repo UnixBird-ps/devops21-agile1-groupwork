@@ -1,17 +1,18 @@
-import { Datagrid, List, ReferenceField, TextField, EditButton, ReferenceInput, SelectInput, TextInput, BooleanField } from 'react-admin';
+import { Datagrid, List, TextField, NumberField, DateField, BooleanField } from 'react-admin';
 
 export const CourseList = () => (
   <List>
     <Datagrid rowClick="edit">
-      <TextField source="id" />
+      <NumberField source="id" />
       <TextField source="name" />
       <TextField source="shortName" />
       <TextField source="class" />
-      <TextField source="points" />
+      <NumberField source="points" />
       <TextField source="startDate" />
+      <TextField source="endDate" />
       <TextField source="plan" />
       <TextField source="invoiceItem" />
-      <TextField source="hoursPerDay" />
+      <NumberField source="hoursPerDay" />
       <BooleanField source="hide" />
     </Datagrid>
   </List>
