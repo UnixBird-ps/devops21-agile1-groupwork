@@ -28,8 +28,9 @@ POST /data/invoices
 ```
 
 Invoices PDFs are generated in /schedule-data-service/invoices<br>
-<br><br>
-
+<br>
+<br>
+<br>
 Install all dependencies...
 ```bash
 cd admin ; npm install ; npm audit fix ; cd ..

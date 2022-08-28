@@ -5,7 +5,7 @@ Som en användare vill jag kunna logga in på sidan för att autentisera mig mot
 
 Scenario: Logga in
 
-Given  Sidan har laddats in. Jag är utloggad. Ser textrutorna #user' och #password', och knappen #login'.
+Given  Sidan har laddats in. Jag är utloggad. Ser textrutorna #user och #password, och knappen #login.
  When  Matar in mitt användarnam i #user
   And  Matar in mitt lösenord i #password
   And  Klickar på #login
