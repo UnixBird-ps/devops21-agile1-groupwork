@@ -110,3 +110,11 @@ server.get('/data/:table/:id', (request, response) =>
     response.json(result)
   }
 )
+
+server.delete('/data/:table/:id', (request, response) =>
+  { // but limit which tables to query with ACL
+    let query = "DELETE FROM " + request.params.table + " WHERE id = @id"
+    let result = db.prepare(query).run({id: request.params.id})
+    response.json(result)
+  }
+)

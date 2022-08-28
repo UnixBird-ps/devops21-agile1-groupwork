@@ -19,7 +19,7 @@ server.put('/data/courses/:id', (request, response) =>
     {
       result = db.prepare(
       'UPDATE courses SET name = ?, shortName = ?, class = ?, points = ?, startDate = ?, endDate = ?, plan = ?, invoiceItem = ?, hoursPerDay = ?, hide = ? WHERE id = ?'
-      ).run([course.name, course.shortName, course.class, course.points, course.startDate, course.endDate, course.plan, course.invoiceItem, course.hoursPerDay, course.hide, request.params.id])
+      ).run([course.name, course.shortName, course.class, course.points, course.startDate, course.endDate, course.plan, course.invoiceItem, course.hoursPerDay, course.hide, course.id])
     }
     catch(e)
     {

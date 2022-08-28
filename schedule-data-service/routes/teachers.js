@@ -70,8 +70,8 @@ module.exports = function(server, db)
       try
       {
         result = db.prepare(
-          'UPDATE teachers SET firstname = ?, lastname = ?, initials = ?, phone = ?, email = ?, color = ?, hide = ?, roles = ? WHERE id = :id'
-        ).run([user.firstname, user.lastname, user.initials, user.phone, user.email, user.color, user.hide, user.roles])
+          'UPDATE teachers SET firstname = ?, lastname = ?, initials = ?, phone = ?, email = ?, color = ?, hide = ?, roles = ? WHERE id = ?'
+        ).run([user.firstname, user.lastname, user.initials, user.phone, user.email, user.color, user.hide, user.roles, user.id])
       }
       catch(e)
       {

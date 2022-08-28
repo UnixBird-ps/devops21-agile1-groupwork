@@ -1,7 +1,7 @@
-import { Datagrid, EmailField, List, TextField, BooleanField } from 'react-admin';
+import { Datagrid, SimpleForm, List, Edit, Create, TextField, BooleanField, TextInput, NumberInput, BooleanInput } from 'react-admin';
 
 export const TeacherList = () => (
-  <List bulkActionButtons={false}>
+  <List bulkActionButtons={false} hasCreate={true}>
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <TextField source="firstname" />
@@ -10,8 +10,39 @@ export const TeacherList = () => (
       <TextField source="phone" />
       <TextField source="email" />
       <TextField source="color" />
-      <TextField source="hide" />
+      <BooleanField source="hide" looseValue={true} />
       <TextField source="roles" />
     </Datagrid>
   </List>
+);
+
+export const TeacherEdit = () => (
+  <Edit title="Edit Teacher">
+    <SimpleForm>
+      <NumberInput disabled source="id" />
+      <TextInput source="firstname" />
+      <TextInput source="lastname" />
+      <TextInput source="initials" />
+      <TextInput source="phone" />
+      <TextInput source="email" />
+      <TextInput source="color" />
+      <BooleanInput source="hide" parse={v => v ? 1 : 0} format={ v => v != 0}/>
+      <TextInput source="roles" />
+    </SimpleForm>
+  </Edit>
+);
+
+export const TeacherCreate = () => (
+  <Create title="Register New Teacher">
+    <SimpleForm>
+      <TextInput source="firstname" />
+      <TextInput source="lastname" />
+      <TextInput source="initials" />
+      <TextInput source="phone" />
+      <TextInput source="email" />
+      <TextInput source="color" />
+      <BooleanInput source="hide" parse={v => v ? 1 : 0} format={ v => v != 0}/>
+      <TextInput source="roles" />
+    </SimpleForm>
+  </Create>
 );
