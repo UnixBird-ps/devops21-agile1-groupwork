@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Admin, Resource, ListGuesser, fetchUtils, EditGuesser, List } from 'react-admin';
 import { TeacherList } from './teachers';
-import { ClassList } from './classes';
+// import { ClassList } from './classes';
 import { CourseList } from "./courses";
 import { CourseEdit } from "./course-edit";
 import { SchoolList } from "./schools";

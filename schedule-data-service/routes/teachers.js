@@ -67,7 +67,7 @@
 
 
 
-
+  
 const encrypt = require('../modules/encrypt.js')
 
 module.exports = function (server, db) {
