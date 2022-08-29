@@ -13,6 +13,7 @@ import UserIcon from '@mui/icons-material/Group';
 import Dashboard from "./Dashboard";
 import { UserList } from "./users";
 import { UsersCreate } from "./users-create";
+import { UsersEdit } from "./users-edit";
 // const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
 // const dataProvider = jsonServerProvider('/data');
 const dataProvider = simpleRestProvider('/data');
@@ -25,7 +26,7 @@ const App = () => (
       <Resource name="classes" list={ClassList} edit={EditGuesser} />
       <Resource name="courses" list={CourseList} edit={CourseEdit} />
       <Resource name="schools" list={SchoolList} edit={EditGuesser} />
-      <Resource name="users" list={UserList} create={UsersCreate} icon={UserIcon} />
+      <Resource name="users" list={UserList} create={UsersCreate} edit={UsersEdit} icon={UserIcon} />
       {/* <Resource name="users" list={UserList} icon={UserIcon} /> */}
    </Admin>
 );
