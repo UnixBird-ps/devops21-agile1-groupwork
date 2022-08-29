@@ -25,6 +25,7 @@ const App = () => (
       <Resource name="courses" list={CourseList} edit={CourseEdit} />
       <Resource name="schools" list={SchoolList} edit={EditGuesser} />
       {/* <Resource name="users" list={UserList} create={PostCreate} icon={UserIcon} /> */}
+      <Resource name="users" list={UserList} icon={UserIcon} />
    </Admin>
 );
 
