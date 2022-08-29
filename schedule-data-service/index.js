@@ -95,10 +95,38 @@ server.post('/data/generate-schedule', generateSchedule)
 
 server.get('/data/:table', (request, response) =>
   { // but limit which tables to query with ACL
-    let query = "SELECT * FROM " + request.params.table
+    // Basic SQL query
+    let query = "SELECT *, count(*) OVER() AS total_count FROM " + request.params.table
+    let table = request?.params?.table;
+    let hq = request.query;
+    let filter = hq?.filter;
+    let sort = hq?.sort;
+    let range = hq?.range;
+    let cr = '';
+    if ( filter ) { filter = JSON.parse( filter ); }
+    if ( sort )
+    {
+      sort = JSON.parse( sort );
+      query += ` ORDER BY ${sort[ 0 ]} ${sort[ 1 ]}`;
+    }
+    // Support for pagination
+    if ( range )
+    {
+      // Get the range array
+      range = JSON.parse( range );
+      // Update SQL query with data for items per page
+      query += ` LIMIT ${1 + range[ 1 ] - range[ 0 ]}`;
+      // Update SQL query start
+      if ( range[ 0 ] > 0 ) query += ` OFFSET ${range[ 0 ]}`;
+      // Update string for Content-Range, should be 'unit start-end/total'
+      if ( table ) cr += table;
+      cr += ` ${range[ 0 ]}-${range[ 1 ]}`;
+    }
+
     let result = db.prepare(query).all()
-    response.setHeader( 'Content-Range', result.length);
-    response.setHeader( 'X-Total-Count', result.length);
+    if ( result[ 0 ]?.total_count ) cr += `/${result[ 0 ].total_count}`;
+    response.setHeader( 'Content-Range', cr);
+    response.setHeader( 'X-Total-Count', cr);
     response.json(result)
   }
 )
@@ -114,7 +142,16 @@ server.get('/data/:table/:id', (request, response) =>
 server.delete('/data/:table/:id', (request, response) =>
   { // but limit which tables to query with ACL
     let query = "DELETE FROM " + request.params.table + " WHERE id = @id"
-    let result = db.prepare(query).run({id: request.params.id})
+    let result;
+    try
+    {
+      result = db.prepare(query).run({id: request.params.id})
+    }
+    catch(e)
+    {
+      console.error(e);
+      result = e;
+    }
     response.json(result)
   }
 )

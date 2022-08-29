@@ -1,4 +1,4 @@
-import { Datagrid, SimpleForm, List, Edit, Create, TextField, BooleanField, TextInput, NumberInput, BooleanInput } from 'react-admin';
+import { Datagrid, SimpleForm, List, Edit, Create, TextField, BooleanField, TextInput, NumberInput, BooleanInput, PasswordInput } from 'react-admin';
 
 export const TeacherList = () => (
   <List bulkActionButtons={false} hasCreate={true}>
@@ -26,7 +26,7 @@ export const TeacherEdit = () => (
       <TextInput source="phone" />
       <TextInput source="email" />
       <TextInput source="color" />
-      <BooleanInput source="hide" parse={v => v ? 1 : 0} format={ v => v != 0}/>
+      <BooleanInput source="hide" parse={v => v ? 1 : 0} format={ v => v != 0} />
       <TextInput source="roles" />
     </SimpleForm>
   </Edit>
@@ -35,14 +35,8 @@ export const TeacherEdit = () => (
 export const TeacherCreate = () => (
   <Create title="Register New Teacher">
     <SimpleForm>
-      <TextInput source="firstname" />
-      <TextInput source="lastname" />
-      <TextInput source="initials" />
-      <TextInput source="phone" />
-      <TextInput source="email" />
-      <TextInput source="color" />
-      <BooleanInput source="hide" parse={v => v ? 1 : 0} format={ v => v != 0}/>
-      <TextInput source="roles" />
+      <TextInput source="email" inputProps={{ autocomplete: 'off' }} defaultValue="" />
+      <PasswordInput source="password" inputProps={{ autocomplete: 'new-password' }} defaultValue="" />
     </SimpleForm>
   </Create>
 );
