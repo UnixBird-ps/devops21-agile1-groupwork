@@ -45,18 +45,19 @@ export const CourseCreate = () => (
     <SimpleForm>
       <TextInput source="name" />
       <TextInput source="shortName" />
-      <ReferenceInput source="class" label="shortName" reference="classes">
+      <ReferenceInput source="class" reference="classes">
         <AutocompleteInput label="Class" />
       </ReferenceInput>
       <NumberInput source="points" />
       <DateInput source="startDate" />
       <DateInput source="endDate" />
       <TextInput source="plan" />
-      <ReferenceInput source="id" reference="invoices">
+      <NumberInput source="invoiceItem" />
+      {/* <ReferenceInput source="invoiceItem" reference="invoice_items">
         <AutocompleteInput label="Invoice" />
-      </ReferenceInput>
+      </ReferenceInput> */}
       <NumberInput source="hoursPerDay" />
-      <BooleanInput source="hide" parse={v => v ? 1 : 0} format={ v => v != 0} />
+      <BooleanInput source="hide" defaultChecked={false} defaultValue={0} parse={v => v ? 1 : 0} format={ v => v != 0} />
     </SimpleForm>
   </Create>
 );

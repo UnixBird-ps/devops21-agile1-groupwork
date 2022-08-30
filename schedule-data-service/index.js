@@ -2,7 +2,7 @@ const db = require("./modules/db.js")()
 const express = require("express")
 const server = express()
 server.use(express.json())
-const port = process.env.PORT ? process.env.PORT : 30080;
+const port = process.env.PORT ? process.env.PORT : 7666;
 const host = `http://localhost:${port}`
 
 // sessions
@@ -97,12 +97,12 @@ server.get('/data/:table', (request, response) =>
   { // but limit which tables to query with ACL
     // Basic SQL query
     let query = "SELECT *, count(*) OVER() AS total_count FROM " + request.params.table
-    let table = request?.params?.table;
-    let hq = request.query;
-    let filter = hq?.filter;
-    let sort = hq?.sort;
-    let range = hq?.range;
-    let cr = '';
+    let table = request?.params?.table; // Name of the table
+    let hq = request.query;  // The URL query
+    let filter = hq?.filter; // Filter array in URL query
+    let sort = hq?.sort;     // Sort array in URL query
+    let range = hq?.range;   // Range tuple in URL query
+    let cr = '';             // For Content-Range in HTTP response header
     if ( filter ) { filter = JSON.parse( filter ); }
     if ( sort )
     {
@@ -114,11 +114,11 @@ server.get('/data/:table', (request, response) =>
     {
       // Get the range array
       range = JSON.parse( range );
-      // Update SQL query with data for items per page
+      // Continue building SQL query with data for items per page
       query += ` LIMIT ${1 + range[ 1 ] - range[ 0 ]}`;
-      // Update SQL query start
+      // Continue building SQL query start
       if ( range[ 0 ] > 0 ) query += ` OFFSET ${range[ 0 ]}`;
-      // Update string for Content-Range, should be 'unit start-end/total'
+      // Continue building Content-Range, in the end it should be 'unit start-end/total'
       if ( table ) cr += table;
       cr += ` ${range[ 0 ]}-${range[ 1 ]}`;
     }

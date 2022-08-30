@@ -1,4 +1,4 @@
-import { Datagrid, SimpleForm, List, Edit, Create, ReferenceInput, AutocompleteInput, TextField, BooleanField, TextInput, NumberInput, BooleanInput, TimeInput } from 'react-admin';
+import { Datagrid, SimpleForm, List, Edit, Create, ReferenceField, ReferenceInput, TextField, BooleanField, AutocompleteInput, TextInput, NumberInput, BooleanInput, TimeInput } from 'react-admin';
 
 // const postFilters = [
 //   <TextInput source="q" label="Search" alwaysOn />,
@@ -20,22 +20,26 @@ import { Datagrid, SimpleForm, List, Edit, Create, ReferenceInput, AutocompleteI
 //   </List>
 // );
 
+// <List bulkActionButtons={false}>
 export const ClassList = () => (
-  <List bulkActionButtons={false}>
+  <List>
     <Datagrid rowClick="edit">
       <TextField source="id" />
       <TextField source="name" />
       <TextField source="shortName" />
-      <TextField source="school" />
+      <ReferenceField label="School" source="school" reference="schools">
+        <TextField source="name" />
+      </ReferenceField>
       <TextField source="blog" />
-      <BooleanField source="hide" looseValue={true} />
       <TextField source="defaultStartTime" />
       <TextField source="defaultEndTime" />
       <TextField source="defaultInvoiceItem" />
       <TextField source="defaultHoursPerDay" />
+      <BooleanField source="hide" looseValue={true} />
     </Datagrid>
   </List>
 );
+
 
 export const ClassEdit = () => (
   <Edit title="Edit Class">
@@ -43,15 +47,15 @@ export const ClassEdit = () => (
       <NumberInput disabled source="id" />
       <TextInput source="name" />
       <TextInput source="shortName" />
-      <ReferenceInput source="school" label="shortName" reference="schools">
-        <AutocompleteInput label="Name" />
+      <ReferenceInput label="School" source="school" reference="schools">
+        <AutocompleteInput label="School" />
       </ReferenceInput>
       <TextInput source="blog" />
-      <BooleanInput source="hide" parse={v => v ? 1 : 0} format={ v => v != 0}/>
       <TimeInput source="defaultStartTime" />
       <TimeInput source="defaultEndTime" />
       <TextInput source="defaultInvoiceItem" />
       <NumberInput source="defaultHoursPerDay" />
+      <BooleanInput source="hide" parse={v => v ? 1 : 0} format={ v => v != 0}/>
     </SimpleForm>
   </Edit>
 );
@@ -62,15 +66,15 @@ export const ClassCreate = () => (
     <SimpleForm>
       <TextInput source="name" />
       <TextInput source="shortName" />
-      <ReferenceInput source="school" label="shortName" reference="schools">
-        <AutocompleteInput label="Name" />
+      <ReferenceInput label="School" source="school" reference="schools">
+        <AutocompleteInput label="School" />
       </ReferenceInput>
       <TextInput source="blog" />
-      <BooleanInput source="hide" parse={v => v ? 1 : 0} format={ v => v != 0}/>
       <TimeInput source="defaultStartTime" />
       <TimeInput source="defaultEndTime" />
       <TextInput source="defaultInvoiceItem" />
       <NumberInput source="defaultHoursPerDay" />
+      <BooleanInput source="hide" defaultChecked={false} defaultValue={0} parse={v => v ? 1 : 0} format={ v => v != 0} />
     </SimpleForm>
   </Create>
 );
