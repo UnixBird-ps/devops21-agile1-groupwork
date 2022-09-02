@@ -58,6 +58,14 @@
   },
 
   {
+    "route": "/data/teachers/*",
+    "roles":[
+      {"role": "user", "methods": ["GET","PUT"]},
+      {"role": "admin", "methods": ["GET","PUT","POST","DELETE"]}
+    ]
+  },
+
+  {
     "route": "/data/teachers/password",
     "roles":[
       {"role": "user", "methods": ["DELETE","PATCH"]}
