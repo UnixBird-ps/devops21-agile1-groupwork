@@ -87,7 +87,8 @@
   {
     "route": "/data/teachers/password",
     "roles":[
-      {"role": "user", "methods": ["DELETE","PATCH"]}
+      {"role": "user", "methods": ["DELETE","PATCH"]},
+      {"role": "admin", "methods": ["GET","PUT","POST","DELETE"]}
     ]
   },
 
