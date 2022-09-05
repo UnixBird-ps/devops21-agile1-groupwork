@@ -49,7 +49,7 @@ export const CourseList = () => (
 
 export const CourseEdit = () => (
   <Edit title="Edit Course">
-    <SimpleForm>
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <NumberInput disabled source="id" />
       <TextInput source="name" />
       <TextInput source="shortName" />
@@ -60,7 +60,7 @@ export const CourseEdit = () => (
       <DateInput source="startDate" />
       <DateInput source="endDate" />
       <TextInput source="plan" />
-      <ReferenceInput source="id" reference="invoices">
+      <ReferenceInput source="invoiceItem" reference="invoice_items">
         <AutocompleteInput label="Invoice" />
       </ReferenceInput>
       <NumberInput source="hoursPerDay" />
@@ -72,7 +72,7 @@ export const CourseEdit = () => (
 
 export const CourseCreate = () => (
   <Create title="Register New Course">
-    <SimpleForm validate={validateCreateForm}>
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <TextInput source="name" />
       <TextInput source="shortName" />
       <ReferenceInput source="class" reference="classes">
@@ -82,10 +82,9 @@ export const CourseCreate = () => (
       <DateInput source="startDate" />
       <DateInput source="endDate" />
       <TextInput source="plan" />
-      <NumberInput source="invoiceItem" />
-      {/* <ReferenceInput source="invoiceItem" reference="invoice_items">
+      <ReferenceInput source="invoiceItem" reference="invoice_items">
         <AutocompleteInput label="Invoice" />
-      </ReferenceInput> */}
+      </ReferenceInput>
       <NumberInput source="hoursPerDay" />
       <BooleanInput source="hide" defaultChecked={false} defaultValue={0} parse={v => v ? 1 : 0} format={ v => v != 0} />
     </SimpleForm>

@@ -29,7 +29,7 @@ export const SchoolList = () => (
 
 export const SchoolEdit = () => (
   <Edit title="Edit School">
-    <SimpleForm validate={validateCreateForm}>
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <NumberInput disabled source="id" />
       <TextInput source="name" />
       <TextInput source="shortName" />
@@ -40,7 +40,7 @@ export const SchoolEdit = () => (
 
 export const SchoolCreate = () => (
   <Create title="Register New School">
-    <SimpleForm validate={validateCreateForm}>
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <TextInput source="name" />
       <TextInput source="shortName" />
     </SimpleForm>

@@ -49,7 +49,7 @@ const validateEditForm = (values) =>
 
 export const TeacherEdit = () => (
   <Edit title="Edit Teacher">
-    <SimpleForm validate={validateEditForm}>
+    <SimpleForm warnWhenUnsavedChanges validate={validateEditForm}>
       <NumberInput disabled source="id" />
       <TextInput source="firstname" />
       <TextInput source="lastname" />
@@ -80,7 +80,7 @@ const validateCreateForm = (values) =>
 
 export const TeacherCreate = () => (
   <Create title="Register New Teacher">
-    <SimpleForm validate={validateCreateForm}>
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <TextInput source="email" inputProps={{ autocomplete: 'off' }} defaultValue={""} />
       <PasswordInput source="password" inputProps={{ autocomplete: 'new-password' }} defaultValue={""} />
       <AutocompleteArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />

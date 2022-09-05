@@ -107,7 +107,7 @@ export const ClassEdit = () => (
 
 export const ClassCreate = () => (
   <Create title="Register New Class">
-    <SimpleForm validate={validateCreateForm}>
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <TextInput source="name" />
       <TextInput source="shortName" />
       <ReferenceInput source="school" reference="schools">
