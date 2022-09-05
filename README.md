@@ -17,6 +17,11 @@ Build React-Admin...
 cd admin && npm run build && cd ..
 ```
 
+Make a copy of the database file...
+```bash
+cd schedule-data-service/database && cp nodehill_schedule_org.db nodehill_schedule.db && cd ../..
+```
+
 Run like this...
 ```bash
 npm run dev
