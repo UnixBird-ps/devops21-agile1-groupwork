@@ -1,0 +1,20 @@
+{
+  "name": "shedule-data-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index",
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^7.4.6",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.17.2",
+    "minimist": "^1.2.6",
+    "moment": "^2.29.4"
+  }
+}
