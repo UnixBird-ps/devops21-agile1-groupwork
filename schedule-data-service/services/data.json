@@ -1,0 +1,1341 @@
+[
+  {
+  "type": "teacher",
+  "initials": "XX",
+  "name": "Ingen lärare",
+  "color": "#eee"
+  },
+  {
+  "type": "teacher",
+  "initials": "ML",
+  "name": "Marcel Laska",
+  "color": "#ff9933"
+  },
+  {
+  "type": "teacher",
+  "initials": "TF",
+  "name": "Thomas Frank",
+  "color": "#66cc81"
+  },
+  {
+  "type": "teacher",
+  "initials": "BB",
+  "name": "Benjamin Berglund",
+  "color": "#71b2de"
+  },
+  {
+  "type": "teacher",
+  "initials": "JB",
+  "name": "Jonathan Burns",
+  "color": "#c4b7f7"
+  },
+  {
+  "type": "teacher",
+  "initials": "MR",
+  "name": "Marko Radenkovic",
+  "color": "#c29061"
+  },
+  {
+  "type": "teacher",
+  "initials": "SM",
+  "name": "Stivan Merscho",
+  "color": "#7896c2"
+  },
+  {
+  "type": "teacher",
+  "initials": "MH",
+  "name": "Mattias H",
+  "color": "#dbb4db"
+  },
+  {
+  "type": "teacher",
+  "initials": "JW",
+  "name": "Johan Wirén",
+  "color": "#e3a1a1"
+  },
+  {
+  "type": "teacher",
+  "initials": "AB",
+  "name": "August Bering",
+  "color": "#a1ace3"
+  },
+  {
+  "type": "teacher",
+  "initials": "NH",
+  "name": "Niklas Håkansson",
+  "color": "#fed"
+  },
+  {
+  "type": "teacher",
+  "initials": "TK",
+  "name": "Thomas Karlsson",
+  "color": "#fcc"
+  },
+  {
+  "type": "teacher",
+  "initials": "MN",
+  "name": "Matti Nilsson",
+  "color": "#8cc"
+  },
+  {
+  "type": "teacher",
+  "initials": "AS",
+  "name": "Ahmed Shakir",
+  "color": "#fc8"
+  },
+  {
+  "type": "teacher",
+  "initials": "HJ",
+  "name": "Helena Johansson",
+  "color": "#ea5"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "OLM20D",
+  "blog": "https://ol20d.lms.nodehill.se/",
+  "school": "MI"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "DCD20M",
+  "blog": "",
+  "school": "MI"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "MVT19",
+  "blog": "https://mvt19.lms.nodehill.se/",
+  "school": "EC Malmö"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "Java19e",
+  "blog": "https://java19.lms.nodehill.se/",
+  "school": "EC Malmö"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "Java20e",
+  "blog": "https://java20e.lms.nodehill.se/",
+  "school": "EC Malmö"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "FEU19e",
+  "blog": "https://fed19e.lms.nodehill.se/",
+  "school": "EC HBG"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "WIN19e",
+  "blog": "",
+  "school": "EC HBG"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": ".NET19n",
+  "blog": "https://sysm3.newton.nodehill.se/",
+  "school": "Newton"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": ".NET20n",
+  "blog": "https://sysm4.newton.nodehill.se/",
+  "school": "Newton"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": ".NET21n",
+  "blog": "https://sysm5.newton.nodehill.se/",
+  "school": "Newton"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "Java19n",
+  "blog": "https://sysjm3.newton.nodehill.se/",
+  "school": "Newton"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "Java20n",
+  "blog": "https://sysjm4.newton.nodehill.se/",
+  "school": "Newton"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "Java21n",
+  "blog": "https://sysjm5.newton.nodehill.se/",
+  "school": "Newton"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "Kram5",
+  "blog": "https://kram5.newton.nodehill.se/",
+  "school": "Newton"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "GDAS19",
+  "blog": "https://gdas19.lms.nodehill.se",
+  "school": "IHMGbg"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "DAS20",
+  "blog": "https://das20.lms.nodehill.se",
+  "school": "IHM"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "OPA20",
+  "blog": "https://opa20.lms.nodehill.se",
+  "school": "HAK"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "OPA20X",
+  "blog": "https://opa20x.lms.nodehill.se",
+  "school": "HAK"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "OPA21",
+  "blog": "https://opa21.lms.nodehill.se",
+  "school": "HAK"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "PYAI1",
+  "blog": "https://pyai1.lms.nodehill.se",
+  "school": "HAK"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "Java19p",
+  "blog": "https://java19l.lms.nodehill.se",
+  "school": "PlusHS"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "Java20gbg",
+  "blog": "https://java20gbg.lms.nodehill.se/",
+  "school": "PlusHS"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "Java21gbg",
+  "blog": "https://java21gbg.lms.nodehill.se/",
+  "school": "PlusHS"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "Java20p",
+  "blog": "https://java20p.lms.nodehill.se/",
+  "school": "PlusHS"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "Java21v",
+  "blog": "https://Java21v.lms.nodehill.se/",
+  "school": "PlusHS"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "Java21h",
+  "blog": "https://Java21h.lms.nodehill.se/",
+  "school": "PlusHS"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "Net20gbg",
+  "blog": "https://net20gbg.lms.nodehill.se/",
+  "school": "PlusHS"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "WAN20",
+  "blog": "https://wan20.lms.nodehill.se",
+  "school": "MI"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "OLM20",
+  "blog": "https://olm20.lms.nodehill.se",
+  "school": "MI"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "WAN21m",
+  "blog": "https://WAN21m.lms.nodehill.se",
+  "school": "MI"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "OLM21m",
+  "blog": "https://OLM21m.lms.nodehill.se",
+  "school": "MI"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "FED20m",
+  "blog": "https://fed20m.lms.nodehill.se/",
+  "school": "MI"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "FED21m",
+  "blog": "https://fed21m.lms.nodehill.se/",
+  "school": "MI"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "WCM20",
+  "blog": "https://wcm20.lms.nodehill.se/",
+  "school": "MI"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "WCM21",
+  "blog": "https://wcm21.lms.nodehill.se/",
+  "school": "MI"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "DAN20",
+  "blog": "https://dan20.lms.nodehill.se",
+  "school": "MI"
+  },
+  {
+  "hide": true,
+  "type": "edu",
+  "name": "FEU20e",
+  "blog": "https://feu20e.lms.nodehill.se/",
+  "school": "EC"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "FRK20G",
+  "blog": "https://jfrk20g.lms.nodehill.se/",
+  "school": "Jensen"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "FRK20S",
+  "blog": "https://jfrk20s.lms.nodehill.se/",
+  "school": "Jensen"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "FWK20S",
+  "blog": "https://jfwk20s.lms.nodehill.se/",
+  "school": "Jensen"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "TTK20G",
+  "blog": "https://jtt21g.lms.nodehill.se/",
+  "school": "Jensen"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "TTK21G",
+  "blog": "https://jtt21g.lms.nodehill.se/",
+  "school": "Jensen"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "FWK20G",
+  "blog": "https://jfwk20g.lms.nodehill.se/",
+  "school": "Jensen"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "DEV21M",
+  "blog": "https://dev21m.lms.nodehill.se/",
+  "school": "Jensen"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "DAO",
+  "blog": "https://da377c.lms.nodehill.se/",
+  "school": "HKR"
+  },
+  {
+  "hide": false,
+  "type": "edu",
+  "name": "Upptagen",
+  "school": "Övrigt"
+  },
+  {
+  "type": "course",
+  "name": "Webbteknik",
+  "edu": "OLM20D",
+  "startdate": "2021-01-01",
+  "enddate": "2021-01-31"
+  },
+  {
+  "type": "course",
+  "name": "Marknadsföring och Onlinestrategi",
+  "edu": "OLM20D",
+  "startdate": "2021-03-01",
+  "enddate": "2021-03-31"
+  },
+  {
+  "type": "course",
+  "name": "JavaScript",
+  "edu": "WCM20",
+  "startdate": "2020-11-02",
+  "enddate": "2020-12-20"
+  },
+  {
+  "type": "course",
+  "name": "Dynamiska Webbplatser",
+  "edu": "WCM20",
+  "startdate": "2021-01-04",
+  "enddate": "2021-01-29"
+  },
+  {
+  "type": "course",
+  "name": "Projektmetodik",
+  "edu": "WCM20",
+  "startdate": "2021-02-01",
+  "enddate": "2021-02-12"
+  },
+  {
+  "type": "course",
+  "name": "CMS Projekt",
+  "edu": "WCM20",
+  "startdate": "2021-11-01",
+  "enddate": "2022-01-07"
+  },
+  {
+  "type": "course",
+  "name": "Webbproduktion",
+  "edu": "WCM21",
+  "startdate": "2021-09-06",
+  "enddate": "2021-10-01"
+  },
+  {
+  "type": "course",
+  "name": "JavaScript",
+  "edu": "WCM21",
+  "startdate": "2021-10-18",
+  "enddate": "2021-12-03"
+  },
+  {
+  "type": "course",
+  "name": "DynWeb del 1",
+  "edu": "WCM21",
+  "startdate": "2021-12-06",
+  "enddate": "2021-12-17"
+  },
+  {
+  "type": "course",
+  "name": "DynWeb del 2",
+  "edu": "WCM21",
+  "startdate": "2022-01-03",
+  "enddate": "2022-01-14"
+  },
+  {
+  "type": "course",
+  "name": "CMS SAF (CMS Frontend)",
+  "edu": "WCM21",
+  "startdate": "2022-03-28",
+  "enddate": "2022-05-13"
+  },
+  {
+  "type": "course",
+  "name": "CMS Utbyggda System",
+  "edu": "WCM21",
+  "startdate": "2022-05-16",
+  "enddate": "2022-06-17"
+  },
+  {
+  "type": "course",
+  "name": "Grafiska verktyg",
+  "edu": "FED20m",
+  "startdate": "2020-11-16",
+  "enddate": "2020-12-06"
+  },
+  {
+  "type": "course",
+  "name": "UX",
+  "edu": "FED20m",
+  "startdate": "2020-12-07",
+  "enddate": "2021-01-08"
+  },
+  {
+  "type": "course",
+  "name": "JavaScript 1 (forts) och Agilt projekt",
+  "edu": "FED20m",
+  "startdate": "2021-01-11",
+  "enddate": "2021-03-26"
+  },
+  {
+  "type": "course",
+  "name": "Dynamisk Webb och Arbetsmetodik (del 1)",
+  "edu": "FED20m",
+  "startdate": "2021-03-29",
+  "enddate": "2021-06-18"
+  },
+  {
+  "type": "course",
+  "name": "Dynamisk Webb och Arbetsmetodik (del 2)",
+  "edu": "FED20m",
+  "startdate": "2021-08-16",
+  "enddate": "2021-08-20"
+  },
+  {
+  "type": "course",
+  "name": "Arbetsmetodik",
+  "edu": "FED21m",
+  "startdate": "2021-12-20",
+  "enddate": "2022-01-07"
+  },
+  {
+  "type": "course",
+  "name": "Agila Metoder",
+  "edu": "FED21m",
+  "startdate": "2022-01-31",
+  "enddate": "2022-02-18"
+  },
+  {
+  "type": "course",
+  "name": "JavaScript del 2",
+  "edu": "FED21m",
+  "startdate": "2022-02-21",
+  "enddate": "2022-04-08"
+  },
+  {
+  "type": "course",
+  "name": "Webbteknik WAN20",
+  "edu": "WAN20",
+  "plan": "https://wan20.lms.nodehill.se/article/lektionsplanering-for-webbteknik-wan-20",
+  "startdate": "2020-08-31",
+  "enddate": "2020-12-13"
+  },
+  {
+  "type": "course",
+  "name": "Webbteknik OLM20",
+  "edu": "OLM20",
+  "plan": "https://olm20.lms.nodehill.se/article/lektionsplanering-webbkunskap-olm20",
+  "startdate": "2020-08-24",
+  "enddate": "2020-11-01"
+  },
+  {
+  "type": "course",
+  "name": "Webbteknik DAN20",
+  "edu": "DAN20",
+  "plan": "https://dan20.lms.nodehill.se/article/lektionsplanering-for-webbteknik-dan-20",
+  "startdate": "2020-12-21",
+  "enddate": "2021-01-15"
+  },
+  {
+  "type": "course",
+  "name": "Webbteknik WAN21m",
+  "edu": "WAN21m",
+  "plan": "",
+  "startdate": "2021-08-16",
+  "enddate": "2021-12-10"
+  },
+  {
+  "type": "course",
+  "name": "Webbteknik OLM21m",
+  "edu": "WAN21m",
+  "plan": "",
+  "startdate": "2021-08-16",
+  "enddate": "2021-12-10"
+  },
+  {
+  "type": "course",
+  "name": "Webbteknik 1 - HTML/Wordpress",
+  "edu": "DAS20",
+  "plan": "https://das20.lms.nodehill.se/article/lektionsplanering-webbteknik-del-1",
+  "startdate": "2020-09-28",
+  "enddate": "2020-10-25"
+  },
+  {
+  "type": "course",
+  "name": "Webbteknik 3 - SQL",
+  "edu": "GDAS19",
+  "startdate": "2020-10-19",
+  "enddate": "2020-11-13"
+  },
+  {
+  "type": "course",
+  "name": "Buggrapportering",
+  "edu": "MVT19",
+  "startdate": "2020-08-03",
+  "enddate": "2020-08-23"
+  },
+  {
+  "type": "course",
+  "name": "Teststrategier",
+  "edu": "MVT19",
+  "startdate": "2020-08-24",
+  "enddate": "2020-09-27"
+  },
+  {
+  "type": "course",
+  "name": "Androidplattformar",
+  "edu": "Java19e",
+  "startdate": "2020-08-31",
+  "enddate": "2020-10-04"
+  },
+  {
+  "type": "course",
+  "name": "Avancerad JavaScript",
+  "edu": "Java19e",
+  "startdate": "2020-10-05",
+  "enddate": "2020-11-08"
+  },
+  {
+  "type": "course",
+  "name": "Testdriven utveckling",
+  "edu": "Java19e",
+  "startdate": "2020-11-09",
+  "enddate": "2020-11-29"
+  },
+  {
+  "type": "course",
+  "name": "Portfolioprojekt",
+  "edu": "Java19e",
+  "startdate": "2020-11-30",
+  "enddate": "2021-01-15"
+  },
+  {
+  "type": "course",
+  "name": "Avancerad Java",
+  "edu": "Java20e",
+  "startdate": "2021-01-11",
+  "enddate": "2021-02-14"
+  },
+  {
+  "type": "course",
+  "name": "Projekt: Fördjupning",
+  "edu": "Java19n",
+  "startdate": "2020-09-07",
+  "enddate": "2020-09-27"
+  },
+  {
+  "type": "course",
+  "name": "Projekt: Fördjupning",
+  "edu": ".NET19n",
+  "startdate": "2020-09-07",
+  "enddate": "2020-09-27"
+  },
+  {
+  "type": "course",
+  "name": "Utveckling av webbapplikationer",
+  "edu": "Java19n",
+  "startdate": "2021-01-11",
+  "enddate": "2021-02-21"
+  },
+  {
+  "type": "course",
+  "name": "Utveckling av webbapplikationer",
+  "edu": ".NET19n",
+  "startdate": "2021-01-11",
+  "enddate": "2021-02-21"
+  },
+  {
+  "type": "course",
+  "name": "OOP1",
+  "edu": "Java20n",
+  "startdate": "2020-08-31",
+  "enddate": "2020-11-22"
+  },
+  {
+  "type": "course",
+  "name": "OOP2",
+  "edu": "Java20n",
+  "startdate": "2021-02-22",
+  "enddate": "2021-04-16"
+  },
+  {
+  "type": "course",
+  "name": "Agil systemutveckling",
+  "edu": "Java20n",
+  "startdate": "2021-04-19",
+  "enddate": "2021-05-14"
+  },
+  {
+  "type": "course",
+  "name": "Ämnesövergripande projekt 1",
+  "edu": "Java20n",
+  "startdate": "2021-05-17",
+  "enddate": "2021-06-11"
+  },
+  {
+  "type": "course",
+  "name": "Utveckling av webbapplikationer",
+  "edu": "Java20n",
+  "startdate": "2021-08-16",
+  "enddate": "2021-09-26"
+  },
+  {
+  "type": "course",
+  "name": "Ämnesövergripande projekt 2 (50%)",
+  "edu": "Java20n",
+  "startdate": "2022-01-10",
+  "enddate": "2022-02-18"
+  },
+  {
+  "type": "course",
+  "name": "Test",
+  "edu": "Java21n",
+  "startdate": "2021-11-22",
+  "enddate": "2021-12-12"
+  },
+  {
+  "type": "course",
+  "name": "OOP2",
+  "edu": "Java21n",
+  "startdate": "2022-02-21",
+  "enddate": "2022-04-15"
+  },
+  {
+  "type": "course",
+  "name": "Agil systemutveckling",
+  "edu": "Java21n",
+  "startdate": "2022-04-18",
+  "enddate": "2022-05-13"
+  },
+  {
+  "type": "course",
+  "name": "Ämnesövergripande projekt 1",
+  "edu": "Java21n",
+  "startdate": "2022-05-16",
+  "enddate": "2022-06-10"
+  },
+  {
+  "type": "course",
+  "name": "Ämnesövergripande projekt 1",
+  "edu": ".NET20n",
+  "startdate": "2021-05-17",
+  "enddate": "2021-06-11"
+  },
+  {
+  "type": "course",
+  "name": "Utveckling av webbapplikationer",
+  "edu": ".NET20n",
+  "startdate": "2021-08-16",
+  "enddate": "2021-09-26"
+  },
+  {
+  "type": "course",
+  "name": "Ämnesövergripande projekt 2 (50%)",
+  "edu": ".NET20n",
+  "startdate": "2022-01-10",
+  "enddate": "2022-02-18"
+  },
+  {
+  "type": "course",
+  "name": "Test",
+  "edu": ".NET21n",
+  "startdate": "2021-11-22",
+  "enddate": "2021-12-12"
+  },
+  {
+  "type": "course",
+  "name": "Agil systemutveckling",
+  "edu": ".NET21n",
+  "startdate": "2022-04-18",
+  "enddate": "2022-05-13"
+  },
+  {
+  "type": "course",
+  "name": "Ämnesövergripande projekt 1",
+  "edu": ".NET21n",
+  "startdate": "2022-05-16",
+  "enddate": "2022-06-11"
+  },
+  {
+  "type": "course",
+  "name": "Kravhantering",
+  "edu": "Kram5",
+  "startdate": "2021-09-27",
+  "enddate": "2021-11-19"
+  },
+  {
+  "type": "course",
+  "name": "Användbarhetstestning",
+  "edu": "Kram5",
+  "startdate": "2022-01-17",
+  "enddate": "2022-02-11"
+  },
+  {
+  "type": "course",
+  "name": "Kartläggning och dokumentation av processer",
+  "edu": "Kram5",
+  "startdate": "2022-02-14",
+  "enddate": "2022-03-18"
+  },
+  {
+  "type": "course",
+  "name": "SCRUM - JS-utveckling",
+  "edu": "FEU19e",
+  "startdate": "2020-08-24",
+  "enddate": "2020-09-20"
+  },
+  {
+  "type": "course",
+  "name": "Web-CMS",
+  "edu": "FEU19e",
+  "startdate": "2020-12-14",
+  "enddate": "2021-01-12"
+  },
+  {
+  "type": "course",
+  "name": "Examenskurs",
+  "edu": "WIN19e",
+  "startdate": "2021-01-18",
+  "enddate": "2021-02-14"
+  },
+  {
+  "type": "course",
+  "name": "Intro OOP",
+  "edu": "OPA20",
+  "startdate": "2020-09-07",
+  "enddate": "2020-09-20"
+  },
+  {
+  "type": "course",
+  "name": "Databaser",
+  "edu": "OPA20",
+  "startdate": "2020-09-21",
+  "enddate": "2020-10-18"
+  },
+  {
+  "type": "course",
+  "name": "Grunder OOP",
+  "edu": "OPA20",
+  "startdate": "2020-10-19",
+  "enddate": "2020-12-26"
+  },
+  {
+  "type": "course",
+  "name": "AI",
+  "edu": "OPA20",
+  "startdate": "2021-01-04",
+  "enddate": "2021-04-11"
+  },
+  {
+  "type": "course",
+  "name": "Avancerad OOP del 1",
+  "edu": "OPA20",
+  "startdate": "2021-04-12",
+  "enddate": "2021-06-11"
+  },
+  {
+  "type": "course",
+  "name": "Avancerad OOP del 2",
+  "edu": "OPA20",
+  "startdate": "2021-08-09",
+  "enddate": "2021-09-03"
+  },
+  {
+  "type": "course",
+  "name": "Introduktion till OOP",
+  "edu": "OPA21",
+  "startdate": "2021-08-30",
+  "enddate": "2021-09-10"
+  },
+  {
+  "type": "course",
+  "name": "Databaser",
+  "edu": "OPA21",
+  "startdate": "2021-09-13",
+  "enddate": "2021-10-08"
+  },
+  {
+  "type": "course",
+  "name": "OOP grund",
+  "edu": "OPA21",
+  "startdate": "2021-10-11",
+  "enddate": "2021-12-17"
+  },
+  {
+  "type": "course",
+  "name": "AI 1",
+  "edu": "OPA21",
+  "startdate": "2022-01-03",
+  "enddate": "2022-02-25"
+  },
+  {
+  "type": "course",
+  "name": "OOP avancerad",
+  "edu": "OPA21",
+  "startdate": "2022-02-28",
+  "enddate": "2022-06-03"
+  },
+  {
+  "type": "course",
+  "name": "AI 2 (prel)",
+  "edu": "OPA21",
+  "startdate": "2022-08-09",
+  "enddate": "2022-09-03"
+  },
+  {
+  "type": "course",
+  "name": "Plattformar för utveckling av AI-applikationer",
+  "edu": "PYAI1",
+  "startdate": "2021-11-18",
+  "enddate": "2022-01-10"
+  },
+  {
+  "type": "course",
+  "name": "AI",
+  "edu": "OPA20X",
+  "startdate": "2021-01-04",
+  "enddate": "2021-04-11"
+  },
+  {
+  "type": "course",
+  "name": "OOP analys & design",
+  "edu": "Java19p",
+  "startdate": "2020-08-24",
+  "enddate": "2020-10-11"
+  },
+  {
+  "type": "course",
+  "name": "Java Spring",
+  "edu": "Java19p",
+  "startdate": "2020-10-12",
+  "enddate": "2020-11-20"
+  },
+  {
+  "type": "course",
+  "name": "Prod & lev mjukvara 2",
+  "edu": "Java19p",
+  "startdate": "2020-11-23",
+  "enddate": "2020-12-11"
+  },
+  {
+  "type": "course",
+  "name": "Säker mjukvara",
+  "edu": "Java19p",
+  "startdate": "2020-12-14",
+  "enddate": "2021-01-29"
+  },
+  {
+  "type": "course",
+  "name": "Grundläggande programmering",
+  "edu": "Java20p",
+  "startdate": "2020-08-17",
+  "enddate": "2020-10-25"
+  },
+  {
+  "type": "course",
+  "name": "Frontend",
+  "edu": "Java20p",
+  "startdate": "2020-10-26",
+  "enddate": "2020-12-13"
+  },
+  {
+  "type": "course",
+  "name": "Prod & lev mjukvara",
+  "edu": "Java20p",
+  "startdate": "2020-12-14",
+  "enddate": "2021-02-05"
+  },
+  {
+  "type": "course",
+  "name": "Databaser",
+  "edu": "Java20p",
+  "startdate": "2021-02-08",
+  "enddate": "2021-04-02"
+  },
+  {
+  "type": "course",
+  "name": "OOP analys & design",
+  "edu": "Java20p",
+  "startdate": "2021-08-23",
+  "enddate": "2021-10-10"
+  },
+  {
+  "type": "course",
+  "name": "Java Spring",
+  "edu": "Java20p",
+  "startdate": "2021-10-11",
+  "enddate": "2021-11-21"
+  },
+  {
+  "type": "course",
+  "name": "Prod & lev mjukvara 2",
+  "edu": "Java20p",
+  "startdate": "2021-11-22",
+  "enddate": "2021-12-11"
+  },
+  {
+  "type": "course",
+  "name": "Säker mjukvara",
+  "edu": "Java20p",
+  "startdate": "2021-12-13",
+  "enddate": "2022-01-28"
+  },
+  {
+  "type": "course",
+  "name": "Frontend",
+  "edu": "Java20gbg",
+  "startdate": "2021-01-18",
+  "enddate": "2021-03-05"
+  },
+  {
+  "type": "course",
+  "name": "Objektorienterad analys och design",
+  "edu": "Java20gbg",
+  "startdate": "2021-08-30",
+  "enddate": "2021-10-15"
+  },
+  {
+  "type": "course",
+  "name": "Producera och leverera mjukvara",
+  "edu": "Java20gbg",
+  "startdate": "2021-11-29",
+  "enddate": "2022-01-14"
+  },
+  {
+  "type": "course",
+  "name": "Producera och leverera mjukvara",
+  "edu": "Net20gbg",
+  "startdate": "2021-12-13",
+  "enddate": "2022-01-28"
+  },
+  {
+  "type": "course",
+  "name": "Grundläggande programmering",
+  "edu": "Java21v",
+  "yhp": 50,
+  "startweek": 51,
+  "endweek": 7,
+  "startdate": "2020-12-14",
+  "enddate": "2021-02-21"
+  },
+  {
+  "type": "course",
+  "name": "Frontend",
+  "edu": "Java21v",
+  "yhp": 35,
+  "startweek": 8,
+  "endweek": 14,
+  "startdate": "2021-02-22",
+  "enddate": "2021-04-11"
+  },
+  {
+  "type": "course",
+  "name": "Prod & lev mjukvara",
+  "edu": "Java21v",
+  "yhp": 50,
+  "startweek": 15,
+  "endweek": 21,
+  "startdate": "2021-04-12",
+  "enddate": "2021-05-30"
+  },
+  {
+  "type": "course",
+  "name": "Databaser",
+  "edu": "Java21v",
+  "yhp": 40,
+  "startweek": 33,
+  "endweek": 40,
+  "startdate": "2021-08-16",
+  "enddate": "2021-10-08"
+  },
+  {
+  "type": "course",
+  "name": "LIA 1",
+  "edu": "Java21v",
+  "startdate": "2021-10-11",
+  "enddate": "2021-12-03"
+  },
+  {
+  "type": "course",
+  "name": "OOP Analys & Design",
+  "edu": "Java21v",
+  "startdate": "2021-12-06",
+  "enddate": "2022-01-28"
+  },
+  {
+  "type": "course",
+  "name": "Java Spring",
+  "edu": "Java21v",
+  "startdate": "2022-01-31",
+  "enddate": "2022-03-11"
+  },
+  {
+  "type": "course",
+  "name": "Prod & lev mjukvara 2",
+  "edu": "Java21v",
+  "startdate": "2022-03-14",
+  "enddate": "2022-04-01"
+  },
+  {
+  "type": "course",
+  "name": "Säker mjukvara",
+  "edu": "Java21v",
+  "startdate": "2022-04-04",
+  "enddate": "2022-05-13"
+  },
+  {
+  "type": "course",
+  "name": "Grundläggande programmering",
+  "edu": "Java21h",
+  "startdate": "2021-08-16",
+  "enddate": "2021-10-22"
+  },
+  {
+  "type": "course",
+  "name": "Frontend",
+  "edu": "Java21h",
+  "startdate": "2021-10-25",
+  "enddate": "2021-12-10"
+  },
+  {
+  "type": "course",
+  "name": "Prod & lev mjukvara",
+  "edu": "Java21h",
+  "startdate": "2021-12-13",
+  "enddate": "2022-02-04"
+  },
+  {
+  "type": "course",
+  "name": "Databaser",
+  "edu": "Java21h",
+  "startdate": "2022-02-07",
+  "enddate": "2022-04-01"
+  },
+  {
+  "type": "course",
+  "name": "LIA 1",
+  "edu": "Java21h",
+  "startdate": "2022-04-04",
+  "enddate": "2022-05-27"
+  },
+  {
+  "type": "course",
+  "name": "Grundläggande programmering Java",
+  "edu": "Java21gbg",
+  "startdate": "2021-08-23",
+  "enddate": "2021-11-19"
+  },
+  {
+  "type": "course",
+  "name": "Databaser",
+  "edu": "Java21gbg",
+  "startdate": "2021-11-22",
+  "enddate": "2022-01-14"
+  },
+  {
+  "type": "course",
+  "name": "Frontend",
+  "edu": "Java21gbg",
+  "startdate": "2022-01-17",
+  "enddate": "2022-03-06"
+  },
+  {
+  "type": "course",
+  "name": "Handledning",
+  "edu": "FEU20e",
+  "startdate": "2020-10-26",
+  "enddate": "2020-11-30"
+  },
+  {
+  "type": "course",
+  "name": "Java web-service",
+  "edu": "Java19e",
+  "startdate": "2021-01-18",
+  "enddate": "2021-02-14"
+  },
+  {
+  "type": "course",
+  "name": "Agil Projektmetodik",
+  "edu": "FRK20G",
+  "startdate": "2021-04-12",
+  "enddate": "2021-04-30"
+  },
+  {
+  "type": "course",
+  "name": "Agil Projektmetodik",
+  "edu": "FRK20G",
+  "startdate": "2021-04-12",
+  "enddate": "2021-05-02"
+  },
+  {
+  "type": "course",
+  "name": "Avancerad webbutv. med JavaScript",
+  "edu": "FRK20G",
+  "startdate": "2021-05-03",
+  "enddate": "2021-06-06"
+  },
+  {
+  "type": "course",
+  "name": "Avancerad webbutv. med JavaScript",
+  "edu": "FRK20S",
+  "startdate": "2021-05-03",
+  "enddate": "2021-06-06"
+  },
+  {
+  "type": "course",
+  "name": "Paket, leverans och uppföljning",
+  "edu": "FRK20S",
+  "startdate": "2021-08-16",
+  "enddate": "2021-10-08"
+  },
+  {
+  "type": "course",
+  "name": "Paket, leverans och uppföljning",
+  "edu": "FWK20S",
+  "startdate": "2021-08-16",
+  "enddate": "2021-10-08"
+  },
+  {
+  "type": "course",
+  "name": "Wram för JS",
+  "edu": "FWK20G",
+  "startdate": "2021-06-07",
+  "enddate": "2021-06-12"
+  },
+  {
+  "type": "course",
+  "name": "Webbramverk för JS",
+  "edu": "FWK20G",
+  "startdate": "2021-08-16",
+  "enddate": "2021-10-01"
+  },
+  {
+  "type": "course",
+  "name": "Programmering för testare ",
+  "edu": "TTK20G",
+  "startdate": "2021-05-31",
+  "enddate": "2021-06-13"
+  },
+  {
+  "type": "course",
+  "name": "Programmering för testare (forts)",
+  "edu": "TTK20G",
+  "startdate": "2021-08-16",
+  "enddate": "2021-10-15"
+  },
+  {
+  "type": "course",
+  "name": "Programmering för testare",
+  "edu": "TTK21G",
+  "startdate": "2021-10-11",
+  "enddate": "2021-12-19"
+  },
+  {
+  "type": "course",
+  "name": "Social, Content och Influencer marketing",
+  "edu": "OLM20D",
+  "startdate": "2021-04-20",
+  "enddate": "2021-06-08"
+  },
+  {
+  "type": "course",
+  "name": "Programmering med Java",
+  "edu": "DEV21M",
+  "startdate": "2021-08-16",
+  "enddate": "2021-10-08"
+  },
+  {
+  "type": "course",
+  "name": "Programmering med Python",
+  "edu": "DEV21M",
+  "startdate": "2021-10-11",
+  "enddate": "2021-11-05"
+  },
+  {
+  "type": "course",
+  "name": "Databasteknik",
+  "edu": "DEV21M",
+  "startdate": "2021-11-08",
+  "enddate": "2021-12-12"
+  },
+  {
+  "type": "course",
+  "name": "Infrastruktur",
+  "edu": "DEV21M",
+  "startdate": "2021-12-13",
+  "enddate": "2021-12-17"
+  },
+  {
+  "type": "course",
+  "name": "Databasteknik",
+  "edu": "DEV21M",
+  "startdate": "2022-01-10",
+  "enddate": "2022-02-11"
+  },
+  {
+  "type": "course",
+  "name": "Testning",
+  "edu": "DEV21M",
+  "startdate": "2022-02-14",
+  "enddate": "2022-03-11"
+  },
+  {
+  "type": "course",
+  "name": "DevOps - metodik och verktyg 1",
+  "edu": "DEV21M",
+  "startdate": "2022-03-14",
+  "enddate": "2022-05-06"
+  },
+  {
+  "type": "course",
+  "name": "DevOps - metodik och verktyg 1",
+  "edu": "DEV21M",
+  "startdate": "2022-05-09",
+  "enddate": "2022-06-10"
+  },
+  {
+  "type": "course",
+  "name": "Programvaruutveckling för webben",
+  "edu": "DAO",
+  "startdate": "2022-01-17",
+  "enddate": "2022-03-25"
+  }
+]

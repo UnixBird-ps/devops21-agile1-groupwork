@@ -1,0 +1,729 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BenchNine:wght@300;400;700&family=Nanum+Gothic+Coding:wght@400;700&display=swap');
+
+.ltime {
+  display: none;  /*change to block to see start/end times of days*/
+}
+
+tr:not(.mon) td:nth-child(2) span{
+  display: none /* change to block to dipslay week number not only on mondays */
+}
+
+body {
+  margin: 0;
+  margin-bottom: 37px;
+  font-family: 'Inconsolata';
+  font-size: 16px;
+  font-weight: bold;
+  width: 2730px;
+  overscroll-behavior-y: none;
+}
+
+table {
+  border-spacing:0px;
+  border-collapse:collapse;
+}
+
+tr:nth-child(odd){
+  background-color: #eef8fc;
+}
+
+tr:nth-child(1) {
+  background-color: #fff;
+}
+
+tr.mon td {
+  border-top:1px solid #333;
+}
+
+td, th {
+  text-align: center;
+}
+
+td{
+  position: relative;
+}
+
+td {
+  border-left: 1px solid #333;
+}
+
+th {
+  padding: 5px 20px;
+  width:64px;
+}
+
+th a {
+  text-decoration:none;
+  color: black;
+}
+
+.fas{
+  font-size:12px;
+}
+
+.fa-external-link-alt{
+  padding-right: 5px;
+}
+
+th a,
+.courseName .text a{
+  white-space: nowrap;
+}
+
+/* .courseName .text a .fas{
+  transform: rotate(-90deg);
+  padding-right: 0px;
+  padding-bottom: 5px;
+  line-height: 0;
+} */
+
+th div {
+  position: relative;
+}
+
+td {
+  padding: 5px 0;
+}
+
+/*
+td.teacher {
+  color: #000;
+  text-shadow: 1px 1px 2px #fff;
+  padding: 5px 35px 5px 5px;
+  white-space: nowrap;
+}
+
+td.teacher.not-teaching{
+  padding: 0 !important;
+  text-align: center;
+  font-style: italic;
+}
+*/
+
+.has-details{
+  height: 100%;
+  width: 100%;
+  margin-top: -28px;
+  padding: 2px;
+  position: absolute;
+  cursor: pointer;
+  display: block;
+  z-index: 1;
+  text-align: left;
+}
+.has-details>.fa{
+  color: rgba(255,255,255,0.8);
+  position: absolute;
+  float: none;
+  top: 4px;
+  left: 2px;
+  font-size: 18px;
+}
+
+.class{
+  margin:-5px 0;
+  position: relative;
+}
+.class .teachers{
+  display:flex;
+  justify-content: space-around;
+}
+
+.class .teachers .location{
+  font-weight: lighter;
+  font-size: 80%;
+  vertical-align: text-top;
+  margin-left: 3px;
+}
+
+.class .details{
+  display:flex;
+  display:none;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  box-shadow: 0px 3px 5px rgba(0,0,0,0.25);
+  margin-left: 0px;
+  white-space: pre-wrap;
+  min-width: 100%;
+  z-index: 9;
+}
+.class .details .event{
+  display:flex;
+  justify-content: space-around;
+  padding: 3px;
+  font-size: 80%;
+  font-weight: normal;
+}
+
+.class .details .event .times{
+  transform: rotate(-90deg);
+  white-space: nowrap;
+  width: 10px;
+  display: block;
+  min-height: 40px;
+  padding-right: 30px;
+  margin: 37px -18px 0 3px;
+}
+
+.class .details .event .notes{
+  text-align: left;
+}
+
+.class .details .event .edit-event{
+  color:rgba(0,0,0,0.5);
+  font-size: 75%;
+  align-self:center;
+  flex-grow:1;
+  text-align:right;
+}
+
+span.teacher {
+  color: #000;
+  text-shadow: 1px 1px 2px #fff;
+  padding: 5px 5px 5px 5px;
+  flex-grow: 1;
+  white-space: nowrap;
+  border-bottom:1px solid rgba(200,225,255,0.5);
+}
+
+span.teacher:last-child{
+  padding-right: 35px;
+}
+
+span.teacher.not-teaching{
+  padding: 0 !important;
+  text-align: center;
+  font-style: italic;
+}
+
+td .note{
+  position: absolute;
+  bottom: 25px;
+  display: none;
+  padding: 5px;
+  background-color: yellow;
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.2);
+  margin-left: 10px;
+  white-space: pre-wrap;
+  width: fit-content;
+  min-width: 10vw;
+  z-index: 9;
+}
+
+td .has-note{
+  position: absolute;
+  bottom: 6px;
+  padding: 0px 10px 10px 5px;
+  margin-left: -6px;
+  cursor: pointer;
+}
+
+td.day {
+  font-weight: normal;
+}
+
+td.teacher {
+  position: relative;
+}
+
+.holiday-name{
+  position: absolute;
+  font-size: 87%;
+  top: 5px;
+  font-style: italic;
+  font-weight: bold;
+  width: 84px;
+  overflow: hidden;
+  text-align: left;
+  background-color: #ddd4d5;
+}
+
+.table.big .holiday-name{
+  display:none;
+}
+
+.courseName {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  overflow: hidden;
+  width: 28px;
+}
+
+.courseName .text {
+  color: black;
+  transform: rotate(90deg);
+  transform-origin: top right;
+  white-space: nowrap;
+  margin-top: 42px;
+  text-shadow: none;
+  font-family: 'Anonymous Pro';
+  font-size: 115%;
+  padding-top: 2.5px;
+}
+
+.courseName .text a{
+  text-decoration:none;
+  color: black;
+}
+
+.courseName .after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100px;
+  width: 100%;
+}
+
+tr:nth-child(even) td.course > div {
+  background-color: #fff;
+}
+
+td.course.empty div {
+  background-color: #eef8fc;
+}
+
+tr.mon td.course.empty div {
+  border-left: 1px solid #333;
+}
+
+td.course-end + td div {
+  background-color: transparent;
+}
+
+/* hiding headers and creating a top infinite scroll buffer*/
+
+table{
+  background-image: linear-gradient(black,white);
+  background-size: 100% 5%;
+  background-repeat: no-repeat;
+}
+
+tbody{
+  background-color:white;
+}
+
+table.big {
+  margin-top:0px;
+}
+table.big>thead {
+  visibility: hidden;
+  height: 150px;
+}
+aside>table>thead{
+  visibility: hidden;
+  height: 150px;
+}
+
+.big {
+  margin-left: 25px;
+}
+
+header {
+  margin-left: 25px;
+  width: 100%;
+  background-color: #fff;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: -10000px;
+  height: 45px;
+  overflow: hidden;
+  z-index: 100;
+}
+
+aside {
+  position: -webkit-sticky;
+  position: sticky;
+  width: 186px;
+  left: 0;
+  top: -10000px;
+  margin-top:-45px;
+  overflow: hidden;
+  z-index: 101;
+  background-color: #fff;
+}
+
+aside tbody td:nth-child(3) {
+  border-right: 2px solid #333;
+  padding-right: 14px;
+}
+
+aside td {
+  width: 1px;
+  white-space: nowrap;
+  padding: 5px 8px;
+}
+
+aside td:nth-child(1){
+  padding-left: 15px;
+}
+
+aside td:nth-child(3){
+  padding-right: 15px;
+}
+
+div.stable-date-header {
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 184px;
+  height: 4px;
+  overflow: hidden;
+  z-index: 200;
+  background-color: #111;
+  color: #fff;
+  padding: 20px;
+  padding-top: 15px;
+  padding-bottom: 30px;
+  padding-left: 12px;
+  padding-right: 28px;
+}
+
+div.stable-date-header>img {
+  height: 44px;
+  margin-left: -12px;
+  margin-top: -15px;
+}
+
+
+tr.sat, tr.sun, tr.sat .empty div, tr.sun .empty div {
+  background-color: #ded5d5 !important;
+}
+
+tr.holiday{
+  background-color: #ded5d5 !important;
+  color: red;
+}
+
+.before-ana {
+  width: 0;
+  border-left:0;
+  border-right: 3px solid #666;
+  padding: 0;
+}
+
+table {
+   border-right: 3px solid #666;
+}
+
+.double-booked {
+  background-color: #cd4343;
+  color: #fff;
+}
+
+/* no borders in the scroll area */
+thead .sum {
+  border-left: none;
+}
+
+.sum {
+  padding: 0 5px;
+  width: 64px;
+}
+
+.sum {
+  border-left: 1px solid #000;
+}
+
+.sum b,
+.sum em{
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #fff;
+  padding: 2px;
+  width: 30px;
+}
+
+.sum .zero{
+  color:#666;
+  font-weight: lighter;
+}
+
+.sum em{
+  font-style: normal;
+  background-color: transparent;
+  border:none;
+  color:#666;
+  font-weight: lighter;
+}
+
+.week-sum b{
+  background-color: black;
+  color:white;
+}
+
+.stats-begin,
+.sum.roundup.stats-begin{
+  border-left:2px solid #666;
+}
+
+.sum.roundup{
+  border-left: none;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw; /*calc(100vw - 40px);*/
+  background-color: #111;
+  color: #fff;
+  z-index: 400;
+  padding: 10px 20px;
+}
+
+.wait {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.7;
+  width: 100vw;
+  height: 55vh;
+  z-index: 500;
+  padding-top: 45vh;
+  text-align: center;
+  font-size: 40px;
+  background-color: #ddd;
+}
+
+body.boot table {
+  visibility: hidden;
+}
+
+.download {
+  color: #fff;
+  display: none;
+}
+
+.today td{
+  background-color: rgba(70,255,50,0.3);
+}
+
+.holiday.helgdag td{
+  background-color: rgba(255,30,30,0.4);
+}
+
+.holiday.afton td{
+  background-color: rgba(255,90,90,0.3);
+}
+
+.holiday.klämdag td{
+  background-color: rgba(70,120,170,0.3);
+}
+
+th.sum + td {
+  background-color: black;
+  width: 64px
+}
+
+.can-not-teach {
+  background-color: #aaa !important;
+  color: #aaa !important;
+}
+
+tr.sat .can-not-teach {
+  background-color: #ded5d5 !important;
+  color: #ded5d5 !important;
+}
+
+tr.sun .can-not-teach {
+  background-color: #ded5d5 !important;
+  color: #ded5d5 !important;
+}
+
+.a-stretch b {
+  background-color: #eea8a8;
+} 
+
+body.invoices {
+  margin: 20px;
+}
+
+body.invoices div {
+  margin-bottom: 20px;
+}
+
+body.invoices div a {
+  display: inline-block;
+  width: 375px;
+  text-decoration: none;
+  color: rgb(77, 124, 186);
+}
+
+body.invoices div a.none{
+  color: black;
+}
+
+body.invoices div span {
+  display: inline-block;
+  text-align: right;
+  width: 90px;
+}
+
+button.send-invoices {
+  position: absolute;
+  right: 30px;
+  top: 43px;
+}
+
+
+body.invoices div span:last-child {
+  width: 120px; 
+}
+
+body.invoices h4 span {
+  display: inline-block;
+  text-align: right;
+  width: 90px;
+}
+
+body.invoices h1 {
+  background-color: #cefbbb;
+  width: 98vw;
+  padding: 10px 15px;
+}
+
+body.invoices h4 span:nth-child(1) {
+  text-align: left;
+  width: 375px;
+}
+
+body.invoices h1 {
+  margin-left: -5px;
+}
+
+body.invoice-form {
+  margin: 20px;
+}
+
+body.invoice-form label {
+  display:block;
+  margin-bottom: 12px;
+}
+
+body.invoice-form label span {
+  display:inline-block;
+  width: 200px;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+.modal {
+  font-size: 18px;
+  position: absolute;
+  display:none;
+  z-index: 1000;
+}
+
+.modal .box {
+  width: 40vw;
+  background-color: #fff;
+  top: 20vh;
+  left: 30vw;
+  position: fixed;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px 6px #aaa;
+}
+
+.modal .hider {
+  width: 100vw;
+  height: 100vh;
+  opacity: 0.2;
+  background-color: #000;
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+.modal button {
+  float: right;
+  cursor: pointer;
+  margin-left: 20px;
+  border-radius: 5px; 
+  padding: 5px 10px;
+}
+
+.modal input {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+body.invoices, body.invoices button {
+  font-family: 'BenchNine';
+  font-size: 120%;
+}
+
+body.invoices button {
+  cursor: pointer;
+}
+
+body.invoices .modal button {
+  font-size: 100%;
+}
+
+body.invoices span:nth-child(2),
+body.invoices span:nth-child(3),
+body.invoices span:nth-child(4){
+  font-family: 'Nanum Gothic Coding';
+  font-size: 90%;
+  position:relative;
+  top: -1.5px;
+}
+
+body.invoices {
+  overflow-x: hidden;
+}
+
+body.invoices div {
+  padding: 10px 10px;
+  margin-bottom: 0;
+  width: 97vw;
+}
+
+body.invoices h4 {
+  margin: 0;
+  padding: 5px 10px;
+}
+
+body.invoices div:nth-child(odd) {
+  background-color:#eee;
+}
+
+.hide-edu{
+  display:none;
+}
+
+.login-page{
+  width:auto;
+  padding:2vh 5vw;
+}
+
+#login{
+  margin: 3vh auto;
+  border:1px solid #aaa;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2% 5%;
+  max-width:500px;
+}
+
+#login label{
+  width:100%;
+  margin-bottom: 3%;
+  display: flex;
+  justify-content: space-between;
+}
+
+#login input[type=submit]{
+  align-self: flex-end;
+}
