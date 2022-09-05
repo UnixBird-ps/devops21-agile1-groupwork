@@ -1,13 +1,35 @@
+# devops21-agile1-groupwork
+
 # nodehill-schedule
 # version 3.0
 Scheduling & invoicing
-## Start services
-cd schedule-data-service
-npm start 
+<br>
+<br>
+Install all dependencies...
+```bash
+cd admin && npm install && npm audit fix && cd ..
+cd schedule-data-service && npm install && npm audit fix && cd ..
+npm install && npm audit fix
+```
+
+Build React-Admin...
+```bash
+cd admin && npm run build && cd ..
+```
+
+Run like this...
+```bash
+npm run dev
+```
+
+To rebuild and restart, do this...
+```bash
+CTRL+C twise to stop the server, then...
+clear && cd admin && npm run build && cd .. && npm run dev
+```
 
 ## Schedule
 REST API Description at `/data`
-
 
 ## Invoicing
 REST API 
@@ -25,4 +47,3 @@ POST /data/invoices
 ```
 
 Invoices PDFs are generated in /schedule-data-service/invoices
-

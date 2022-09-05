@@ -24,14 +24,32 @@
   {
     "route": "/data/schools",
     "roles":[
-      {"role": "user", "methods": ["GET"]}
+      {"role": "user", "methods": ["GET"]},
+      {"role": "admin", "methods": ["GET","PUT","POST","DELETE"]}
+    ]
+  },
+
+  {
+    "route": "/data/schools/*",
+    "roles":[
+      {"role": "user", "methods": ["GET"]},
+      {"role": "admin", "methods": ["GET","PUT","POST","DELETE"]}
     ]
   },
 
   {
     "route": "/data/classes",
     "roles":[
-      {"role": "user", "methods": ["GET"]}
+      {"role": "user", "methods": ["GET"]},
+      {"role": "admin", "methods": ["GET","PUT","POST","DELETE"]}
+    ]
+  },
+
+  {
+    "route": "/data/classes/*",
+    "roles":[
+      {"role": "user", "methods": ["GET"]},
+      {"role": "admin", "methods": ["GET","PUT","POST","DELETE"]}
     ]
   },
 
@@ -43,9 +61,18 @@
   },
 
   {
-    "route": "/data/courses*",
+    "route": "/data/courses",
     "roles":[
-      {"role": "user", "methods": ["GET"]}
+      {"role": "user", "methods": ["GET"]},
+      {"role": "admin", "methods": ["GET","PUT","POST","DELETE"]}
+    ]
+  },
+
+  {
+    "route": "/data/courses/*",
+    "roles":[
+      {"role": "user", "methods": ["GET"]},
+      {"role": "admin", "methods": ["GET","PUT","POST","DELETE"]}
     ]
   },
 
@@ -65,6 +92,14 @@
   },
 
   {
+    "route": "/data/teachers/*",
+    "roles":[
+      {"role": "user", "methods": ["GET","PUT"]},
+      {"role": "admin", "methods": ["GET","PUT","POST","DELETE"]}
+    ]
+  },
+
+  {
     "route": "/data/login",
     "roles":[
       {"role": "anonymous", "methods": ["POST","GET"]},
@@ -74,6 +109,13 @@
 
   {
     "route": "/data/invoices*",
+    "roles":[
+      {"role": "admin", "methods": ["GET","POST"]}
+    ]
+  },
+
+  {
+    "route": "/data/invoice_items*",
     "roles":[
       {"role": "admin", "methods": ["GET","POST"]}
     ]

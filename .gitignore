@@ -1,4 +1,5 @@
 schedule-data-service/database/nodehill_schedule.db
+**/nodehill_schedule.db
 **/.idea
 **/.DS_Store
 **/pdfs-generated
