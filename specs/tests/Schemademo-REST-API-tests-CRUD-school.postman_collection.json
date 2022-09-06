@@ -314,8 +314,21 @@
 						"exec": [
 							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
-							"pm.variables.set( \"moddedSchoolName\", mockSchool.name + \".test_modded\" );\r",
-							"pm.variables.set( \"moddedSchoolShortName\", mockSchool.shortName + \".test_modded\" );\r",
+							"console.log( mockSchool );\r",
+							"\r",
+							"//pm.variables.set( \"mockSchoolId\", mockSchool.id );\r",
+							"//pm.variables.set( \"moddedSchoolId\", mockSchool.id );\r",
+							"\r",
+							"\r",
+							"let moddedSchool =\r",
+							"{\r",
+							"   name : mockSchool.name + \".test_modded\",\r",
+							"   shortName : mockSchool.shortName + \".test_modded\"\r",
+							"}\r",
+							"\r",
+							"pm.variables.set( \"moddedSchool\", moddedSchool, Object );\r",
+							"pm.variables.set( \"moddedSchoolName\", moddedSchool.name );\r",
+							"pm.variables.set( \"moddedSchoolShortName\", moddedSchool.shortName );\r",
 							""
 						],
 						"type": "text/javascript"
@@ -326,7 +339,6 @@
 					"script": {
 						"exec": [
 							"let responseJSON = pm.response.json();\r",
-							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
 							"\r",
 							"\r",
@@ -360,7 +372,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"id\": \"{{mockSchoolId}}\",\r\n\t\"name\": \"{{moddedSchoolName}}\",\r\n\t\"shortName\": \"{{moddedSchoolShortName}}\"\r\n}\r\n",
+					"raw": "{\r\n   \"id\": \"{{mockSchoolId}}\",\r\n   \"name\": \"{{moddedSchoolName}}\",\r\n   \"shortName\": \"{{moddedSchoolShortName}}\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -387,6 +399,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"\r",
+							"let moddedSchool = pm.variables.get( \"moddedSchool\" );\r",
 							"\r",
 							"let responseObject = pm.response.json();\r",
 							"\r",
@@ -420,6 +434,18 @@
 							"\t\tpm.expect( responseObject ).to.be.an( \"array\" );\r",
 							"\t}\r",
 							");\r",
+							"\r",
+							"// pm.test(\r",
+							"// \t\"Check that the change of name is present\",\r",
+							"// \tfunction()\r",
+							"// \t{\r",
+							"//       let lastSchool = responseObject.slice[ -1 ];\r",
+							"//       console.log( lastSchool );\r",
+							"// \t\tpm.expect( lastSchool ).to.have.all.keys( \"id\", \"name\", \"shortName\" );\r",
+							"// \t\tpm.expect( lastSchool.name ).to.be.equal( moddedSchool.name );\r",
+							"// \t\tpm.expect( lastSchool.shortName ).to.be.equal( moddedSchool.shortName );\r",
+							"// \t}\r",
+							"// );\r",
 							""
 						],
 						"type": "text/javascript"
@@ -638,13 +664,13 @@
 			"type": "default"
 		},
 		{
-			"key": "restApiPath",
-			"value": "/data",
+			"key": "restAuthPath",
+			"value": "/data/login",
 			"type": "default"
 		},
 		{
-			"key": "restAuthPath",
-			"value": "/data/login",
+			"key": "restApiPath",
+			"value": "/data",
 			"type": "default"
 		},
 		{
