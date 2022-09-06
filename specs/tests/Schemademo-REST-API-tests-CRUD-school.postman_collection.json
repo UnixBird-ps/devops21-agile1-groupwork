@@ -12,6 +12,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
+							"console.info( 'In Pre-req of POST request to fail reg' );\r",
 							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
 							"pm.variables.set( \"mockSchoolName\", mockSchool.name );\r",
@@ -25,15 +26,13 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"console.info( 'In Tests of POST request to fail reg' );\r",
 							"\r",
 							"let responseJSON = pm.response.json();\r",
 							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
 							"// // Get new row id\r",
 							"mockSchool.id = responseJSON.lastInsertRowid;\r",
-							"pm.variables.set( \"mockSchoolId\", mockSchool.id );\r",
-							"// // Update var for use in later steps \r",
-							"pm.variables.set( \"mockSchool\", mockSchool, Object );\r",
 							"\r",
 							"\r",
 							"// The tests\r",
@@ -48,7 +47,7 @@
 							"\r",
 							"\r",
 							"pm.test(\r",
-							"\t\"Check that the response has an error message.\",\r",
+							"\t\"Check that the response has expected error message.\",\r",
 							"\tfunction()\r",
 							"\t{\r",
 							"\t\tpm.expect( responseJSON ).to.have.property( 'error' );\r",
@@ -92,6 +91,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"console.info( 'In Tests of POST request to Auth' );\r",
 							"\r",
 							"let responseJSON = pm.response.json();\r",
 							"\r",
@@ -149,6 +149,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
+							"console.info( 'In Pre-req of POST request' );\r",
 							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
 							"pm.variables.set( \"mockSchoolName\", mockSchool.name );\r",
@@ -162,16 +163,12 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"console.info( 'In Tests of POST request' );\r",
 							"\r",
+							"// Grab the object in the response, JSON -> Object\r",
 							"let responseJSON = pm.response.json();\r",
 							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
-							"// // Get new row id\r",
-							"mockSchool.id = responseJSON.lastInsertRowid;\r",
-							"//pm.collectionVariables.set( \"mockSchoolId\", mockSchool.id );\r",
-							"pm.variables.set( \"mockSchoolId\", mockSchool.id );\r",
-							"// // Update var for use in later steps \r",
-							"pm.variables.set( \"mockSchool\", mockSchool, Object );\r",
 							"\r",
 							"\r",
 							"// The tests\r",
@@ -201,6 +198,15 @@
 							"\t{\r",
 							"\t\tpm.expect( responseJSON ).to.have.property( \"lastInsertRowid\" );\r",
 							"\t\tpm.expect( responseJSON.lastInsertRowid ).to.be.a( \"number\" );\r",
+							"\r",
+							"    // console.log( 'mockSchool:', mockSchool );\r",
+							"\r",
+							"    // // Get new row id\r",
+							"    mockSchool.id = responseJSON.lastInsertRowid;\r",
+							"\r",
+							"    // // Update var for use in later steps \r",
+							"    pm.variables.set( \"mockSchool\", mockSchool, Object );\r",
+							"    // console.log( 'mockSchool:', mockSchool );\r",
 							"\t}\r",
 							");\r",
 							""
@@ -240,6 +246,13 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
+							"console.info( 'In Pre-req of GET request (single)' );\r",
+							"\r",
+							"let mockSchool = pm.variables.get( 'mockSchool' );\r",
+							"\r",
+							"// console.log( 'mockSchool:', mockSchool );\r",
+							"\r",
+							"pm.variables.set( 'mockSchoolId', mockSchool.id );\r",
 							""
 						],
 						"type": "text/javascript"
@@ -249,6 +262,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"console.info( 'In Test of GET request' );\r",
 							"\r",
 							"let responseJSON = pm.response.json();\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
@@ -312,21 +326,19 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
+							"console.info( 'In Pre-req of PUT request' );\r",
 							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
-							"console.log( mockSchool );\r",
-							"\r",
-							"//pm.variables.set( \"mockSchoolId\", mockSchool.id );\r",
-							"//pm.variables.set( \"moddedSchoolId\", mockSchool.id );\r",
-							"\r",
 							"\r",
 							"let moddedSchool =\r",
 							"{\r",
-							"   name : mockSchool.name + \".test_modded\",\r",
-							"   shortName : mockSchool.shortName + \".test_modded\"\r",
+							"  id: mockSchool.id,\r",
+							"  name : mockSchool.name + \".test_modded\",\r",
+							"  shortName : mockSchool.shortName + \".test_modded\"\r",
 							"}\r",
 							"\r",
 							"pm.variables.set( \"moddedSchool\", moddedSchool, Object );\r",
+							"pm.variables.set( \"moddedSchoolId\", moddedSchool.id );\r",
 							"pm.variables.set( \"moddedSchoolName\", moddedSchool.name );\r",
 							"pm.variables.set( \"moddedSchoolShortName\", moddedSchool.shortName );\r",
 							""
@@ -338,8 +350,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"console.info( 'In Tests of PUT request' );\r",
+							"\r",
 							"let responseJSON = pm.response.json();\r",
-							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
+							"let mockSchool = pm.variables.get( 'mockSchool' );\r",
+							"let moddedSchool = pm.variables.get( 'moddedSchool' );\r",
 							"\r",
 							"\r",
 							"// The tests\r",
@@ -372,7 +387,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"id\": \"{{mockSchoolId}}\",\r\n   \"name\": \"{{moddedSchoolName}}\",\r\n   \"shortName\": \"{{moddedSchoolShortName}}\"\r\n}\r\n",
+					"raw": "{\r\n  \"id\" : \"{{moddedSchoolId}}\",\r\n  \"name\" : \"{{moddedSchoolName}}\",\r\n  \"shortName\" : \"{{moddedSchoolShortName}}\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -380,13 +395,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}/{{mockSchoolId}}",
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}/{{moddedSchoolId}}",
 					"host": [
 						"{{restHost}}{{restApiPath}}"
 					],
 					"path": [
 						"{{tableName}}",
-						"{{mockSchoolId}}"
+						"{{moddedSchoolId}}"
 					]
 				}
 			},
@@ -399,22 +414,24 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"console.info( 'In Tests of GET request (all)' );\r",
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"console.log( 'responseJSON.length:', responseJSON.length );\r",
 							"\r",
 							"let moddedSchool = pm.variables.get( \"moddedSchool\" );\r",
 							"\r",
-							"let responseObject = pm.response.json();\r",
+							"let allMockSchoolsInDB = [];\r",
 							"\r",
-							"let allMockSchools = [];\r",
-							"\r",
-							"for ( let i = 0; i < responseObject.length; i++ )\r",
+							"for ( let i = 0; i < responseJSON.length; i++ )\r",
 							"{\r",
-							"\tlet s = responseObject[ i ];\r",
-							"\tif ( s.name.toLowerCase().startsWith( \"mock.\" ) ) allMockSchools.push( s );\r",
+							"\tlet s = responseJSON[ i ];\r",
+							"\tif ( s.name.toLowerCase().startsWith( \"mock.\" ) ) allMockSchoolsInDB.push( s );\r",
 							"}\r",
 							"\r",
-							"pm.variables.set( \"allMockSchools\", allMockSchools, Object )\r",
+							"pm.variables.set( \"allMockSchoolsInDB\", allMockSchoolsInDB, Array )\r",
 							"\r",
-							"if ( allMockSchools.length <= 0 ) postman.setNextRequest( \"Unauthenticate\" );\r",
+							"if ( allMockSchoolsInDB.length <= 0 ) postman.setNextRequest( \"Unauthenticate\" );\r",
 							"\r",
 							"\r",
 							"// The tests\r",
@@ -431,21 +448,32 @@
 							"\t\"Check that we received an array\",\r",
 							"\tfunction()\r",
 							"\t{\r",
-							"\t\tpm.expect( responseObject ).to.be.an( \"array\" );\r",
+							"\t\tpm.expect( responseJSON ).to.be.an( \"array\" );\r",
 							"\t}\r",
 							");\r",
 							"\r",
-							"// pm.test(\r",
-							"// \t\"Check that the change of name is present\",\r",
-							"// \tfunction()\r",
-							"// \t{\r",
-							"//       let lastSchool = responseObject.slice[ -1 ];\r",
-							"//       console.log( lastSchool );\r",
-							"// \t\tpm.expect( lastSchool ).to.have.all.keys( \"id\", \"name\", \"shortName\" );\r",
-							"// \t\tpm.expect( lastSchool.name ).to.be.equal( moddedSchool.name );\r",
-							"// \t\tpm.expect( lastSchool.shortName ).to.be.equal( moddedSchool.shortName );\r",
-							"// \t}\r",
-							"// );\r",
+							"pm.test(\r",
+							"\t\"Check that the change of name is present\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"    let lastSchool = responseJSON.slice( -1 )[ 0 ];\r",
+							"    console.log( 'lastSchool:', lastSchool );\r",
+							"    console.log( 'moddedSchool:', moddedSchool );\r",
+							"\t\tpm.expect( moddedSchool ).to.have.all.keys( \"id\", \"name\", \"shortName\" );\r",
+							"\t\tpm.expect( lastSchool.name ).to.be.equal( moddedSchool.name );\r",
+							"\t\tpm.expect( lastSchool.shortName ).to.be.equal( moddedSchool.shortName );\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of GET (all) request' );\r",
 							""
 						],
 						"type": "text/javascript"
@@ -474,10 +502,12 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
+							"console.info( 'In Pre-req of DEL request' );\r",
 							"\r",
-							"let allMockSchools = pm.variables.get( \"allMockSchools\" );\r",
+							"let allMockSchoolsInDB = pm.variables.get( \"allMockSchoolsInDB\" );\r",
+							"console.log( allMockSchoolsInDB );\r",
 							"\r",
-							"pm.variables.set( \"mockSchoolId\", allMockSchools[ 0 ].id );\r",
+							"pm.variables.set( \"mockSchoolId\", allMockSchoolsInDB.slice( -1 )[ 0 ].id );\r",
 							""
 						],
 						"type": "text/javascript"
@@ -487,6 +517,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"console.info( 'In Tests of DEL request' );\r",
 							"\r",
 							"let responseJSON = pm.response.json();\r",
 							"\r",
@@ -499,12 +530,12 @@
 							"   {\r",
 							"      pm.expect( pm.response.code ).to.be.equal( 200 );\r",
 							"\r",
-							"      let allMockSchools = pm.variables.get( \"allMockSchools\" );\r",
-							"      allMockSchools.shift();\r",
+							"      let allMockSchoolsInDB = pm.variables.get( \"allMockSchoolsInDB\" );\r",
+							"      allMockSchoolsInDB.shift();\r",
 							"\r",
-							"      if ( Array.isArray( allMockSchools ) && allMockSchools.length > 0 )\r",
+							"      if ( Array.isArray( allMockSchoolsInDB ) && allMockSchoolsInDB.length > 0 )\r",
 							"      {\r",
-							"         pm.variables.set( \"allMockSchools\", allMockSchools, Object )\r",
+							"         pm.variables.set( \"allMockSchoolsInDB\", allMockSchoolsInDB, Object )\r",
 							"\r",
 							"         postman.setNextRequest( pm.info.requestName );\r",
 							"      }\r",
@@ -559,6 +590,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"console.info( 'In Tests of DEL request (unauth)' );\r",
 							"\r",
 							"let responseJSON = pm.response.json();\r",
 							"\r",
@@ -611,27 +643,26 @@
 					"// Create mock data",
 					"if ( !pm.variables.has( \"mockSchool\" ) )",
 					"{",
-					"   console.log( 'Generating mock data:' );",
+					"  // console.log( 'Generating mock data:' );",
 					"",
-					"   // Get a 6 digits random number",
-					"   // Math.random is a predetermined sequence",
-					"\tlet randomSix = '';",
-					"\tlet randomSixBigInt = '';",
-					"\twhile ( randomSix.length < 6 )",
-					"\t{",
-					"      // Take last digit from EPOC miliseconds",
-					"\t\trandomSix += Date.now().toString().slice( -1 );",
-					"\t}",
+					"  // Get a 6 digits random number",
+					"  // Math.random is a predetermined sequence so use a custom",
+					"  let randomSix = '';",
+					"  // Take last digit from EPOC miliseconds",
+					"  let lastDigit = +Date.now().toString().slice( -1 );",
+					"  while ( randomSix.length < 6 )",
+					"  {",
+					"    lastDigit += +Date.now().toString().slice( -1 );",
+					"    randomSix += lastDigit.toString().slice( -1 );",
+					"  }",
 					"",
-					"\tlet mockSchool =",
-					"\t{",
-					"\t\t\"name\" : `mock.Testskolan ${randomSix} i Teststad`,",
-					"\t\t\"shortName\" : `Test${randomSix}Test`",
-					"\t};",
+					"  let mockSchool =",
+					"  {",
+					"    name : `mock.Testskolan ${randomSix} i Teststad`,",
+					"    shortName : `mock.Test${randomSix}Test`",
+					"  };",
 					"",
-					"   console.log( mockSchool );",
-					"",
-					"\tpm.variables.set( \"mockSchool\", mockSchool, Object );",
+					"  pm.variables.set( \"mockSchool\", mockSchool, Object );",
 					"}",
 					""
 				]
