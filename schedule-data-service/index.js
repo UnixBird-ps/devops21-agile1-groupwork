@@ -171,7 +171,9 @@ server.get(
   }
 )
 
-server.delete('/data/:table/:id', (request, response) =>
+server.delete(
+  '/data/:table/:id',
+  function deleteRecord( request, response )
   { // but limit which tables to query with ACL
     let query = "DELETE FROM " + request.params.table + " WHERE id = @id"
     let result;

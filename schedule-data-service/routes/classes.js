@@ -8,7 +8,7 @@ module.exports = function(server, db)
 
   server.post(
     '/data/classes',
-    function getAllClasses(request, response)
+    function postClass(request, response)
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
@@ -16,7 +16,7 @@ module.exports = function(server, db)
       let sql = "INSERT INTO classes";
       sql += ' (' + Object.keys( record ).map( k => k ) + ')';
       sql += ' VALUES(' + Object.keys( record ).map( k => `@${k}` ) + ')';
-      // Convert the 'hide' prop from a boolean to an integer
+      // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
       // console.log( 'after:\n', record );
       // console.log( sql );
@@ -38,12 +38,12 @@ module.exports = function(server, db)
   // komplettera uppgifter för klass
   server.put(
     '/data/classes/:id',
-    function updateClass(request, response)
+    function putClass(request, response)
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
       // console.log( 'before:\n', record );
-      // Convert the 'roles' prop from an array to a string (React-Admin -> DB)
+      // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
       let sql = "UPDATE classes SET ";
       // Remove the id prop because we don't want to update it
