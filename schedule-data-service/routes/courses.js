@@ -1,4 +1,4 @@
-
+// courses.js
 const { debugMsg } = require( "../debug-funcs.js" );
 
 
@@ -10,11 +10,27 @@ module.exports = function(server, db)
   // When had @id in VALUES
   server.post('/data/courses', (request, response) =>
     {
-      let c = request.body;
-      let result = db.prepare(
-        "INSERT INTO courses (name, shortName, class, points, startDate, endDate, plan, invoiceItem, hoursPerDay, hide) VALUES(?,?,?,?,?,?,?,?,?,?)"
-      ).run([c.name, c.shortName, c.class, c.points, c.startDate, c.endDate, c.plan, c.invoiceItem, c.hoursPerDay, c.hide]);
-      response.json(result);
+      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      let record = request.body;
+      // console.log( 'before:\n', record );
+      let sql = "INSERT INTO courses";
+      sql += ' (' + Object.keys( record ).map( key => key ) + ')';
+      sql += ' VALUES(' + Object.keys( record ).map( key => `@${key}` ) + ')';
+      // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
+      if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
+      // console.log( 'after:\n', record );
+      // console.log( sql );
+      let result;
+      try
+      {
+        const stmt = db.prepare( sql );
+        result = stmt.run( record );
+      }
+      catch(e)
+      {
+        console.error(e);
+      }
+      response.json(result)
     }
   )
 
@@ -33,6 +49,7 @@ module.exports = function(server, db)
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
       // console.log( 'before:\n', record );
+      // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
       let sql = "UPDATE courses SET ";
       sql += Object.keys( record ).filter( k => k != 'id' ).map( k => `${k}=@${k}` );
@@ -40,8 +57,17 @@ module.exports = function(server, db)
       // console.log( 'after:\n', record );
       // console.log( sql );
       const stmt = db.prepare( sql );
-      let result = stmt.run( record );
-      response.json(result);
+      let result;
+      try
+      {
+        const stmt = db.prepare( sql );
+        result = stmt.run( record );
+      }
+      catch(e)
+      {
+        console.error(e);
+      }
+      response.json(result)
     }
   )
 

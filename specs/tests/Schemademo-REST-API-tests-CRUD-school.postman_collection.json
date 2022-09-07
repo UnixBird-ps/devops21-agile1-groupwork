@@ -1,0 +1,814 @@
+{
+	"info": {
+		"_postman_id": "7def3132-7077-43e2-b055-a335075402d7",
+		"name": "Schemademo-REST-API-tests-CRUD-school",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Fail register new  school unauthed",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of POST method to fail reg' );\r",
+							"\r",
+							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
+							"// Set the vars to be used in this method's request body\r",
+							"pm.variables.set( \"mockSchoolName\", mockSchool.name );\r",
+							"pm.variables.set( \"mockSchoolShortName\", mockSchool.shortName );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.info( 'In Tests of POST method to fail reg' );\r",
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
+							"\r",
+							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
+							"// // Get new row id\r",
+							"mockSchool.id = responseJSON.lastInsertRowid;\r",
+							"\r",
+							"\r",
+							"// The tests\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response code was 403.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 403 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response has expected error message.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( 'error' );\r",
+							"\t\tpm.expect( responseJSON.error ).to.equal( 'no access' );\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"{{mockSchoolName}}\",\r\n\t\"shortName\": \"{{mockSchoolShortName}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}",
+					"host": [
+						"{{restHost}}{{restApiPath}}"
+					],
+					"path": [
+						"{{tableName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate as admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.info( 'In Tests of POST method to auth' );\r",
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
+							"\r",
+							"\r",
+							"// The tests\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response code was 200.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the login status is confirmed in the JSON of the response\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"loggedIn\" );\r",
+							"\t\tpm.expect( responseJSON.loggedIn ).to.be.true;\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of POST method to auth' );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"{{userName}}\",\r\n\t\"password\": \"{{userPw}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{restHost}}{{restAuthPath}}",
+					"host": [
+						"{{restHost}}{{restAuthPath}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(C in CRUD) Register new  school",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of POST method' );\r",
+							"\r",
+							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
+							"pm.variables.set( \"mockSchoolName\", mockSchool.name );\r",
+							"pm.variables.set( \"mockSchoolShortName\", mockSchool.shortName );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.info( 'In Tests of POST method' );\r",
+							"\r",
+							"// Grab the object in the response, JSON -> Object\r",
+							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
+							"\r",
+							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
+							"\r",
+							"\r",
+							"// The tests\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response code was 200.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the database reports 1 change.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"changes\" );\r",
+							"\t\tpm.expect( responseJSON.changes ).to.equal( 1 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that we can grab the lastInsertRowid property of responseJSON.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"lastInsertRowid\" );\r",
+							"\t\tpm.expect( responseJSON.lastInsertRowid ).to.be.a( \"number\" );\r",
+							"\r",
+							"    // console.log( 'mockSchool:', mockSchool );\r",
+							"\r",
+							"    // // Get new row id\r",
+							"    mockSchool.id = responseJSON.lastInsertRowid;\r",
+							"\r",
+							"    // // Update var for use in later steps \r",
+							"    pm.variables.set( \"mockSchool\", mockSchool, Object );\r",
+							"    // console.log( 'mockSchool:', mockSchool );\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"{{mockSchoolName}}\",\r\n\t\"shortName\": \"{{mockSchoolShortName}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}",
+					"host": [
+						"{{restHost}}{{restApiPath}}"
+					],
+					"path": [
+						"{{tableName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(R in CRUD) Get new school",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of GET method (single)' );\r",
+							"\r",
+							"let mockSchool = pm.variables.get( 'mockSchool' );\r",
+							"\r",
+							"// console.log( 'mockSchool:', mockSchool );\r",
+							"\r",
+							"pm.variables.set( 'mockSchoolId', mockSchool.id );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.info( 'In Tests of GET method' );\r",
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
+							"\r",
+							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
+							"\r",
+							"\r",
+							"// The tests\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response code is 200\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the received object has expected keys\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.all.keys( \"id\", \"name\", \"shortName\" );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the received object's props have expected values\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON.id ).to.be.equal( mockSchool.id );\r",
+							"\t\tpm.expect( responseJSON.name ).to.be.equal( mockSchool.name );\r",
+							"\t\tpm.expect( responseJSON.shortName ).to.be.equal( mockSchool.shortName );\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}/{{mockSchoolId}}",
+					"host": [
+						"{{restHost}}{{restApiPath}}"
+					],
+					"path": [
+						"{{tableName}}",
+						"{{mockSchoolId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(U in CRUD) Modify new school",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of PUT method' );\r",
+							"\r",
+							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
+							"\r",
+							"let moddedSchool =\r",
+							"{\r",
+							"  id: mockSchool.id,\r",
+							"  name : mockSchool.name + \".test_modded\",\r",
+							"  shortName : mockSchool.shortName + \".test_modded\"\r",
+							"}\r",
+							"\r",
+							"pm.variables.set( \"moddedSchool\", moddedSchool, Object );\r",
+							"pm.variables.set( \"moddedSchoolId\", moddedSchool.id );\r",
+							"pm.variables.set( \"moddedSchoolName\", moddedSchool.name );\r",
+							"pm.variables.set( \"moddedSchoolShortName\", moddedSchool.shortName );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.info( 'In Tests of PUT method' );\r",
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
+							"\r",
+							"let mockSchool = pm.variables.get( 'mockSchool' );\r",
+							"let moddedSchool = pm.variables.get( 'moddedSchool' );\r",
+							"\r",
+							"\r",
+							"// The tests\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response code was 200.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the database reports 1 change.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"changes\" );\r",
+							"\t\tpm.expect( responseJSON.changes ).to.equal( 1 );\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\" : \"{{moddedSchoolId}}\",\r\n  \"name\" : \"{{moddedSchoolName}}\",\r\n  \"shortName\" : \"{{moddedSchoolShortName}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}/{{moddedSchoolId}}",
+					"host": [
+						"{{restHost}}{{restApiPath}}"
+					],
+					"path": [
+						"{{tableName}}",
+						"{{moddedSchoolId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(R in CRUD) Get all schools",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.info( 'In Tests of GET method (all)' );\r",
+							"// Define local vars to be used in tests\r",
+							"let responseJSON = pm.response.json();\r",
+							"let moddedSchool = pm.variables.get( \"moddedSchool\" );\r",
+							"console.log( responseJSON );\r",
+							"\r",
+							"\r",
+							"// The tests\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response code was 200.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that we received an array\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.be.an( \"array\" );\r",
+							"\r",
+							"    // Create an array to hold all mock schools to be used in later steps\r",
+							"    let allMockSchoolsInDB = [];\r",
+							"    for ( let i = 0; i < responseJSON.length; i++ )\r",
+							"    {\r",
+							"      let s = responseJSON[ i ];\r",
+							"      if ( s.name.toLowerCase().startsWith( \"mock.\" ) ) allMockSchoolsInDB.push( s );\r",
+							"    }\r",
+							"    pm.variables.set( \"allMockSchoolsInDB\", allMockSchoolsInDB, Array )\r",
+							"    if ( allMockSchoolsInDB.length <= 0 ) postman.setNextRequest( \"Unauthenticate\" );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the change of name is present\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"    // Get the last added\r",
+							"    let lastSchool = responseJSON.slice( -1 )[ 0 ];\r",
+							"\t\tpm.expect( moddedSchool ).to.have.all.keys( \"id\", \"name\", \"shortName\" );\r",
+							"\t\tpm.expect( lastSchool.name ).to.be.equal( moddedSchool.name );\r",
+							"\t\tpm.expect( lastSchool.shortName ).to.be.equal( moddedSchool.shortName );\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of GET (all) method' );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}",
+					"host": [
+						"{{restHost}}{{restApiPath}}"
+					],
+					"path": [
+						"{{tableName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(D in CRUD) Delete mock schools",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of DEL method' );\r",
+							"\r",
+							"// Get all mock schools from previous request\r",
+							"let allMockSchoolsInDB = pm.variables.get( \"allMockSchoolsInDB\" );\r",
+							"// Set the var to be used in URL of this request\r",
+							"pm.variables.set( \"mockSchoolId\", allMockSchoolsInDB[ 0 ].id );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.info( 'In Tests of DEL method' );\r",
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
+							"\r",
+							"// The tests\r",
+							"\r",
+							"pm.test(\r",
+							"  \"Check that the response code was 200.\",\r",
+							"  function()\r",
+							"  {\r",
+							"    pm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"  }\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the database reports 1 change.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"changes\" );\r",
+							"\t\tpm.expect( responseJSON.changes ).to.equal( 1 );\r",
+							"\r",
+							"    let allMockSchoolsInDB = pm.variables.get( \"allMockSchoolsInDB\" );\r",
+							"    allMockSchoolsInDB.shift();\r",
+							"\r",
+							"    if ( Array.isArray( allMockSchoolsInDB ) && allMockSchoolsInDB.length > 0 )\r",
+							"    {\r",
+							"        pm.variables.set( \"allMockSchoolsInDB\", allMockSchoolsInDB, Object )\r",
+							"\r",
+							"        postman.setNextRequest( pm.info.requestName );\r",
+							"    }\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that we can grab the lastInsertRowid property of responseJSON.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"lastInsertRowid\" );\r",
+							"\t\tpm.expect( responseJSON.lastInsertRowid ).to.be.a( \"number\" );\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}/{{mockSchoolId}}",
+					"host": [
+						"{{restHost}}{{restApiPath}}"
+					],
+					"path": [
+						"{{tableName}}",
+						"{{mockSchoolId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(D in CRUD) Fail delete nonexistant school",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of DEL method (to fail)' );\r",
+							"\r",
+							"// Set the var to be used in URL of this request\r",
+							"pm.variables.set( \"mockSchoolId\", -1 );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.info( 'In Tests of DEL method (to fail)' );\r",
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
+							"\r",
+							"// The tests\r",
+							"\r",
+							"pm.test(\r",
+							"  \"Check that the response code was 200.\",\r",
+							"  function()\r",
+							"  {\r",
+							"    pm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"  }\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the database reports 1 change.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"changes\" );\r",
+							"\t\tpm.expect( responseJSON.changes ).to.equal( 0 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that we can grab the lastInsertRowid property of responseJSON.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"lastInsertRowid\" );\r",
+							"\t\tpm.expect( responseJSON.lastInsertRowid ).to.be.a( \"number\" );\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}/{{mockSchoolId}}",
+					"host": [
+						"{{restHost}}{{restApiPath}}"
+					],
+					"path": [
+						"{{tableName}}",
+						"{{mockSchoolId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Unauthenticate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.info( 'In Tests of DEL method to unauth' );\r",
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
+							"\r",
+							"\r",
+							"// The tests\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response code was 200.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the login status is confirmed in the JSON of the response\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"loggedIn\" );\r",
+							"\t\tpm.expect( responseJSON.loggedIn ).to.be.false;\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of POST method to unauth' );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{restHost}}{{restAuthPath}}",
+					"host": [
+						"{{restHost}}{{restAuthPath}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"",
+					"// Create mock data",
+					"if ( !pm.variables.has( \"mockSchool\" ) )",
+					"{",
+					"  // console.log( 'Generating mock data:' );",
+					"",
+					"  // Get a 6 digits random number",
+					"  // Math.random is a predetermined sequence so, use a custom",
+					"  let randomSix = '';",
+					"  // Take last digit from EPOC miliseconds",
+					"  let lastDigit = +Date.now().toString().slice( -1 );",
+					"  while ( randomSix.length < 6 )",
+					"  {",
+					"    lastDigit += +Date.now().toString().slice( -1 );",
+					"    randomSix += lastDigit.toString().slice( -1 );",
+					"  }",
+					"",
+					"  let mockSchool =",
+					"  {",
+					"    name : `mock.Testskolan ${randomSix} i Teststad`,",
+					"    shortName : `mock.Test${randomSix}Test`",
+					"  };",
+					"  // Create a var to be used in later methods",
+					"  pm.variables.set( \"mockSchool\", mockSchool, Object );",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "restHost",
+			"value": "http://localhost:7666",
+			"type": "default"
+		},
+		{
+			"key": "userName",
+			"value": "exempel@nodehill.com",
+			"type": "default"
+		},
+		{
+			"key": "userPw",
+			"value": "abc123",
+			"type": "default"
+		},
+		{
+			"key": "restAuthPath",
+			"value": "/data/login",
+			"type": "default"
+		},
+		{
+			"key": "restApiPath",
+			"value": "/data",
+			"type": "default"
+		},
+		{
+			"key": "tableName",
+			"value": "schools",
+			"type": "default"
+		}
+	]
+}
