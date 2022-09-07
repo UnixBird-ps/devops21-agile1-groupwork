@@ -6,15 +6,16 @@
 	},
 	"item": [
 		{
-			"name": "Fail register new  school when unauthed",
+			"name": "Fail register new  school unauthed",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"console.info( 'In Pre-req of POST request to fail reg' );\r",
+							"console.info( 'In Pre-req of POST method to fail reg' );\r",
 							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
+							"// Set the vars to be used in this method's request body\r",
 							"pm.variables.set( \"mockSchoolName\", mockSchool.name );\r",
 							"pm.variables.set( \"mockSchoolShortName\", mockSchool.shortName );\r",
 							""
@@ -26,9 +27,10 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"console.info( 'In Tests of POST request to fail reg' );\r",
+							"console.info( 'In Tests of POST method to fail reg' );\r",
 							"\r",
 							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
 							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
 							"// // Get new row id\r",
@@ -91,9 +93,10 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"console.info( 'In Tests of POST request to Auth' );\r",
+							"console.info( 'In Tests of POST method to auth' );\r",
 							"\r",
 							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
 							"\r",
 							"\r",
 							"// The tests\r",
@@ -115,6 +118,16 @@
 							"\t\tpm.expect( responseJSON.loggedIn ).to.be.true;\r",
 							"\t}\r",
 							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of POST method to auth' );\r",
 							""
 						],
 						"type": "text/javascript"
@@ -143,13 +156,13 @@
 			"response": []
 		},
 		{
-			"name": "(C in CRUD) Register new  school Copy",
+			"name": "(C in CRUD) Register new  school",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"console.info( 'In Pre-req of POST request' );\r",
+							"console.info( 'In Pre-req of POST method' );\r",
 							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
 							"pm.variables.set( \"mockSchoolName\", mockSchool.name );\r",
@@ -163,10 +176,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"console.info( 'In Tests of POST request' );\r",
+							"console.info( 'In Tests of POST method' );\r",
 							"\r",
 							"// Grab the object in the response, JSON -> Object\r",
 							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
 							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
 							"\r",
@@ -240,13 +254,13 @@
 			"response": []
 		},
 		{
-			"name": "(R in CRUD) Get freshly created school",
+			"name": "(R in CRUD) Get new school",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"console.info( 'In Pre-req of GET request (single)' );\r",
+							"console.info( 'In Pre-req of GET method (single)' );\r",
 							"\r",
 							"let mockSchool = pm.variables.get( 'mockSchool' );\r",
 							"\r",
@@ -262,9 +276,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"console.info( 'In Test of GET request' );\r",
+							"console.info( 'In Tests of GET method' );\r",
 							"\r",
 							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
+							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
 							"\r",
 							"\r",
@@ -320,13 +336,13 @@
 			"response": []
 		},
 		{
-			"name": "(U in CRUD) Change info of existing school",
+			"name": "(U in CRUD) Modify new school",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"console.info( 'In Pre-req of PUT request' );\r",
+							"console.info( 'In Pre-req of PUT method' );\r",
 							"\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
 							"\r",
@@ -350,9 +366,11 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"console.info( 'In Tests of PUT request' );\r",
+							"console.info( 'In Tests of PUT method' );\r",
 							"\r",
 							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
+							"\r",
 							"let mockSchool = pm.variables.get( 'mockSchool' );\r",
 							"let moddedSchool = pm.variables.get( 'moddedSchool' );\r",
 							"\r",
@@ -408,30 +426,17 @@
 			"response": []
 		},
 		{
-			"name": "(R in CRUD) Get list of all schools",
+			"name": "(R in CRUD) Get all schools",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"console.info( 'In Tests of GET request (all)' );\r",
-							"\r",
+							"console.info( 'In Tests of GET method (all)' );\r",
+							"// Define local vars to be used in tests\r",
 							"let responseJSON = pm.response.json();\r",
-							"console.log( 'responseJSON.length:', responseJSON.length );\r",
-							"\r",
 							"let moddedSchool = pm.variables.get( \"moddedSchool\" );\r",
-							"\r",
-							"let allMockSchoolsInDB = [];\r",
-							"\r",
-							"for ( let i = 0; i < responseJSON.length; i++ )\r",
-							"{\r",
-							"\tlet s = responseJSON[ i ];\r",
-							"\tif ( s.name.toLowerCase().startsWith( \"mock.\" ) ) allMockSchoolsInDB.push( s );\r",
-							"}\r",
-							"\r",
-							"pm.variables.set( \"allMockSchoolsInDB\", allMockSchoolsInDB, Array )\r",
-							"\r",
-							"if ( allMockSchoolsInDB.length <= 0 ) postman.setNextRequest( \"Unauthenticate\" );\r",
+							"console.log( responseJSON );\r",
 							"\r",
 							"\r",
 							"// The tests\r",
@@ -449,6 +454,16 @@
 							"\tfunction()\r",
 							"\t{\r",
 							"\t\tpm.expect( responseJSON ).to.be.an( \"array\" );\r",
+							"\r",
+							"    // Create an array to hold all mock schools to be used in later steps\r",
+							"    let allMockSchoolsInDB = [];\r",
+							"    for ( let i = 0; i < responseJSON.length; i++ )\r",
+							"    {\r",
+							"      let s = responseJSON[ i ];\r",
+							"      if ( s.name.toLowerCase().startsWith( \"mock.\" ) ) allMockSchoolsInDB.push( s );\r",
+							"    }\r",
+							"    pm.variables.set( \"allMockSchoolsInDB\", allMockSchoolsInDB, Array )\r",
+							"    if ( allMockSchoolsInDB.length <= 0 ) postman.setNextRequest( \"Unauthenticate\" );\r",
 							"\t}\r",
 							");\r",
 							"\r",
@@ -456,9 +471,8 @@
 							"\t\"Check that the change of name is present\",\r",
 							"\tfunction()\r",
 							"\t{\r",
+							"    // Get the last added\r",
 							"    let lastSchool = responseJSON.slice( -1 )[ 0 ];\r",
-							"    console.log( 'lastSchool:', lastSchool );\r",
-							"    console.log( 'moddedSchool:', moddedSchool );\r",
 							"\t\tpm.expect( moddedSchool ).to.have.all.keys( \"id\", \"name\", \"shortName\" );\r",
 							"\t\tpm.expect( lastSchool.name ).to.be.equal( moddedSchool.name );\r",
 							"\t\tpm.expect( lastSchool.shortName ).to.be.equal( moddedSchool.shortName );\r",
@@ -473,7 +487,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"console.info( 'In Pre-req of GET (all) request' );\r",
+							"console.info( 'In Pre-req of GET (all) method' );\r",
 							""
 						],
 						"type": "text/javascript"
@@ -496,18 +510,18 @@
 			"response": []
 		},
 		{
-			"name": "(D in CRUD) Delete",
+			"name": "(D in CRUD) Delete mock schools",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"console.info( 'In Pre-req of DEL request' );\r",
+							"console.info( 'In Pre-req of DEL method' );\r",
 							"\r",
+							"// Get all mock schools from previous request\r",
 							"let allMockSchoolsInDB = pm.variables.get( \"allMockSchoolsInDB\" );\r",
-							"console.log( allMockSchoolsInDB );\r",
-							"\r",
-							"pm.variables.set( \"mockSchoolId\", allMockSchoolsInDB.slice( -1 )[ 0 ].id );\r",
+							"// Set the var to be used in URL of this request\r",
+							"pm.variables.set( \"mockSchoolId\", allMockSchoolsInDB[ 0 ].id );\r",
 							""
 						],
 						"type": "text/javascript"
@@ -517,29 +531,19 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"console.info( 'In Tests of DEL request' );\r",
+							"console.info( 'In Tests of DEL method' );\r",
 							"\r",
 							"let responseJSON = pm.response.json();\r",
-							"\r",
+							"console.log( responseJSON );\r",
 							"\r",
 							"// The tests\r",
 							"\r",
 							"pm.test(\r",
-							"   \"Check that the response code was 200.\",\r",
-							"   function()\r",
-							"   {\r",
-							"      pm.expect( pm.response.code ).to.be.equal( 200 );\r",
-							"\r",
-							"      let allMockSchoolsInDB = pm.variables.get( \"allMockSchoolsInDB\" );\r",
-							"      allMockSchoolsInDB.shift();\r",
-							"\r",
-							"      if ( Array.isArray( allMockSchoolsInDB ) && allMockSchoolsInDB.length > 0 )\r",
-							"      {\r",
-							"         pm.variables.set( \"allMockSchoolsInDB\", allMockSchoolsInDB, Object )\r",
-							"\r",
-							"         postman.setNextRequest( pm.info.requestName );\r",
-							"      }\r",
-							"   }\r",
+							"  \"Check that the response code was 200.\",\r",
+							"  function()\r",
+							"  {\r",
+							"    pm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"  }\r",
 							");\r",
 							"\r",
 							"\r",
@@ -549,6 +553,16 @@
 							"\t{\r",
 							"\t\tpm.expect( responseJSON ).to.have.property( \"changes\" );\r",
 							"\t\tpm.expect( responseJSON.changes ).to.equal( 1 );\r",
+							"\r",
+							"    let allMockSchoolsInDB = pm.variables.get( \"allMockSchoolsInDB\" );\r",
+							"    allMockSchoolsInDB.shift();\r",
+							"\r",
+							"    if ( Array.isArray( allMockSchoolsInDB ) && allMockSchoolsInDB.length > 0 )\r",
+							"    {\r",
+							"        pm.variables.set( \"allMockSchoolsInDB\", allMockSchoolsInDB, Object )\r",
+							"\r",
+							"        postman.setNextRequest( pm.info.requestName );\r",
+							"    }\r",
 							"\t}\r",
 							");\r",
 							"\r",
@@ -590,9 +604,10 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"console.info( 'In Tests of DEL request (unauth)' );\r",
+							"console.info( 'In Tests of DEL method to unauth' );\r",
 							"\r",
 							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
 							"\r",
 							"\r",
 							"// The tests\r",
@@ -614,6 +629,16 @@
 							"\t\tpm.expect( responseJSON.loggedIn ).to.be.false;\r",
 							"\t}\r",
 							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of POST method to unauth' );\r",
 							""
 						],
 						"type": "text/javascript"
@@ -646,7 +671,7 @@
 					"  // console.log( 'Generating mock data:' );",
 					"",
 					"  // Get a 6 digits random number",
-					"  // Math.random is a predetermined sequence so use a custom",
+					"  // Math.random is a predetermined sequence so, use a custom",
 					"  let randomSix = '';",
 					"  // Take last digit from EPOC miliseconds",
 					"  let lastDigit = +Date.now().toString().slice( -1 );",
@@ -661,7 +686,7 @@
 					"    name : `mock.Testskolan ${randomSix} i Teststad`,",
 					"    shortName : `mock.Test${randomSix}Test`",
 					"  };",
-					"",
+					"  // Create a var to be used in later methods",
 					"  pm.variables.set( \"mockSchool\", mockSchool, Object );",
 					"}",
 					""
