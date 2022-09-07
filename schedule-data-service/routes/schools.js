@@ -37,8 +37,6 @@ module.exports = function(server, db)
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
-      // console.log( 'before:\n', record );
-      // console.log( 'after:\n', record );
       let sql = "UPDATE schools SET ";
       // Remove the id prop because we don't want to update it
       sql += Object.keys( record ).filter( key => key != 'id' ).map( key => `${key}=@${key}` );
