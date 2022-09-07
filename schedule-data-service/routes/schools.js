@@ -20,15 +20,22 @@ module.exports = function(server, db)
 
 
   // komplettera uppgifter för skola
-  server.put('/data/schools/:id', (request, response) =>
+  server.put(
+    '/data/schools/:id',
+    function updateSchool( request, response )
     {
-      let s = request.body
-      let result
+      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      let record = request.body;
+      let sql = "UPDATE schools SET ";
+      // Remove the id prop because we don't want to update it
+      sql += Object.keys( record ).filter( key => key != 'id' ).map( key => `${key}=@${key}` );
+      sql += " WHERE id=:id";
+      let result;
       try
       {
-        result = db.prepare(
-          'UPDATE schools SET name = ?, shortName = ? WHERE id = ?'
-        ).run([ s.name, s.shortName, s.id])
+        // result = db.prepare( 'UPDATE schools SET name = @name, shortName = @shortName WHERE id = :id' ).run( record );
+        const stmt = db.prepare( sql );
+        result = stmt.run( record );
       }
       catch(e)
       {
