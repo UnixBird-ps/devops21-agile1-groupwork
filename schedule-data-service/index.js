@@ -181,9 +181,10 @@ server.delete('/data/:table/:id', (request, response) =>
     }
     catch(e)
     {
-      console.error(e);
+      // Future task. Fix better handling of error when trying to delete records with FK constraint
+      console.error( 'Catched error:', e );
       response.statusCode = 500;
-      result = e;
+      result = { error: e };
     }
     response.json(result)
   }
