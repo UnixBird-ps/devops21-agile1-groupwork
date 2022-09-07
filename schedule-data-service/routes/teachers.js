@@ -12,17 +12,21 @@ module.exports = function(server, db)
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
+      let sql = 'INSERT INTO teachers';
+      sql += ' (' + Object.keys( record ).map( key => key ) + ')';
+      sql += ' VALUES(' + Object.keys( record ).map( key => `@${key}` ) + ')';
+      // console.log( 'before:\n', record );
+      // Convert the 'roles' prop from an array to a string (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'roles' ) )
       {
         if ( Array.isArray( record.roles ) ) record.roles = record.roles.join( ',' );
         if ( record.roles == null ) record.roles = '';
       }
-      // Convert the 'hide' prop from a boolean to an integer
+      // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
       record.password = encrypt( record.password );
-      let sql = 'INSERT INTO teachers';
-      sql += ' (' + Object.keys( record ).map( key => key ) + ')';
-      sql += ' VALUES(' + Object.keys( record ).map( key => `@${key}` ) + ')';
+      // console.log( 'after:\n', record );
+      // console.log( sql );
       let result;
       try
       {
