@@ -13,10 +13,12 @@ const validateCreateForm = (values) =>
       errors.shortName = 'ra.validation.required';
   }
   if (!values.school) {
-      errors.school = 'School is required';
+      // errors.school = 'School is required';
+      errors.school = 'ra.validation.required';
   }
   if (!values.defaultInvoiceItem) {
-      errors.defaultInvoiceItem = 'Default invoice item is required';
+      // errors.defaultInvoiceItem = 'Default invoice item is required';
+      errors.defaultInvoiceItem = 'ra.validation.required';
   }
   return errors;
 }
@@ -98,8 +100,8 @@ export const ClassEdit = () => (
       <ReferenceInput source="defaultInvoiceItem" reference="invoice_items">
         <SelectInput reference="invoice_items" />
       </ReferenceInput>
-      <NumberInput source="defaultHoursPerDay" defaultValue={0} />
-      <BooleanInput source="hide" />
+      <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
+      <BooleanInput source="hide" defaultValue={false} />
     </SimpleForm>
   </Edit>
 );
@@ -107,7 +109,7 @@ export const ClassEdit = () => (
 
 export const ClassCreate = () => (
   <Create title="Register New Class">
-    <SimpleForm validate={validateCreateForm}>
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <TextInput source="name" />
       <TextInput source="shortName" />
       <ReferenceInput source="school" reference="schools">
@@ -119,9 +121,8 @@ export const ClassCreate = () => (
       <ReferenceInput source="defaultInvoiceItem" reference="invoice_items">
         <SelectInput reference="invoice_items" />
       </ReferenceInput>
-      <NumberInput source="defaultHoursPerDay" defaultValue={0} />
-      <BooleanInput source="hide" />
-      {/* defaultChecked={false} defaultValue={false} parse={v => v ? 1 : 0} format={ v => v != 0} */}
+      <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
+      <BooleanInput source="hide" defaultValue={false} />
     </SimpleForm>
   </Create>
 );

@@ -49,7 +49,7 @@ const validateEditForm = (values) =>
 
 export const TeacherEdit = () => (
   <Edit title="Edit Teacher">
-    <SimpleForm validate={validateEditForm}>
+    <SimpleForm warnWhenUnsavedChanges validate={validateEditForm}>
       <NumberInput disabled source="id" />
       <TextInput source="firstname" />
       <TextInput source="lastname" />
@@ -58,7 +58,7 @@ export const TeacherEdit = () => (
       <TextInput source="email" />
       <TextInput source="color" />
       <AutocompleteArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
-      <BooleanInput source="hide" defaultChecked={false} defaultValue={0} parse={v => v ? 1 : 0} format={ v => v != 0} />
+      <BooleanInput source="hide" defaultChecked={false} />
     </SimpleForm>
   </Edit>
 );
@@ -80,10 +80,10 @@ const validateCreateForm = (values) =>
 
 export const TeacherCreate = () => (
   <Create title="Register New Teacher">
-    <SimpleForm validate={validateCreateForm}>
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <TextInput source="email" inputProps={{ autocomplete: 'off' }} defaultValue={""} />
       <PasswordInput source="password" inputProps={{ autocomplete: 'new-password' }} defaultValue={""} />
-      <AutocompleteArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
+      {/* <AutocompleteArrayInput source="roles" choices={choices} optionValue="role" optionText="role" /> */}
     </SimpleForm>
   </Create>
 );
