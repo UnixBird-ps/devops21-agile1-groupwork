@@ -98,7 +98,7 @@ export const ClassEdit = () => (
       <TimeInput source="defaultStartTime" parse={stripFromTime} />
       <TimeInput source="defaultEndTime" parse={stripFromTime} />
       <ReferenceInput source="defaultInvoiceItem" reference="invoice_items">
-        <SelectInput reference="invoice_items" />
+        <SelectInput />
       </ReferenceInput>
       <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
       <BooleanInput source="hide" defaultValue={false} />
@@ -119,11 +119,10 @@ export const ClassCreate = () => (
       <TimeInput source="defaultStartTime" parse={stripFromTime} />
       <TimeInput source="defaultEndTime" parse={stripFromTime} />
       <ReferenceInput source="defaultInvoiceItem" reference="invoice_items">
-        <SelectInput reference="invoice_items" />
+        <SelectInput />
       </ReferenceInput>
-      <NumberInput source="defaultHoursPerDay" defaultValue={0} />
-      <BooleanInput source="hide" defaultValue={false} />
       <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
+      <BooleanInput source="hide" defaultValue={false} />
     </SimpleForm>
   </Create>
 );

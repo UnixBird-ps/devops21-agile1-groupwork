@@ -8,7 +8,9 @@ module.exports = function(server, db)
 
   //SqliteError: table courses has 11 columns but 10 values were supplied
   // When had @id in VALUES
-  server.post('/data/courses', (request, response) =>
+  server.post(
+    '/data/courses',
+    function postCourse(request, response)
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
@@ -44,7 +46,9 @@ module.exports = function(server, db)
   )
 
 
-  server.put('/data/courses/:id', (request, response) =>
+  server.put(
+    '/data/courses/:id',
+    function putCourse(request, response)
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
