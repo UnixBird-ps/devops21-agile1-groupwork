@@ -27,17 +27,19 @@ Run like this...
 npm run dev
 ```
 
-To rebuild and restart, do this...
+To rebuild and restart, do this...  
+CTRL+C twise in the terminal to stop the server, then...
 ```bash
-CTRL+C twise to stop the server, then...
 clear && cd admin && npm run build && cd .. && npm run dev
 ```
 
 ## Schedule
+
 REST API Description at `/data`
 
 ## Invoicing
-REST API 
+
+REST API
 
 POST /data/invoices
 

@@ -61,10 +61,10 @@ export const CourseEdit = () => (
       <DateInput source="endDate" />
       <TextInput source="plan" />
       <ReferenceInput source="invoiceItem" reference="invoice_items">
-        <AutocompleteInput label="Invoice" />
+        <AutocompleteInput />
       </ReferenceInput>
-      <NumberInput source="hoursPerDay" />
-      <BooleanInput source="hide" parse={v => v ? 1 : 0} format={ v => v != 0} />
+      <NumberInput source="hoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
+      <BooleanInput source="hide" defaultValue={false} />
     </SimpleForm>
   </Edit>
 );
@@ -83,10 +83,10 @@ export const CourseCreate = () => (
       <DateInput source="endDate" />
       <TextInput source="plan" />
       <ReferenceInput source="invoiceItem" reference="invoice_items">
-        <AutocompleteInput label="Invoice" />
+        <AutocompleteInput />
       </ReferenceInput>
-      <NumberInput source="hoursPerDay" />
-      <BooleanInput source="hide" defaultChecked={false} defaultValue={0} parse={v => v ? 1 : 0} format={ v => v != 0} />
+      <NumberInput source="hoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
+      <BooleanInput source="hide" defaultValue={false} />
     </SimpleForm>
   </Create>
 );
