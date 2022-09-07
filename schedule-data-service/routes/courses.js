@@ -1,4 +1,4 @@
-
+// courses.js
 const { debugMsg } = require( "../debug-funcs.js" );
 
 
@@ -8,20 +8,18 @@ module.exports = function(server, db)
 
   //SqliteError: table courses has 11 columns but 10 values were supplied
   // When had @id in VALUES
-  server.post(
-    '/data/courses',
-    function postCourse( request, response )
+  server.post('/data/courses', (request, response) =>
     {
-      debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
-      console.log( 'before:\n', record );
       let sql = "INSERT INTO courses";
-      sql += ' (' + Object.keys( record ).map( k => k ) + ')';
-      sql += ' VALUES(' + Object.keys( record ).map( k => `@${k}` ) + ')';
+      sql += ' (' + Object.keys( record ).map( key => key ) + ')';
+      sql += ' VALUES(' + Object.keys( record ).map( key => `@${key}` ) + ')';
+      // console.log( 'before:\n', record );
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
-      console.log( 'after:\n', record );
-      console.log( sql );
+      // console.log( 'after:\n', record );
+      // console.log( sql );
       let result;
       try
       {
@@ -46,24 +44,30 @@ module.exports = function(server, db)
   )
 
 
-  server.put(
-    '/data/courses/:id',
-    function putCourse( request, response )
+  server.put('/data/courses/:id', (request, response) =>
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
+      let sql = "UPDATE courses SET ";
+      sql += Object.keys( record ).filter( key => key != 'id' ).map( key => `${key}=@${key}` );
+      sql += " WHERE id=@id";
       // console.log( 'before:\n', record );
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
-      let sql = "UPDATE courses SET ";
-      // Remove the id prop because we don't want to update it
-      sql += Object.keys( record ).filter( k => k != 'id' ).map( k => `${k}=@${k}` );
-      sql += " WHERE id=@id";
       // console.log( 'after:\n', record );
       // console.log( sql );
       const stmt = db.prepare( sql );
-      let result = stmt.run( record );
-      response.json(result);
+      let result;
+      try
+      {
+        const stmt = db.prepare( sql );
+        result = stmt.run( record );
+      }
+      catch(e)
+      {
+        console.error(e);
+      }
+      response.json(result)
     }
   )
 
