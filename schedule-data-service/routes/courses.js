@@ -10,16 +10,16 @@ module.exports = function(server, db)
   // When had @id in VALUES
   server.post('/data/courses', (request, response) =>
     {
-      debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
-      console.log( 'before:\n', record );
+      // console.log( 'before:\n', record );
       let sql = "INSERT INTO courses";
       sql += ' (' + Object.keys( record ).map( key => key ) + ')';
       sql += ' VALUES(' + Object.keys( record ).map( key => `@${key}` ) + ')';
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
-      console.log( 'after:\n', record );
-      console.log( sql );
+      // console.log( 'after:\n', record );
+      // console.log( sql );
       let result;
       try
       {
@@ -46,16 +46,16 @@ module.exports = function(server, db)
 
   server.put('/data/courses/:id', (request, response) =>
     {
-      debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
-      console.log( 'before:\n', record );
+      // console.log( 'before:\n', record );
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
       let sql = "UPDATE courses SET ";
       sql += Object.keys( record ).filter( k => k != 'id' ).map( k => `${k}=@${k}` );
       sql += " WHERE id=@id";
-      console.log( 'after:\n', record );
-      console.log( sql );
+      // console.log( 'after:\n', record );
+      // console.log( sql );
       const stmt = db.prepare( sql );
       let result;
       try
