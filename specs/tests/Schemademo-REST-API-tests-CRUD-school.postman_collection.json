@@ -598,6 +598,82 @@
 			"response": []
 		},
 		{
+			"name": "(D in CRUD) Fail delete nonexistant school",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"console.info( 'In Pre-req of DEL method (to fail)' );\r",
+							"\r",
+							"// Set the var to be used in URL of this request\r",
+							"pm.variables.set( \"mockSchoolId\", -1 );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.info( 'In Tests of DEL method (to fail)' );\r",
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
+							"\r",
+							"// The tests\r",
+							"\r",
+							"pm.test(\r",
+							"  \"Check that the response code was 200.\",\r",
+							"  function()\r",
+							"  {\r",
+							"    pm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"  }\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the database reports 1 change.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"changes\" );\r",
+							"\t\tpm.expect( responseJSON.changes ).to.equal( 0 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that we can grab the lastInsertRowid property of responseJSON.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"lastInsertRowid\" );\r",
+							"\t\tpm.expect( responseJSON.lastInsertRowid ).to.be.a( \"number\" );\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}/{{mockSchoolId}}",
+					"host": [
+						"{{restHost}}{{restApiPath}}"
+					],
+					"path": [
+						"{{tableName}}",
+						"{{mockSchoolId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Unauthenticate",
 			"event": [
 				{

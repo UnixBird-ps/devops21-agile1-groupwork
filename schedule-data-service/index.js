@@ -182,6 +182,7 @@ server.delete('/data/:table/:id', (request, response) =>
     catch(e)
     {
       console.error(e);
+      response.statusCode = 500;
       result = e;
     }
     response.json(result)
