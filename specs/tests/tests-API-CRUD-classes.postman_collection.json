@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "cca55ba7-4fad-4328-b47a-4bb163ff4451",
+		"name": "test-admin-classes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23107932"
+	},
+	"item": [
+		{
+			"name": "Login admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Test that we have a successful request\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"That we were able to log in as admin\", function () {\r",
+							"    pm.expect(jsonData).to.have.property(\"loggedIn\");\r",
+							"    pm.expect(jsonData.loggedIn).to.be.true\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{userName}}\",\r\n    \"password\": \"{{userPassword}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7666/data/login",
+					"host": [
+						"localhost"
+					],
+					"port": "7666",
+					"path": [
+						"data",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get table classes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Test that we have a successful request\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"That the data is displayed as an array\", function () {\r",
+							"    pm.expect(jsonData).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"//If test below fails the scripts in this collection need to be amended to correspond to new updated keys. Id and total_count can be disregarded.\r",
+							"pm.test(\"That the keys in the database have not been changed\", function () {\r",
+							"        pm.expect(jsonData[0]).to.have.all.keys(\"id\", \"name\", \"shortName\", \"school\", \"blog\", \"hide\", \"defaultStartTime\", \"defaultEndTime\", \"defaultInvoiceItem\", \"defaultHoursPerDay\", \"total_count\");\r",
+							"        });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7666/data/classes",
+					"host": [
+						"localhost"
+					],
+					"port": "7666",
+					"path": [
+						"data",
+						"classes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new classes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"let testData = [{\r",
+							"  \"name\": \"Pacific College of Oriental Medicine\",\r",
+							"  \"shortName\": \"MYX16\",\r",
+							"  \"school\": 15,\r",
+							"  \"blog\": \"https://state.gov/ante/ipsum/primis/in.xml\",\r",
+							"  \"hide\": true,\r",
+							"  \"defaultStartTime\": \"14:35\",\r",
+							"  \"defaultEndTime\": \"4:23\",\r",
+							"  \"defaultInvoiceItem\": 7,\r",
+							"  \"defaultHoursPerDay\": 5\r",
+							"}, {\r",
+							"  \"name\": \"Aksum University\",\r",
+							"  \"shortName\": \"BLQ56\",\r",
+							"  \"school\": 1,\r",
+							"  \"blog\": \"http://wordpress.com/est/donec/odio/justo/sollicitudin/ut.jsp\",\r",
+							"  \"hide\": false,\r",
+							"  \"defaultStartTime\": \"22:50\",\r",
+							"  \"defaultEndTime\": \"5:38\",\r",
+							"  \"defaultInvoiceItem\": 8,\r",
+							"  \"defaultHoursPerDay\": 20\r",
+							"}, {\r",
+							"  \"name\": \"Turku School of Economics and Business Administration\",\r",
+							"  \"shortName\": \"RKP60\",\r",
+							"  \"school\": 2,\r",
+							"  \"blog\": \"http://shinystat.com/aliquet/at/feugiat/non/pretium.js\",\r",
+							"  \"hide\": false,\r",
+							"  \"defaultStartTime\": \"7:00\",\r",
+							"  \"defaultEndTime\": \"13:25\",\r",
+							"  \"defaultInvoiceItem\": 2,\r",
+							"  \"defaultHoursPerDay\": 19\r",
+							"}, {\r",
+							"  \"name\": \"Kaunas University of Technology\",\r",
+							"  \"shortName\": \"JAW83\",\r",
+							"  \"school\": 3,\r",
+							"  \"blog\": \"https://domainmarket.com/pharetra/magna/ac/consequat/metus/sapien/ut.jsp\",\r",
+							"  \"hide\": true,\r",
+							"  \"defaultStartTime\": \"22:58\",\r",
+							"  \"defaultEndTime\": \"4:15\",\r",
+							"  \"defaultInvoiceItem\": 7,\r",
+							"  \"defaultHoursPerDay\": 1\r",
+							"}, {\r",
+							"  \"name\": \"Zhengda Software College\",\r",
+							"  \"shortName\": \"HUF79\",\r",
+							"  \"school\": 4,\r",
+							"  \"blog\": \"https://vistaprint.com/vivamus/vel/nulla/eget/eros/elementum.aspx\",\r",
+							"  \"hide\": true,\r",
+							"  \"defaultStartTime\": \"14:47\",\r",
+							"  \"defaultEndTime\": \"13:08\",\r",
+							"  \"defaultInvoiceItem\": 8,\r",
+							"  \"defaultHoursPerDay\": 24\r",
+							"}, {\r",
+							"  \"name\": \"Kentucky State University\",\r",
+							"  \"shortName\": \"FJN34\",\r",
+							"  \"school\": 5,\r",
+							"  \"blog\": \"https://hatena.ne.jp/nullam/orci/pede.json\",\r",
+							"  \"hide\": false,\r",
+							"  \"defaultStartTime\": \"15:31\",\r",
+							"  \"defaultEndTime\": \"20:33\",\r",
+							"  \"defaultInvoiceItem\": 1,\r",
+							"  \"defaultHoursPerDay\": 23\r",
+							"}, {\r",
+							"  \"name\": \"Pamukkale University\",\r",
+							"  \"shortName\": \"QHL35\",\r",
+							"  \"school\": 6,\r",
+							"  \"blog\": \"https://jigsy.com/id/consequat/in/consequat/ut.xml\",\r",
+							"  \"hide\": false,\r",
+							"  \"defaultStartTime\": \"18:28\",\r",
+							"  \"defaultEndTime\": \"5:49\",\r",
+							"  \"defaultInvoiceItem\": 3,\r",
+							"  \"defaultHoursPerDay\": 20\r",
+							"}, {\r",
+							"  \"name\": \"Duquesne University\",\r",
+							"  \"shortName\": \"FRD44\",\r",
+							"  \"school\": 7,\r",
+							"  \"blog\": \"http://wp.com/interdum/venenatis/turpis/enim/blandit/mi.jsp\",\r",
+							"  \"hide\": false,\r",
+							"  \"defaultStartTime\": \"3:13\",\r",
+							"  \"defaultEndTime\": \"5:09\",\r",
+							"  \"defaultInvoiceItem\": 3,\r",
+							"  \"defaultHoursPerDay\": 21\r",
+							"}, {\r",
+							"  \"name\": \"Rangsit University\",\r",
+							"  \"shortName\": \"UTY10\",\r",
+							"  \"school\": 8,\r",
+							"  \"blog\": \"http://paypal.com/quis/augue/luctus/tincidunt/nulla/mollis/molestie.html\",\r",
+							"  \"hide\": false,\r",
+							"  \"defaultStartTime\": \"17:31\",\r",
+							"  \"defaultEndTime\": \"15:02\",\r",
+							"  \"defaultInvoiceItem\": 4,\r",
+							"  \"defaultHoursPerDay\": 13\r",
+							"}, {\r",
+							"  \"name\": \"Trinity College Carmarthen\",\r",
+							"  \"shortName\": \"URO35\",\r",
+							"  \"school\": 9,\r",
+							"  \"blog\": \"https://cocolog-nifty.com/pharetra/magna.jpg\",\r",
+							"  \"hide\": true,\r",
+							"  \"defaultStartTime\": \"13:04\",\r",
+							"  \"defaultEndTime\": \"0:24\",\r",
+							"  \"defaultInvoiceItem\": 10,\r",
+							"  \"defaultHoursPerDay\": 22\r",
+							"}];\r",
+							"\r",
+							"// Creating an environmentvariable if it does not already exist\r",
+							"if(!pm.environment.get(\"mockClasses\")){\r",
+							"    //Transforming the testdata from an array of objects into JSON so \r",
+							"    // it can be used as an environmentvariable.\r",
+							"    pm.environment.set(\"mockClasses\", JSON.stringify(testData));\r",
+							"    pm.environment.set(\"counter\", \"0\");\r",
+							"}\r",
+							"\r",
+							"// Create local variable from the environmentvariable\r",
+							"let mockClasses = JSON.parse(pm.environment.get(\"mockClasses\"));\r",
+							"// Create local variable from environmentvariable and convert to int\r",
+							"let counter = +pm.environment.get(\"counter\");\r",
+							"\r",
+							"console.log(mockClasses)\r",
+							"\r",
+							"// Use the mocked data\r",
+							"let {name, shortName, school, blog, hide, defaultStartTime, defaultEndTime, defaultInvoiceItem, defaultHoursPerDay} = mockClasses[counter];\r",
+							"\r",
+							"// Create needed environment variables\r",
+							"pm.environment.set('name', name);\r",
+							"pm.environment.set('shortName', shortName);\r",
+							"pm.environment.set('school', school);\r",
+							"pm.environment.set('blog', blog);\r",
+							"pm.environment.set('hide', hide);\r",
+							"pm.environment.set('defaultStartTime', defaultStartTime);\r",
+							"pm.environment.set('defaultEndTime', defaultEndTime);\r",
+							"pm.environment.set('defaultInvoiceItem', defaultInvoiceItem);\r",
+							"pm.environment.set('defaultHoursPerDay', defaultHoursPerDay);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Create local variable from the environmentvariable\r",
+							"let mockClasses = JSON.parse(pm.environment.get(\"mockClasses\"));\r",
+							"// Create local variable from environmentvariable and convert to int\r",
+							"let counter = +pm.environment.get(\"counter\");\r",
+							"\r",
+							"//Add to counter\r",
+							"counter++;\r",
+							"\r",
+							"//Set counter as environment variable\r",
+							"pm.environment.set('counter', counter);\r",
+							"\r",
+							"//Looping the mockdata as long as there is data with an index corresponding to the counter\r",
+							"if(mockClasses[counter]){\r",
+							"    postman.setNextRequest(\"Create new classes\");\r",
+							"}\r",
+							"\r",
+							"//Start of the code for the actual tests\r",
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"//Is this snippet for Post no longer accurate? Status given is 200.\r",
+							"//pm.test(\"Successful POST request\", function () {\r",
+							"    //pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"//});\r",
+							"\r",
+							"pm.test(\"Test that we have a successful request\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that a new class was registered in the database.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect(jsonData).to.have.property(\"changes\");\r",
+							"\t\tpm.expect(jsonData.changes).to.equal(1);\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"//We also get lastInsertRowid in the body of response, this could be used for the other tests put/patch and delete.\r",
+							"let mockId = jsonData.lastInsertRowid;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"{{name}}\",\r\n   \"shortName\": \"{{shortName}}\",\r\n   \"school\": \"{{school}}\",\r\n   \"blog\": \"{{blog}}\",\r\n   \"hide\": \"{{hide}}\",\r\n   \"defaultStartTime\": \"{{defaultStartTime}}\",\r\n   \"defaultEndTime\": \"{{defaultEndTime}}\",\r\n   \"defaultInvoiceItem\": \"{{defaultInvoiceItem}}\",\r\n   \"defaultHoursPerDay\": \"{{defaultHoursPerDay}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{apiHost}}{{apiUrl}}{{tableName}}",
+					"host": [
+						"{{apiHost}}{{apiUrl}}{{tableName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"    \r",
+							"pm.test(\"Test that we have a successful request\", function () {\r",
+							"    pm.response.to.have.status(200) \r",
+							"});\r",
+							"\r",
+							"pm.test(\"That we were able to log out\", function () {\r",
+							"    pm.expect(jsonData).to.have.property(\"loggedIn\");\r",
+							"    pm.expect(jsonData.loggedIn).to.be.false\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:7666/data/login",
+					"host": [
+						"localhost"
+					],
+					"port": "7666",
+					"path": [
+						"data",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
