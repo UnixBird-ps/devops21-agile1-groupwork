@@ -1,0 +1,349 @@
+{
+	"info": {
+		"_postman_id": "11015237-844f-4a13-ac55-ed69077460e8",
+		"name": "courses",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19660886"
+	},
+	"item": [
+		{
+			"name": "Get table courses",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Test that we have a successful request\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"That the data is displayed as an array\", function () {\r",
+							"    pm.expect(jsonData).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"//If test below fails the scripts in this collection need to be amended to correspond to new updated keys. Id and total_count can be disregarded.\r",
+							"pm.test(\"That the keys in the database have not been changed\", function () {\r",
+							"        pm.expect(jsonData[0]).to.have.all.keys(\"id\", \"name\", \"shortName\", \"class\", \"points\", \"startDate\", \"endDate\", \"plan\", \"invoiceItem\", \"hoursPerDay\", \"hide\", \"total_count\");\r",
+							"        });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7666/data/courses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7666",
+					"path": [
+						"data",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new courses",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let testData = [{\r",
+							"  \"name\": \"Human Resources\",\r",
+							"  \"shortName\": \"CBLI\",\r",
+							"  \"class\": 51,\r",
+							"  \"points\": 32,\r",
+							"  \"startDate\": \"2022-10-13\",\r",
+							"  \"endDate\": \"2022-12-16\",\r",
+							"  \"plan\": \"Vagram\",\r",
+							"  \"invoiceItem\": 2,\r",
+							"  \"hoursPerDay\": 23,\r",
+							"  \"hide\": false\r",
+							"}, {\r",
+							"  \"name\": \"Services\",\r",
+							"  \"shortName\": \"DKT\",\r",
+							"  \"class\": 52,\r",
+							"  \"points\": 79,\r",
+							"  \"startDate\": \"2022-11-26\",\r",
+							"  \"endDate\": \"2022-12-16\",\r",
+							"  \"plan\": \"Viva\",\r",
+							"  \"invoiceItem\": 9,\r",
+							"  \"hoursPerDay\": 11,\r",
+							"  \"hide\": false\r",
+							"}, {\r",
+							"  \"name\": \"Marketing\",\r",
+							"  \"shortName\": \"KOP\",\r",
+							"  \"class\": 53,\r",
+							"  \"points\": 95,\r",
+							"  \"startDate\": \"2022-12-07\",\r",
+							"  \"endDate\": \"2022-12-16\",\r",
+							"  \"plan\": \"Aerified\",\r",
+							"  \"invoiceItem\": 10,\r",
+							"  \"hoursPerDay\": 7,\r",
+							"  \"hide\": true\r",
+							"}, {\r",
+							"  \"name\": \"Product Management\",\r",
+							"  \"shortName\": \"VMBS\",\r",
+							"  \"class\": 54,\r",
+							"  \"points\": 82,\r",
+							"  \"startDate\": \"2022-11-08\",\r",
+							"  \"endDate\": \"2022-12-16\",\r",
+							"  \"plan\": \"Fixflex\",\r",
+							"  \"invoiceItem\": 2,\r",
+							"  \"hoursPerDay\": 15,\r",
+							"  \"hide\": true\r",
+							"}, {\r",
+							"  \"name\": \"Legal\",\r",
+							"  \"shortName\": \"HBHC\",\r",
+							"  \"class\": 55,\r",
+							"  \"points\": 41,\r",
+							"  \"startDate\": \"2022-10-09\",\r",
+							"  \"endDate\": \"2022-12-16\",\r",
+							"  \"plan\": \"Prodder\",\r",
+							"  \"invoiceItem\": 10,\r",
+							"  \"hoursPerDay\": 24,\r",
+							"  \"hide\": false\r",
+							"}, {\r",
+							"  \"name\": \"Marketing\",\r",
+							"  \"shortName\": \"BCOV\",\r",
+							"  \"class\": 56,\r",
+							"  \"points\": 7,\r",
+							"  \"startDate\": \"2022-11-05\",\r",
+							"  \"endDate\": \"2022-12-16\",\r",
+							"  \"plan\": \"Bytecard\",\r",
+							"  \"invoiceItem\": 6,\r",
+							"  \"hoursPerDay\": 22,\r",
+							"  \"hide\": false\r",
+							"}, {\r",
+							"  \"name\": \"Product Management\",\r",
+							"  \"shortName\": \"OLP\",\r",
+							"  \"class\": 57,\r",
+							"  \"points\": 148,\r",
+							"  \"startDate\": \"2022-10-20\",\r",
+							"  \"endDate\": \"2022-12-16\",\r",
+							"  \"plan\": \"Opela\",\r",
+							"  \"invoiceItem\": 8,\r",
+							"  \"hoursPerDay\": 18,\r",
+							"  \"hide\": false\r",
+							"}, {\r",
+							"  \"name\": \"Legal\",\r",
+							"  \"shortName\": \"SLM\",\r",
+							"  \"class\": 58,\r",
+							"  \"points\": 133,\r",
+							"  \"startDate\": \"2022-11-09\",\r",
+							"  \"endDate\": \"2022-12-16\",\r",
+							"  \"plan\": \"Lotstring\",\r",
+							"  \"invoiceItem\": 9,\r",
+							"  \"hoursPerDay\": 10,\r",
+							"  \"hide\": true\r",
+							"}, {\r",
+							"  \"name\": \"Sales\",\r",
+							"  \"shortName\": \"RTIX\",\r",
+							"  \"class\": 59,\r",
+							"  \"points\": 63,\r",
+							"  \"startDate\": \"2022-09-23\",\r",
+							"  \"endDate\": \"2022-12-16\",\r",
+							"  \"plan\": \"Zathin\",\r",
+							"  \"invoiceItem\": 9,\r",
+							"  \"hoursPerDay\": 19,\r",
+							"  \"hide\": true\r",
+							"}, {\r",
+							"  \"name\": \"Marketing\",\r",
+							"  \"shortName\": \"MXWL\",\r",
+							"  \"class\": 60,\r",
+							"  \"points\": 10,\r",
+							"  \"startDate\": \"2022-11-26\",\r",
+							"  \"endDate\": \"2022-12-16\",\r",
+							"  \"plan\": \"Latlux\",\r",
+							"  \"invoiceItem\": 1,\r",
+							"  \"hoursPerDay\": 4,\r",
+							"  \"hide\": false\r",
+							"}]\r",
+							"\r",
+							"pm.variables.set(\"name\", testData[0].name);\r",
+							"pm.variables.set(\"shortName\", testData[0].shortName);\r",
+							"pm.variables.set(\"class\", testData[0].class);\r",
+							"pm.variables.set(\"points\", testData[0].points);\r",
+							"pm.variables.set(\"startDate\", testData[0].startDate);\r",
+							"pm.variables.set(\"endDate\", testData[0].endDate);\r",
+							"pm.variables.set(\"plan\", testData[0].plan);\r",
+							"pm.variables.set(\"invoiceItem\", testData[0].invoiceItem);\r",
+							"pm.variables.set(\"hoursPerDay\", testData[0].hoursPerDay);\r",
+							"pm.variables.set(\"hide\", testData[0].hide);\r",
+							"\r",
+							"pm.variables.set(\"mockCourses\", testData );\r",
+							"\r",
+							"pm.variables.set('counter', 0);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Create local variable from the environmentvariable\r",
+							"let mockCourses = pm.variables.get(\"mockCourses\");\r",
+							"console.log(mockCourses);\r",
+							"// Create local variable from environmentvariable and convert to int\r",
+							"let counter = +pm.variables.get(\"counter\");\r",
+							"\r",
+							"// get the response data\r",
+							"let response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check that the database reports 1 change\", function(){\r",
+							"    pm.expect(response.changes).to.equal(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that we get lastInsertRowid as a number\", function(){\r",
+							"    pm.expect(response.lastInsertRowid).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"// Add the id to the course in our mock data\r",
+							"mockCourses[counter].id = response.lastInsertRowid;\r",
+							"// And resave the mock data as an environment variable\r",
+							"pm.variables.set('mockCourses', mockCourses);\r",
+							"\r",
+							"//Add to counter\r",
+							"counter++;\r",
+							"//Set counter as environment variable\r",
+							"pm.variables.set('counter', counter);\r",
+							"\r",
+							"// if there exist a course in mockCourses\r",
+							"// with an index corresponding to the counter\r",
+							"// then run this request\r",
+							"if(mockCourses[counter]){\r",
+							"    postman.setNextRequest(\"create new courses\");\r",
+							"}\r",
+							"\r",
+							"else {\r",
+							"     // we are done reset the counter to 0\r",
+							"     // the help the script in the next request\r",
+							"    pm.variables.set('counter', '0');\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"{{name}}\",\r\n   \"shortName\": \"{{shortName}}\",\r\n   \"class\": \"{{class}}\",\r\n   \"points\": \"{{points}}\",\r\n   \"startDate\": \"{{startDate}}\",\r\n   \"endDate\": \"{{endDate}}\",\r\n   \"plan\": \"{{plan}}\",\r\n   \"invoiceItem\": \"{{invoiceItem}}\",\r\n   \"hoursPerDay\": \"{{hoursPerDay}}\",\r\n   \"hide\": \"{{hide}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7666/data/courses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7666",
+					"path": [
+						"data",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Test that we have a successful request\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"That we were able to log in as admin\", function () {\r",
+							"    pm.expect(jsonData).to.have.property(\"loggedIn\");\r",
+							"    pm.expect(jsonData.loggedIn).to.be.true\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "abc123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "exempel@nodehill.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{userName}}\",\r\n    \"password\": \"{{userPassword}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7666/data/login",
+					"host": [
+						"localhost"
+					],
+					"port": "7666",
+					"path": [
+						"data",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
