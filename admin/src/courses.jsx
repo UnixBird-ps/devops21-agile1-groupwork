@@ -38,7 +38,9 @@ export const CourseList = () => (
       <TextField source="startDate" />
       <TextField source="endDate" />
       <TextField source="plan" />
-      <TextField source="invoiceItem" />
+      <ReferenceField source="invoiceItem" reference="invoice_items">
+        <TextField source="title" />
+      </ReferenceField>
       <NumberField source="hoursPerDay" />
       <BooleanField source="hide" looseValue={true} />
       <EditButton />
@@ -49,19 +51,19 @@ export const CourseList = () => (
 
 export const CourseEdit = () => (
   <Edit title="Edit Course">
-    <SimpleForm>
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <NumberInput disabled source="id" />
       <TextInput source="name" />
       <TextInput source="shortName" />
       <ReferenceInput source="class" reference="classes">
-        <SelectInput source="name" optionText="name" />
+        <SelectInput optionText="name" />
       </ReferenceInput>
       <NumberInput source="points" />
       <DateInput source="startDate" />
       <DateInput source="endDate" />
       <TextInput source="plan" />
-      <ReferenceInput source="id" reference="invoices">
-        <AutocompleteInput label="Invoice" />
+      <ReferenceInput source="invoiceItem" reference="invoice_items">
+        <SelectInput optionText="title" />
       </ReferenceInput>
       <NumberInput source="hoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
       <BooleanInput source="hide" defaultValue={false} />
@@ -76,14 +78,14 @@ export const CourseCreate = () => (
       <TextInput source="name" />
       <TextInput source="shortName" />
       <ReferenceInput source="class" reference="classes">
-        <SelectInput source="name" optionText="name" />
+        <SelectInput optionText="name" />
       </ReferenceInput>
       <NumberInput source="points" />
       <DateInput source="startDate" />
       <DateInput source="endDate" />
       <TextInput source="plan" />
       <ReferenceInput source="invoiceItem" reference="invoice_items">
-        <AutocompleteInput />
+        <SelectInput optionText="title" />
       </ReferenceInput>
       <NumberInput source="hoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
       <BooleanInput source="hide" defaultValue={false} />

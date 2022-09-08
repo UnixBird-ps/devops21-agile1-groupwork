@@ -76,8 +76,9 @@ export const ClassList = () => (
       <TextField source="blog" />
       <TextField source="defaultStartTime" />
       <TextField source="defaultEndTime" />
-      <TextField source="defaultInvoiceItem" />
-      <TextField source="defaultHoursPerDay" />
+      <ReferenceField source="defaultInvoiceItem" reference="invoice_items">
+        <TextField source="title" />
+      </ReferenceField>
       <BooleanField source="hide" looseValue={true} />
       <EditButton />
     </Datagrid>
@@ -92,13 +93,13 @@ export const ClassEdit = () => (
       <TextInput source="name" />
       <TextInput source="shortName" />
       <ReferenceInput source="school" reference="schools">
-        <SelectInput source="name" optionText="name" />
+        <SelectInput optionText="name" />
       </ReferenceInput>
       <TextInput source="blog" />
       <TimeInput source="defaultStartTime" parse={stripFromTime} />
       <TimeInput source="defaultEndTime" parse={stripFromTime} />
       <ReferenceInput source="defaultInvoiceItem" reference="invoice_items">
-        <SelectInput reference="invoice_items" />
+        <SelectInput optionText="title" />
       </ReferenceInput>
       <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
       <BooleanInput source="hide" defaultValue={false} />
@@ -113,13 +114,13 @@ export const ClassCreate = () => (
       <TextInput source="name" />
       <TextInput source="shortName" />
       <ReferenceInput source="school" reference="schools">
-        <SelectInput source="name" optionText="name" />
+        <SelectInput optionText="name" />
       </ReferenceInput>
       <TextInput source="blog" defaultValue="" />
       <TimeInput source="defaultStartTime" parse={stripFromTime} />
       <TimeInput source="defaultEndTime" parse={stripFromTime} />
       <ReferenceInput source="defaultInvoiceItem" reference="invoice_items">
-        <SelectInput reference="invoice_items" />
+        <SelectInput optionText="title" />
       </ReferenceInput>
       <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
       <BooleanInput source="hide" defaultValue={false} />

@@ -41,7 +41,12 @@ const validateEditForm = (values) =>
 {
   const errors = {};
   if (!values.email) {
-      errors.email = 'Email is required';
+      // errors.email = 'Email is required';
+      errors.email = 'ra.validation.required';
+  }
+  if (!values.color) {
+      // You can return translation keys
+      errors.color = 'ra.validation.required';
   }
   return errors;
 }
@@ -56,8 +61,8 @@ export const TeacherEdit = () => (
       <TextInput source="initials" />
       <TextInput source="phone" />
       <TextInput source="email" />
-      <TextInput source="color" />
-      <AutocompleteArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
+      <TextInput source="color" type="color" />
+      <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
       <BooleanInput source="hide" defaultChecked={false} />
     </SimpleForm>
   </Edit>
@@ -68,11 +73,16 @@ const validateCreateForm = (values) =>
 {
   const errors = {};
   if (!values.email) {
-      errors.email = 'Email is required';
+      // errors.email = 'Email is required';
+      errors.email = 'ra.validation.required';
   }
   if (!values.password) {
       // You can return translation keys
       errors.password = 'ra.validation.required';
+  }
+  if (!values.color) {
+      // You can return translation keys
+      errors.color = 'ra.validation.required';
   }
   return errors;
 }
@@ -83,7 +93,8 @@ export const TeacherCreate = () => (
     <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <TextInput source="email" inputProps={{ autocomplete: 'off' }} defaultValue={""} />
       <PasswordInput source="password" inputProps={{ autocomplete: 'new-password' }} defaultValue={""} />
-      {/* <AutocompleteArrayInput source="roles" choices={choices} optionValue="role" optionText="role" /> */}
+      <TextInput source="color" type="color" />
+      {/* <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" /> */}
     </SimpleForm>
   </Create>
 );

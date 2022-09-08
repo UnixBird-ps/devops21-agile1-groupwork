@@ -9,7 +9,7 @@ module.exports = function(server, db)
   // registrera en ny lärare
   server.post(
     '/data/teachers',
-    function createTeacher(request, response)
+    function postTeacher(request, response)
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
@@ -44,7 +44,9 @@ module.exports = function(server, db)
 
 
   // komplettera profil för användare
-  server.put('/data/teachers', (request, response) =>
+  server.put(
+    '/data/teachers',
+    function putTeacher(request, response)
     {
       let user = request.body
       let result
@@ -66,7 +68,7 @@ module.exports = function(server, db)
   // komplettera profil för användare
   server.put(
     '/data/teachers/:id',
-    function updateTeacher(request, response)
+    function putTeacher(request, response)
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;

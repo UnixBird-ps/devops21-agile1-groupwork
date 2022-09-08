@@ -33,7 +33,7 @@ module.exports = function(server, db)
   // komplettera uppgifter för skola
   server.put(
     '/data/schools/:id',
-    function updateSchool( request, response )
+    function putSchool( request, response )
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;

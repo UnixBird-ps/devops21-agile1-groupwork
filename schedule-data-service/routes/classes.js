@@ -8,7 +8,7 @@ module.exports = function(server, db)
 
   server.post(
     '/data/classes',
-    function getAllClasses(request, response)
+    function postClass(request, response)
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
@@ -38,7 +38,7 @@ module.exports = function(server, db)
   // komplettera uppgifter för klass
   server.put(
     '/data/classes/:id',
-    function updateClass(request, response)
+    function putClass(request, response)
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
@@ -51,9 +51,18 @@ module.exports = function(server, db)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
       // console.log( 'after:\n', record );
       // console.log( sql );
-      const stmt = db.prepare( sql );
-      let result = stmt.run( record );
-      response.json(result);
+      let result;
+      try
+      {
+        const stmt = db.prepare( sql );
+        result = stmt.run( record );
+      }
+      catch(e)
+      {
+        console.error(e);
+      }
+      response.json(result)
+
     }
   )
 
