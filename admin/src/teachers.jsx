@@ -4,6 +4,19 @@ import { TextInput, NumberInput, BooleanInput, PasswordInput, AutocompleteArrayI
 import { useRecordContext } from 'react-admin';
 
 
+const ColorField = ( pSource ) =>
+{
+  const record = useRecordContext( pSource );
+  const lColor = record && record.color || '';
+  return (
+    <div>
+      <span style={{display:'block',minWidth:'65px'}}>{lColor}</span>
+      <div style={{display:'block',height:'8px',backgroundColor:lColor}}></div>
+    </div>
+  );
+};
+
+
 const choices = [
    { id: 'admin', role: 'admin' },
    { id: 'user', role:  'user' }
@@ -28,7 +41,7 @@ export const TeacherList = () => (
       <TextField source="initials" />
       <TextField source="phone" />
       <TextField source="email" />
-      <TextField source="color" />
+      <ColorField source="color" />
       <RolesField source="roles" />
       <BooleanField source="hide" looseValue={true} />
       <EditButton />
@@ -93,7 +106,7 @@ export const TeacherCreate = () => (
     <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <TextInput source="email" inputProps={{ autocomplete: 'off' }} defaultValue={""} />
       <PasswordInput source="password" inputProps={{ autocomplete: 'new-password' }} defaultValue={""} />
-      <TextInput source="color" type="color" sx={{minWidth:75}}/>
+      <TextInput source="color" type="color" sx={{minWidth:75}} defaultValue="#888888"/>
       {/* <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" /> */}
     </SimpleForm>
   </Create>
