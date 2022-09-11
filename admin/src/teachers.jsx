@@ -4,10 +4,12 @@ import { TextInput, NumberInput, BooleanInput, PasswordInput, AutocompleteArrayI
 import { useRecordContext } from 'react-admin';
 
 
+// Returns a combined div containing the record's color value and a colored bar under the text
 const ColorField = ( pSource ) =>
 {
+  // Get the prop's parent record
   const record = useRecordContext( pSource );
-  const lColor = record && record.color || '';
+  const lColor = record && record.color || ''; // Set color to empty if record is null
   return (
     <div>
       <span style={{display:'block',minWidth:'65px'}}>{lColor}</span>
@@ -17,16 +19,18 @@ const ColorField = ( pSource ) =>
 };
 
 
+// Used for role field and input
 const choices = [
    { id: 'admin', role: 'admin' },
    { id: 'user', role:  'user' }
 ];
 
 
+// Return a <span> containing text converted from an array
 const RolesField = ( source ) =>
 {
+  // Get the prop's parent record
   const record = useRecordContext( source );
-  // record && console.log( record.roles );
   return record ? <span>{ Object.values( record.roles ).join(',') }</span> : null;
 };
 
