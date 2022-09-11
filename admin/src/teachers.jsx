@@ -61,7 +61,7 @@ export const TeacherEdit = () => (
       <TextInput source="initials" />
       <TextInput source="phone" />
       <TextInput source="email" />
-      <TextInput source="color" type="color" />
+      <TextInput source="color" type="color" sx={{minWidth:75}}/>
       <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
       <BooleanInput source="hide" defaultChecked={false} />
     </SimpleForm>
@@ -93,7 +93,7 @@ export const TeacherCreate = () => (
     <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <TextInput source="email" inputProps={{ autocomplete: 'off' }} defaultValue={""} />
       <PasswordInput source="password" inputProps={{ autocomplete: 'new-password' }} defaultValue={""} />
-      <TextInput source="color" type="color" />
+      <TextInput source="color" type="color" sx={{minWidth:75}}/>
       {/* <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" /> */}
     </SimpleForm>
   </Create>

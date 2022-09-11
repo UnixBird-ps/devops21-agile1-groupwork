@@ -9,13 +9,13 @@ module.exports = function(server, db)
     '/data/invoice_items',
     function postInvoiceItem( request, response )
     {
-      debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
       // Build the SQL query
       let sql = 'INSERT INTO invoice_items';
       sql += ' (' + Object.keys( record ).map( key => key ) + ')';              // Creates ( column1, column2...
       sql += ' VALUES(' + Object.keys( record ).map( key => `@${key}` ) + ')';  // Creates ( @param1, @param2...
-      console.log( 'SQL query:', sql );
+      // console.log( 'SQL query:', sql );
       let result;
       try
       {
@@ -36,14 +36,14 @@ module.exports = function(server, db)
     '/data/invoice_items/:id',
     function putInvoiceItem( request, response )
     {
-      debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
       // Build the SQL query
       let sql = "UPDATE invoice_items SET ";
       // Remove the id prop because we don't want to update it
       sql += Object.keys( record ).filter( key => key != 'id' ).map( key => `${key}=@${key}` ); // Creates column1=@column1, column2=@column2...
       sql += " WHERE id=:id";
-      console.log( sql );
+      // console.log( sql );
       let result;
       try
       {
