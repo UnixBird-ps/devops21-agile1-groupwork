@@ -103,6 +103,7 @@ export const ClassEdit = () => (
       </ReferenceInput>
       <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
       <BooleanInput source="hide" defaultValue={false} />
+
     </SimpleForm>
   </Edit>
 );

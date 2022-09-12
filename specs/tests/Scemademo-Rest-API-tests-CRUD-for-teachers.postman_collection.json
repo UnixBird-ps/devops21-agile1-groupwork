@@ -1,0 +1,553 @@
+{
+	"info": {
+		"_postman_id": "3ef77d87-0052-4039-8320-15614afa3224",
+		"name": "Scemademo-Rest-API-tests-CRUD-for-teachers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19661029"
+	},
+	"item": [
+		{
+			"name": "Authentication as admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response code was 200.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the login status is confirmed in the JSON of the response\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"loggedIn\" );\r",
+							"\t\tpm.expect( responseJSON.loggedIn ).to.be.true;\r",
+							"\t}\r",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"{{userName}}\",\r\n\t\"password\": \"{{userPw}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{restHost}}{{restAuthPath}}",
+					"host": [
+						"{{restHost}}{{restAuthPath}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create-new-teacher",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let mockTeacher = pm.variables.get( \"mockTeacher\" );\r",
+							"// console.log( mockTeacher );\r",
+							"\r",
+							"\r",
+							"// pm.variables.set( \"mockTeacherFirstName\", mockTeacher.firstname );\r",
+							"// pm.variables.set( \"mockTeacherLastName\", mockTeacher.lastname );\r",
+							"// pm.variables.set( \"mockTeacherInitials\", mockTeacher.initials );\r",
+							"// pm.variables.set( \"mockTeacherPhone\", mockTeacher.phone );\r",
+							"pm.variables.set( \"mockTeacherEmail\", mockTeacher.email );\r",
+							"// pm.variables.set( \"mockTeacherColor\", mockTeacher.color );\r",
+							"pm.variables.set( \"mockTeacherPassword\", mockTeacher.password );\r",
+							"// pm.variables.set( \"mockTeacherRoles\", mockTeacher.roles );\r",
+							"\r",
+							"// pm.variables.set(\"mockTeacher\",mockTeacher,Object);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseJSON = pm.response.json();\r",
+							"let mockTeacher = pm.variables.get( \"mockTeacher\" );\r",
+							"// console.log(\"code 404\");\r",
+							"// console.log(mockTeacher);\r",
+							"mockTeacher.id = responseJSON.lastInsertRowid;\r",
+							"// pm.variables.set( \"mockTeacher\", mockTeacher,Object);\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response code was 200.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the database reports 1 change.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"changes\" );\r",
+							"\t\tpm.expect( responseJSON.changes ).to.equal( 1 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that we can grab the lastInsertRowid property of responseJSON.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"lastInsertRowid\" );\r",
+							"\t\tpm.expect( responseJSON.lastInsertRowid ).to.be.a( \"number\" );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"email\": \"{{mockTeacherEmail}}\",\r\n\t\"password\": \"{{mockTeacherPassword}}\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{restHost}}{{restApiUrl}}/{{tableName}}",
+					"host": [
+						"{{restHost}}{{restApiUrl}}"
+					],
+					"path": [
+						"{{tableName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Read the created teacher",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// console.log(\"In Pre-req ih get/read\");\r",
+							"let mockTeacher = pm.variables.get( \"mockTeacher\" );\r",
+							"// console.log(mockTeacher);\r",
+							"pm.variables.set( \"mockTeacherId\", mockTeacher.id );"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"let mockTeacher = pm.variables.get( \"mockTeacher\" );\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response code is 200\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\t}\r",
+							");\r",
+							"        // let teacher = pm.variables.set(mockTeacher[0])\r",
+							"    //   mockTeacher.id = responseJSON.lastInsertRowid;\r",
+							"    //   var data = JSON.parse(responseBody);\r",
+							"    //   postman.setEnvironmentVariable(\"teacherid\", data[0].Id);\r",
+							"    //   pm.setEnvironmentVariable(\"teacherid\", mockTeacher[0].id );\r",
+							"        //  pm.variables.set( \"mockTeacher\", mockTeacher, Object );\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that received object has expected keys\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"        // console.log( \"Test in GET\", responseJSON  );\r",
+							"\t\tpm.expect(responseJSON).to.have.all.keys(\"id\", \"firstname\", \"lastname\", \"initials\", \"phone\", \"email\", \"color\", \"hide\",\"password\", \"roles\");\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{restHost}}{{restApiUrl}}/{{tableName}}/{{mockTeacherId}}",
+					"host": [
+						"{{restHost}}{{restApiUrl}}"
+					],
+					"path": [
+						"{{tableName}}",
+						"{{mockTeacherId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update the created teacher",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"let mockTeacher = pm.variables.get( \"mockTeacher\" );\r",
+							"// console.log( \"Pre-req in PUT\", mockTeacher)\r",
+							"pm.variables.set( \"mockTeacherId\", mockTeacher.id );\r",
+							"pm.variables.set( \"moddedFirstName\", mockTeacher.firstname + \".test_modded\" );\r",
+							"pm.variables.set( \"moddedLastName\", mockTeacher.lastname + \".test_modded\" );\r",
+							"pm.variables.set( \"moddedInitials\", mockTeacher.initials + \".test_modded\" );\r",
+							"pm.variables.set( \"moddedPhone\", mockTeacher.phone + \".test_modded\" );\r",
+							"pm.variables.set( \"moddedEmail\", mockTeacher.email + \".test_modded\" );\r",
+							"pm.variables.set( \"moddedColor\", mockTeacher.color + \".test_modded\" );\r",
+							"pm.variables.set( \"moddedHide\", mockTeacher.hide + \".test_modded\" );\r",
+							"pm.variables.set( \"moddedPassword\", mockTeacher.password + \".test_modded\");\r",
+							"pm.variables.set( \"moddedRoles\", mockTeacher.roles + \".test_modded\" );"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseJSON = pm.response.json();\r",
+							"let mockSchool = pm.variables.get( \"mockTeacher\" );\r",
+							"\r",
+							"\r",
+							"// console.log( responseJSON );\r",
+							"pm.test(\r",
+							"\t\"Check that the response code was 200.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\t}\r",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\":\"{{mockTeacherId}}\",\r\n\t\"firstname\": \"{{moddedFirstName}}\",\r\n\t\"lastname\": \"{{moddedLastName}}\",\r\n\t\"initials\": \"{{moddedInitials}}\",\r\n\t\"phone\": \"{{moddedPhone}}\",\r\n\t\"email\": \"{{moddedEmail}}\",\r\n\t\"color\": \"{{moddedColor}}\",\r\n\t\"hide\": \"{{moddedHide}}\",\r\n\t\"password\": \"{{moddedPassword}}\",\r\n\t\"roles\": \"{{moddedRoles}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{restHost}}{{restApiUrl}}/{{tableName}}/{{mockTeacherId}}",
+					"host": [
+						"{{restHost}}{{restApiUrl}}"
+					],
+					"path": [
+						"{{tableName}}",
+						"{{mockTeacherId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all teachers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"let responseObject = pm.response.json();\r",
+							"\r",
+							"//console.log( responseObject.slice( -1 ) );\r",
+							"\r",
+							"let allMockTeachers = [];\r",
+							"\r",
+							"//console.log( responseObject );\r",
+							"for ( let f = 0; f < responseObject.length; f++ )\r",
+							"{\r",
+							"\tlet a = responseObject[ f ];\r",
+							"    //console.log( a );\r",
+							"\tif (a.firstname.toLowerCase().startsWith( \"mock.\" ) )\r",
+							"    allMockTeachers.push( a );\r",
+							"}\r",
+							"\r",
+							"pm.variables.set( \"allMockTeachers\", allMockTeachers, Object )\r",
+							"\r",
+							"if ( allMockTeachers.length <= 0 ) postman.setNextRequest( \"Unauthenticate\" );\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response code was 200.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that we received an array\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseObject ).to.be.an( \"array\" );\r",
+							"\t}\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{restHost}}{{restApiUrl}}/{{tableName}}",
+					"host": [
+						"{{restHost}}{{restApiUrl}}"
+					],
+					"path": [
+						"{{tableName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the created teacher",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"let allMockTeachers = pm.variables.get( \"allMockTeachers\" );\r",
+							"pm.variables.set( \"mockTeacherId\", allMockTeachers[0].id);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\r",
+							"   \"Check that the response code was 200.\",\r",
+							"   function()\r",
+							"   {\r",
+							"      pm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\r",
+							"      let allMockTeachers = pm.variables.get( \"allMockTeachers\" );\r",
+							"      allMockTeachers.shift();\r",
+							"\r",
+							"      if ( Array.isArray( allMockTeachers ) && allMockTeachers.length > 0 )\r",
+							"      {\r",
+							"         pm.variables.set( \"allMockTeachers\", allMockTeachers, Object )\r",
+							"\r",
+							"         postman.setNextRequest( pm.info.requestName );\r",
+							"      }\r",
+							"   }\r",
+							");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{restHost}}{{restApiUrl}}/{{tableName}}/{{mockTeacherId}}",
+					"host": [
+						"{{restHost}}{{restApiUrl}}"
+					],
+					"path": [
+						"{{tableName}}",
+						"{{mockTeacherId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authentication",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"\r",
+							"\r",
+							"// The tests\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the response code was 200.\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"\t}\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"\t\"Check that the login status is confirmed in the JSON of the response\",\r",
+							"\tfunction()\r",
+							"\t{\r",
+							"\t\tpm.expect( responseJSON ).to.have.property( \"loggedIn\" );\r",
+							"\t\tpm.expect( responseJSON.loggedIn ).to.be.false;\r",
+							"\t}\r",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{restHost}}{{restAuthPath}}",
+					"host": [
+						"{{restHost}}{{restAuthPath}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"",
+					"",
+					"if ( !pm.variables.has( \"mockTeacher\" ) )",
+					"{",
+					"\tlet randomSix = '';",
+					"\twhile ( randomSix.length < 6 )",
+					"\t{",
+					"\t\trandomSix += '' + Math.floor( Math.random() * 10 );",
+					"\t}",
+					"",
+					"\tlet mockTeacher =",
+					"\t{",
+					"\t\t\"firstname\" : `mock.Testteacher ${randomSix} i Teststad`,",
+					"\t\t\"lastname\" : `lastname${randomSix}Test`,",
+					"        \"initials\" : `initial${randomSix}Test`,",
+					"        \"phone\" : `phone${randomSix}Test`,",
+					"        \"email\" : `email${randomSix}Test`,",
+					"        \"color\" : `color${randomSix}Test`,",
+					"        \"hide\" : `hide${randomSix}Test`,",
+					"        \"password\" : `passwd${randomSix}Test`,",
+					"        \"roles\" : `role${randomSix}Test`,",
+					"\t};",
+					"",
+					"// console.log( mockTeacher );",
+					"",
+					"\tpm.variables.set( \"mockTeacher\", mockTeacher, Object );",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "restHost",
+			"value": "http://localhost:7666",
+			"type": "string"
+		},
+		{
+			"key": "userName",
+			"value": "exempel@nodehill.com",
+			"type": "string"
+		},
+		{
+			"key": "userPw",
+			"value": "abc123",
+			"type": "string"
+		},
+		{
+			"key": "restAuthPath",
+			"value": "/data/login",
+			"type": "string"
+		},
+		{
+			"key": "restApiUrl",
+			"value": "/data",
+			"type": "string"
+		},
+		{
+			"key": "tableName",
+			"value": "teachers",
+			"type": "string"
+		}
+	]
+}
