@@ -1,7 +1,12 @@
+import { Given, When, And, Then } from "@badeball/cypress-cucumber-preprocessor";
+
 describe(
-  'Auth via UI',
+  'Inloggning',
   () =>
   {
+
+    // Given(
+    //   'Jag är på inloggningssidan',
 
     it(
       'Visit the page and submit login creds for unregistered user',
