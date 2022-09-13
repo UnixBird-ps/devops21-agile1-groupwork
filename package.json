@@ -17,8 +17,6 @@
     "express-session": "^1.17.1",
     "nodemailer": "^6.4.17",
     "pdfkit": "^0.11.0"
-<<<<<<< HEAD
-=======
   },
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^12.2.0",
@@ -33,6 +31,5 @@
     "stepDefinitions": [
       "/specs/tests/step_definitions/*.js"
     ]
->>>>>>> test/cypress-base-ps
   }
 }
