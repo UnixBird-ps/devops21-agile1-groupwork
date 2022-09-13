@@ -17,5 +17,19 @@
     "express-session": "^1.17.1",
     "nodemailer": "^6.4.17",
     "pdfkit": "^0.11.0"
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^12.2.0",
+    "@cypress/webpack-preprocessor": "^5.12.2",
+    "cypress": "^10.7.0"
+  },
+  "cypress-cucumber-preprocessor":
+  {
+    "json": {
+      "enabled": true
+    },
+    "stepDefinitions": [
+      "/specs/step_definitions/*.js"
+    ]
   }
 }
