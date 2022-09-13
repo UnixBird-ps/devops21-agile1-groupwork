@@ -4,16 +4,33 @@ import { TextInput, NumberInput, BooleanInput, PasswordInput, AutocompleteArrayI
 import { useRecordContext } from 'react-admin';
 
 
+// Returns a combined div containing the record's color value and a colored bar under the text
+const ColorField = ( pSource ) =>
+{
+  // Get the prop's parent record
+  const record = useRecordContext( pSource );
+  const lColor = record && record.color || ''; // Set color to empty if record is null
+  return (
+    <div>
+      <span style={{display:'block',minWidth:'65px'}}>{lColor}</span>
+      <div style={{display:'block',height:'8px',backgroundColor:lColor}}></div>
+    </div>
+  );
+};
+
+
+// Used for role field and input
 const choices = [
    { id: 'admin', role: 'admin' },
    { id: 'user', role:  'user' }
 ];
 
 
+// Return a <span> containing text converted from an array
 const RolesField = ( source ) =>
 {
+  // Get the prop's parent record
   const record = useRecordContext( source );
-  // record && console.log( record.roles );
   return record ? <span>{ Object.values( record.roles ).join(',') }</span> : null;
 };
 
@@ -28,7 +45,7 @@ export const TeacherList = () => (
       <TextField source="initials" />
       <TextField source="phone" />
       <TextField source="email" />
-      <TextField source="color" />
+      <ColorField source="color" />
       <RolesField source="roles" />
       <BooleanField source="hide" looseValue={true} />
       <EditButton />
@@ -41,7 +58,12 @@ const validateEditForm = (values) =>
 {
   const errors = {};
   if (!values.email) {
-      errors.email = 'Email is required';
+      // errors.email = 'Email is required';
+      errors.email = 'ra.validation.required';
+  }
+  if (!values.color) {
+      // You can return translation keys
+      errors.color = 'ra.validation.required';
   }
   return errors;
 }
@@ -56,8 +78,8 @@ export const TeacherEdit = () => (
       <TextInput source="initials" />
       <TextInput source="phone" />
       <TextInput source="email" />
-      <TextInput source="color" />
-      <AutocompleteArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
+      <TextInput source="color" type="color" sx={{minWidth:75}}/>
+      <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
       <BooleanInput source="hide" defaultChecked={false} />
     </SimpleForm>
   </Edit>
@@ -68,11 +90,16 @@ const validateCreateForm = (values) =>
 {
   const errors = {};
   if (!values.email) {
-      errors.email = 'Email is required';
+      // errors.email = 'Email is required';
+      errors.email = 'ra.validation.required';
   }
   if (!values.password) {
       // You can return translation keys
       errors.password = 'ra.validation.required';
+  }
+  if (!values.color) {
+      // You can return translation keys
+      errors.color = 'ra.validation.required';
   }
   return errors;
 }
@@ -83,7 +110,8 @@ export const TeacherCreate = () => (
     <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
       <TextInput source="email" inputProps={{ autocomplete: 'off' }} defaultValue={""} />
       <PasswordInput source="password" inputProps={{ autocomplete: 'new-password' }} defaultValue={""} />
-      {/* <AutocompleteArrayInput source="roles" choices={choices} optionValue="role" optionText="role" /> */}
+      <TextInput source="color" type="color" sx={{minWidth:75}} defaultValue="#888888"/>
+      {/* <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" /> */}
     </SimpleForm>
   </Create>
 );
