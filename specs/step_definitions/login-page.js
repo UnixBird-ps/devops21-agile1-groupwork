@@ -6,11 +6,12 @@ Given(
   {
     cy.visit( 'http://localhost:7666' );
     cy.get( 'form[id="login"]' ).should( 'exist' );
-    cy.get( 'form[id="login"]' ).contains( 'Email' );
-    cy.get( 'form[id="login"]' ).contains( 'Password' );
-    cy.get( 'form[id="login"]' ).contains( 'Login' );
+    cy.get( 'form[id="login"]' ).should( 'contain', 'Email' );
+    cy.get( 'form[id="login"]' ).should( 'contain', 'Password' );
+    cy.get( 'form[id="login"]' ).should( 'contain', 'Login' );
     cy.get( 'input[id="email"]' ).should( 'exist' );
     cy.get( 'input[id="password"]' ).should( 'exist' );
+    cy.get( 'input[type="submit"]' ).should( 'exist' );
   }
 );
 
@@ -43,6 +44,7 @@ Then(
   () =>
   {
     cy.get( 'form[id="login"]' ).should( 'exist' );
+    cy.get( 'table[class="big"]' ).should( 'not.exist' );
   }
 );
 
@@ -52,5 +54,6 @@ Then(
   () =>
   {
     cy.get( 'form[id="login"]' ).should( 'not.exist' );
+    cy.get( 'table[class="big"]' ).should( 'exist' );
   }
 );
