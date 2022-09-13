@@ -80,7 +80,7 @@ export const CourseCreate = () => (
       <ReferenceInput source="class" reference="classes">
         <SelectInput optionText="name" />
       </ReferenceInput>
-      <NumberInput source="points" />
+      <NumberInput source="points" min={0} />
       <DateInput source="startDate" />
       <DateInput source="endDate" />
       <TextInput source="plan" />

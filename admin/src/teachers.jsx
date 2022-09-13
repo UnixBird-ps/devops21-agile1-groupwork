@@ -73,13 +73,13 @@ export const TeacherEdit = () => (
   <Edit title="Edit Teacher">
     <SimpleForm warnWhenUnsavedChanges validate={validateEditForm}>
       <NumberInput disabled source="id" />
+      <TextInput source="email" />
+      <TextInput source="color" type="color" sx={{minWidth:75}}/>
+      <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
       <TextInput source="firstname" />
       <TextInput source="lastname" />
       <TextInput source="initials" />
       <TextInput source="phone" />
-      <TextInput source="email" />
-      <TextInput source="color" type="color" sx={{minWidth:75}}/>
-      <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
       <BooleanInput source="hide" defaultChecked={false} />
     </SimpleForm>
   </Edit>
@@ -90,15 +90,12 @@ const validateCreateForm = (values) =>
 {
   const errors = {};
   if (!values.email) {
-      // errors.email = 'Email is required';
       errors.email = 'ra.validation.required';
   }
   if (!values.password) {
-      // You can return translation keys
       errors.password = 'ra.validation.required';
   }
   if (!values.color) {
-      // You can return translation keys
       errors.color = 'ra.validation.required';
   }
   return errors;
@@ -111,7 +108,12 @@ export const TeacherCreate = () => (
       <TextInput source="email" inputProps={{ autocomplete: 'off' }} defaultValue={""} />
       <PasswordInput source="password" inputProps={{ autocomplete: 'new-password' }} defaultValue={""} />
       <TextInput source="color" type="color" sx={{minWidth:75}} defaultValue="#888888"/>
-      {/* <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" /> */}
+      <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
+      <TextInput source="firstname" />
+      <TextInput source="lastname" />
+      <TextInput source="initials" />
+      <TextInput source="phone" />
+      <BooleanInput source="hide" defaultChecked={false} />
     </SimpleForm>
   </Create>
 );

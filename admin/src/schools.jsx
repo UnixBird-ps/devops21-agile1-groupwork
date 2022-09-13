@@ -4,11 +4,10 @@ import { Datagrid, SimpleForm, List, Edit, Create, EditButton, TextField, TextIn
 const validateCreateForm = (values) =>
 {
   const errors = {};
-  if (!values.name) {
-      errors.name = 'Name is required';
-  }
+  // if (!values.name) {
+  //     errors.name = 'ra.validation.required';
+  // }
   if (!values.shortName) {
-      // You can return translation keys
       errors.shortName = 'ra.validation.required';
   }
   return errors;

@@ -10,16 +10,19 @@ module.exports = function(server, db)
     '/data/classes',
     function postClass(request, response)
     {
-      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
+      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ) );
       let sql = "INSERT INTO classes";
+      // sql += ' (' + Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ).map( entry => entry[ 0 ] ) + ')';
+      // sql += ' VALUES(' + Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ).map( entry => `@${entry[ 0 ]}` ) + ')';
       sql += ' (' + Object.keys( record ).map( key => key ) + ')';
       sql += ' VALUES(' + Object.keys( record ).map( key => `@${key}` ) + ')';
-      // console.log( 'before:\n', record );
+      console.log( 'before:\n', record );
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
-      // console.log( 'after:\n', record );
-      // console.log( sql );
+      console.log( 'after:\n', record );
+      console.log( sql );
       let result;
       try
       {
