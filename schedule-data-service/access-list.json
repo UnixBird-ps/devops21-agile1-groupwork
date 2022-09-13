@@ -1,5 +1,4 @@
 [
-
   {
     "route": "/data",
     "roles":[
@@ -117,7 +116,7 @@
   {
     "route": "/data/invoice_items*",
     "roles":[
-      {"role": "admin", "methods": ["GET","POST"]}
+      {"role": "admin", "methods": ["GET","PUT","POST","DELETE"]}
     ]
   }
 
