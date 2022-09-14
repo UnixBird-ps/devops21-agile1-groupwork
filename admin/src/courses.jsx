@@ -1,6 +1,10 @@
 import { List, Datagrid, SimpleForm, Edit, Create, } from 'react-admin';
 import { ReferenceField, TextField, NumberField, BooleanField } from 'react-admin';
 import { EditButton, ReferenceInput, AutocompleteInput, TextInput, NumberInput, DateInput, BooleanInput, SelectInput } from 'react-admin';
+import { Box } from '@mui/material';
+
+
+const Separator = () => <Box pt="1em" />;
 
 
 const validateCreateForm = (values) =>
@@ -13,14 +17,14 @@ const validateCreateForm = (values) =>
       // You can return translation keys
       errors.shortName = 'ra.validation.required';
   }
-  if (!values.class) {
-      // You can return translation keys
-      errors.class = 'ra.validation.required';
-  }
-  if (!values.invoiceItem) {
-      // You can return translation keys
-      errors.invoiceItem = 'ra.validation.required';
-  }
+  // if (!values.class) {
+  //     // You can return translation keys
+  //     errors.class = 'ra.validation.required';
+  // }
+  // if (!values.invoiceItem) {
+  //     // You can return translation keys
+  //     errors.invoiceItem = 'ra.validation.required';
+  // }
   return errors;
 }
 
@@ -51,21 +55,33 @@ export const CourseList = () => (
 
 export const CourseEdit = () => (
   <Edit title="Edit Course">
-    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm} sx={{ maxWidth: 500 }}>
       <NumberInput disabled source="id" />
-      <TextInput source="name" />
-      <TextInput source="shortName" />
+      <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+        <Box flex={3} mr={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="name" fullWidth />
+        </Box>
+        <Box flex={1} ml={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="shortName" fullWidth />
+        </Box>
+      </Box>
       <ReferenceInput source="class" reference="classes">
-        <SelectInput optionText="name" />
+        <SelectInput optionText="name" fullWidth />
       </ReferenceInput>
       <NumberInput source="points" />
-      <DateInput source="startDate" />
-      <DateInput source="endDate" />
+      <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+        <Box flex={1.75} mr={{ xs: 0, sm: '0.5em' }}>
+          <DateInput source="startDate" sx={{minWidth:150}} />
+        </Box>
+        <Box flex={1.75} ml={{ xs: 0, sm: '0.5em' }}>
+          <DateInput source="endDate" sx={{minWidth:150}} />
+        </Box>
+      </Box>
+      <NumberInput source="hoursPerDay" defaultValue={0} min={0} max={8} step={0.5} sx={{minWidth:150}}/>
       <TextInput source="plan" />
       <ReferenceInput source="invoiceItem" reference="invoice_items">
-        <SelectInput optionText="title" />
+        <SelectInput optionText="title" sx={{minWidth:200}} />
       </ReferenceInput>
-      <NumberInput source="hoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
       <BooleanInput source="hide" defaultValue={false} />
     </SimpleForm>
   </Edit>
@@ -74,20 +90,32 @@ export const CourseEdit = () => (
 
 export const CourseCreate = () => (
   <Create title="Register New Course">
-    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
-      <TextInput source="name" />
-      <TextInput source="shortName" />
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm} sx={{ maxWidth: 500 }}>
+      <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+        <Box flex={3} mr={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="name" fullWidth />
+        </Box>
+        <Box flex={1} ml={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="shortName" fullWidth />
+        </Box>
+      </Box>
       <ReferenceInput source="class" reference="classes">
-        <SelectInput optionText="name" />
+        <SelectInput optionText="name" fullWidth />
       </ReferenceInput>
       <NumberInput source="points" />
-      <DateInput source="startDate" />
-      <DateInput source="endDate" />
+      <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+        <Box flex={1.75} mr={{ xs: 0, sm: '0.5em' }}>
+          <DateInput source="startDate" sx={{minWidth:150}} />
+        </Box>
+        <Box flex={1.75} ml={{ xs: 0, sm: '0.5em' }}>
+          <DateInput source="endDate" sx={{minWidth:150}} />
+        </Box>
+      </Box>
+      <NumberInput source="hoursPerDay" defaultValue={0} min={0} max={8} step={0.5} sx={{minWidth:150}}/>
       <TextInput source="plan" />
       <ReferenceInput source="invoiceItem" reference="invoice_items">
-        <SelectInput optionText="title" />
+        <SelectInput optionText="title" sx={{minWidth:200}} />
       </ReferenceInput>
-      <NumberInput source="hoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
       <BooleanInput source="hide" defaultValue={false} />
     </SimpleForm>
   </Create>

@@ -29,7 +29,7 @@
       "enabled": true
     },
     "stepDefinitions": [
-      "/specs/tests/step_definitions/*.js"
+      "/specs/step_definitions/*.js"
     ]
   }
 }
