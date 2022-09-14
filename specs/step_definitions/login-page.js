@@ -1,5 +1,6 @@
 import { Given, When, And, Then } from "@badeball/cypress-cucumber-preprocessor";
 
+
 Given(
   /^Jag är på inloggningssidan$/,
   () =>
@@ -15,6 +16,7 @@ Given(
   }
 );
 
+
 When(
   /^Matar in "([^"]*)" i textrutan #email$/,
   ( emailStr ) =>
@@ -22,6 +24,7 @@ When(
     cy.get( 'input[id="email"]' ).type( emailStr );
   }
 );
+
 
 And( 
   /^Matar in "([^"]*)" i textrutan #password$/,
@@ -31,6 +34,7 @@ And(
   }
 );
 
+
 And( 
   /^Klickar på knappen 'Login'$/,
   () =>
@@ -38,6 +42,7 @@ And(
     cy.get( 'form[id="login"]' ).submit();
   }
 );
+
 
 Then( 
   /^Sidan har inte laddat om, jag är fortfarande på inloggningssidan$/,
