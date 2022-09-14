@@ -1,25 +1,23 @@
 import { required, Datagrid, SimpleForm, List, Edit, Create } from 'react-admin';
-import { EditButton, ReferenceField, ReferenceInput, TextField, BooleanField, AutocompleteInput, TextInput, NumberInput, BooleanInput, TimeInput, SelectInput } from 'react-admin';
+import { EditButton, ReferenceField, ReferenceInput, TextField, BooleanField, TextInput, NumberInput, BooleanInput, TimeInput, SelectInput } from 'react-admin';
+import { Box } from '@mui/material';
+
+
+const Separator = () => <Box pt="1em" />;
 
 
 const validateCreateForm = (values) =>
 {
   const errors = {};
-  if (!values.name) {
-      errors.name = 'Name is required';
-  }
+  // if (!values.name) {
+  //     errors.shortName = 'ra.validation.required';
+  // }
   if (!values.shortName) {
-      // You can return translation keys
       errors.shortName = 'ra.validation.required';
   }
-  if (!values.school) {
-      // errors.school = 'School is required';
-      errors.school = 'ra.validation.required';
-  }
-  if (!values.defaultInvoiceItem) {
-      // errors.defaultInvoiceItem = 'Default invoice item is required';
-      errors.defaultInvoiceItem = 'ra.validation.required';
-  }
+  // if (!values.school) {
+  //     errors.school = 'ra.validation.required';
+  // }
   return errors;
 }
 
@@ -32,35 +30,8 @@ const stripFromTime = ( timeString ) =>
   // console.log( timeString );
   timeString = timeString.includes('.') ? timeString.split( '.' )[0] : timeString;
   // console.log( timeString );
-  // let timeStringArr = timeString.split( ':' );
-  // console.log( timeStringArr );
-  // if ( timeStringArr.length > 2 ) timeStringArr.splice( -1 );
-  // console.log( timeStringArr );
-  // timeString = timeStringArr.join();
-  // console.log( timeString );
   return timeString;
 }
-
-
-// const postFilters = [
-//   <TextInput source="q" label="Search" alwaysOn />,
-//   <ReferenceInput source="userId" label="User" reference="users">
-//     <SelectInput optionText="name" />
-//   </ReferenceInput>,
-// ];
-
-// export const PostList = () => (
-//   <List filters={postFilters}>
-//     <Datagrid rowClick="edit">
-//       <TextField source="id" />
-//       <ReferenceField source="userId" reference="users">
-//         <TextField source="name" />
-//       </ReferenceField>
-//       <TextField source="title" />
-//       <EditButton />
-//     </Datagrid>
-//   </List>
-// );
 
 
 // <List bulkActionButtons={false}>
@@ -88,22 +59,34 @@ export const ClassList = () => (
 
 export const ClassEdit = () => (
   <Edit title="Edit Class">
-    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm} sx={{ maxWidth: 500 }}>
       <NumberInput disabled source="id" />
-      <TextInput source="name" />
-      <TextInput source="shortName" />
-      <ReferenceInput source="school" reference="schools">
-        <SelectInput optionText="name" />
+      <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+        <Box flex={3} mr={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="name" emptyValue={null} fullWidth/>
+        </Box>
+        <Box flex={1} ml={{ xs: 0, sm: '0.5em' }} fullWidth>
+          <TextInput source="shortName" />
+        </Box>
+      </Box>
+      <TextInput source="blog" emptyValue={null} fullWidth />
+      <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+        <Box flex={1.5} mr={{ xs: 0, sm: '0.5em' }}>
+          <TimeInput source="defaultStartTime" parse={stripFromTime} sx={{minWidth:150}} />
+        </Box>
+        <Box flex={1.5} ml={{ xs: 0, sm: '0.5em' }}>
+          <TimeInput source="defaultEndTime" parse={stripFromTime} sx={{minWidth:150}} />
+        </Box>
+      </Box>
+      <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5} sx={{minWidth:150}}/>
+      <Separator />
+      <ReferenceInput source="defaultInvoiceItem" reference="invoice_items" emptyValue={null}>
+        <SelectInput optionValue="id" optionText="title" sx={{minWidth:200}} />
       </ReferenceInput>
-      <TextInput source="blog" />
-      <TimeInput source="defaultStartTime" parse={stripFromTime} />
-      <TimeInput source="defaultEndTime" parse={stripFromTime} />
-      <ReferenceInput source="defaultInvoiceItem" reference="invoice_items">
-        <SelectInput optionText="title" />
+      <ReferenceInput source="school" reference="schools" emptyValue={null}>
+        <SelectInput optionText="name" fullWidth />
       </ReferenceInput>
-      <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
-      <BooleanInput source="hide" defaultValue={false} />
-
+      <BooleanInput source="hide" emptyValue={null} />
     </SimpleForm>
   </Edit>
 );
@@ -111,20 +94,33 @@ export const ClassEdit = () => (
 
 export const ClassCreate = () => (
   <Create title="Register New Class">
-    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
-      <TextInput source="name" />
-      <TextInput source="shortName" />
-      <ReferenceInput source="school" reference="schools">
-        <SelectInput optionText="name" />
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm} sx={{ maxWidth: 500 }}>
+      <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+        <Box flex={3} mr={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="name" emptyValue={null} fullWidth/>
+        </Box>
+        <Box flex={1} ml={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="shortName" fullWidth />
+        </Box>
+      </Box>
+      <TextInput source="blog" emptyValue={null} fullWidth />
+      <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+        <Box flex={1.5} mr={{ xs: 0, sm: '0.5em' }}>
+          <TimeInput source="defaultStartTime" parse={stripFromTime} sx={{minWidth:150}} />
+        </Box>
+        <Box flex={1.5} ml={{ xs: 0, sm: '0.5em' }}>
+          <TimeInput source="defaultEndTime" parse={stripFromTime} sx={{minWidth:150}} />
+        </Box>
+      </Box>
+      <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5} sx={{minWidth:150}}/>
+      <Separator />
+      <ReferenceInput source="defaultInvoiceItem" reference="invoice_items" emptyValue={null}>
+        <SelectInput optionValue="id" optionText="title" sx={{minWidth:200}} />
       </ReferenceInput>
-      <TextInput source="blog" defaultValue="" />
-      <TimeInput source="defaultStartTime" parse={stripFromTime} />
-      <TimeInput source="defaultEndTime" parse={stripFromTime} />
-      <ReferenceInput source="defaultInvoiceItem" reference="invoice_items">
-        <SelectInput optionText="title" />
+      <ReferenceInput source="school" reference="schools" emptyValue={null}>
+        <SelectInput optionText="name" fullWidth />
       </ReferenceInput>
-      <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5}/>
-      <BooleanInput source="hide" defaultValue={false} />
+      <BooleanInput source="hide" emptyValue={null} />
     </SimpleForm>
   </Create>
 );
