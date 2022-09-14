@@ -12,9 +12,10 @@ module.exports = function(server, db)
     '/data/teachers',
     function postTeacher(request, response)
     {
-      debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
-      console.log( 'before:\n', record );
+      // console.log( 'before:\n', record );
+      // Remove props with nulls and empty strings, let DB decide the value
       record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ) );
       let sql = 'INSERT INTO teachers';
       sql += ' (' + Object.keys( record ).map( key => key ) + ')';
@@ -28,8 +29,8 @@ module.exports = function(server, db)
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
       record.password = encrypt( record.password );
-      console.log( 'after:\n', record );
-      console.log( sql );
+      // console.log( 'after:\n', record );
+      // console.log( sql );
       let result;
       try
       {
@@ -72,9 +73,10 @@ module.exports = function(server, db)
     '/data/teachers/:id',
     function putTeacher(request, response)
     {
-      debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
-      console.log( 'before:\n', record );
+      // console.log( 'before:\n', record );
+      // Remove props with nulls and empty strings, let DB decide the value
       record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ) );
       let sql = "UPDATE teachers SET ";
       // Remove the id prop because we don't want to update it
@@ -88,8 +90,8 @@ module.exports = function(server, db)
       }
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
-      console.log( 'after:\n', record );
-      console.log( sql );
+      // console.log( 'after:\n', record );
+      // console.log( sql );
       const stmt = db.prepare( sql );
       let result = stmt.run( record );
       response.json(result)

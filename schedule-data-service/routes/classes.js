@@ -13,6 +13,7 @@ module.exports = function(server, db)
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
       // console.log( 'before:\n', record );
+      // Remove props with nulls and empty strings, let DB decide the value
       record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ) );
       let sql = "INSERT INTO classes";
       // sql += ' (' + Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ).map( entry => entry[ 0 ] ) + ')';
@@ -43,9 +44,10 @@ module.exports = function(server, db)
     '/data/classes/:id',
     function putClass(request, response)
     {
-      debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
-      console.log( 'before:\n', record );
+      // console.log( 'before:\n', record );
+      // Remove props with nulls and empty strings, let DB decide the value
       record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' && ( entry[1] == true || entry[1] == false ) ) );
       let sql = "UPDATE classes SET ";
       // Remove the id prop because we don't want to update it
@@ -53,8 +55,8 @@ module.exports = function(server, db)
       sql += " WHERE id=:id";
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = record.hide ? 1 : 0;
-      console.log( 'after:\n', record );
-      console.log( sql );
+      // console.log( 'after:\n', record );
+      // console.log( sql );
       let result;
       try
       {

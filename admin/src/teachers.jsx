@@ -1,7 +1,11 @@
 import { Datagrid, SimpleForm, List, EditButton, Edit, Create } from 'react-admin';
-import { TextField, BooleanField, ArrayField, SingleFieldList } from 'react-admin';
-import { TextInput, NumberInput, BooleanInput, PasswordInput, AutocompleteArrayInput, SelectArrayInput, ArrayInput, ChipField, SimpleFormIterator } from 'react-admin';
+import { TextField, BooleanField } from 'react-admin';
+import { TextInput, BooleanInput, PasswordInput, SelectArrayInput } from 'react-admin';
 import { useRecordContext } from 'react-admin';
+import { Box } from '@mui/material';
+
+
+const Separator = () => <Box pt="1em" />;
 
 
 // Returns a combined div containing the record's color value and a colored bar under the text
@@ -71,15 +75,24 @@ const validateEditForm = (values) =>
 
 export const TeacherEdit = () => (
   <Edit title="Edit Teacher">
-    <SimpleForm warnWhenUnsavedChanges validate={validateEditForm}>
-      <NumberInput disabled source="id" />
-      <TextInput source="email" />
-      <TextInput source="color" type="color" sx={{minWidth:75}}/>
-      <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
-      <TextInput source="firstname" />
-      <TextInput source="lastname" />
-      <TextInput source="initials" />
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm} sx={{ maxWidth: 500 }}>
+      <TextInput source="email" inputProps={{ autocomplete: 'off' }} defaultValue={""} fullWidth />
+      <Separator />
+      <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+        <Box flex={1.75} mr={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="firstname" fullWidth />
+        </Box>
+        <Box flex={1.75} ml={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="lastname" fullWidth />
+        </Box>
+        <Box flex={0.75} ml={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="initials" />
+        </Box>
+      </Box>
       <TextInput source="phone" />
+      <Separator />
+      <TextInput source="color" type="color" sx={{minWidth:75}} defaultValue="#888888"/>
+      <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
       <BooleanInput source="hide" defaultChecked={false} />
     </SimpleForm>
   </Edit>
@@ -104,15 +117,25 @@ const validateCreateForm = (values) =>
 
 export const TeacherCreate = () => (
   <Create title="Register New Teacher">
-    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm}>
-      <TextInput source="email" inputProps={{ autocomplete: 'off' }} defaultValue={""} />
-      <PasswordInput source="password" inputProps={{ autocomplete: 'new-password' }} defaultValue={""} />
+    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm} sx={{ maxWidth: 500 }}>
+      <TextInput source="email" inputProps={{ autocomplete: 'off' }} defaultValue={""} fullWidth />
+      <PasswordInput source="password" inputProps={{ autocomplete: 'new-password' }} defaultValue={""} fullWidth />
+      <Separator />
+      <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>
+        <Box flex={1.75} mr={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="firstname" fullWidth />
+        </Box>
+        <Box flex={1.75} ml={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="lastname" fullWidth />
+        </Box>
+        <Box flex={0.75} ml={{ xs: 0, sm: '0.5em' }}>
+          <TextInput source="initials" />
+        </Box>
+      </Box>
+      <TextInput source="phone" />
+      <Separator />
       <TextInput source="color" type="color" sx={{minWidth:75}} defaultValue="#888888"/>
       <SelectArrayInput source="roles" choices={choices} optionValue="role" optionText="role" />
-      <TextInput source="firstname" />
-      <TextInput source="lastname" />
-      <TextInput source="initials" />
-      <TextInput source="phone" />
       <BooleanInput source="hide" defaultChecked={false} />
     </SimpleForm>
   </Create>
