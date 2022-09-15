@@ -5,9 +5,10 @@ Feature: Administratörsgränssnitt
 
   Scenario: going to create teacher page
 
-    Given i am on the teachers page
-    When i click on create #create
-    Then the create teacher page open #http://localhost:7666/admin/#/teachers/create
+    Given i am on the login page 
+    When i enter my email '' in the window #email
+    And i enter my password '123123' in the window #password
+    Then 
 
   Scenario: Create teachers
   Som admin vill jag via användargränssnittet kunna lägga till en lärare med uppgifter om lärarens 
