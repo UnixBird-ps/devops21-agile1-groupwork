@@ -1,19 +1,22 @@
 import { Given, When, And, Then } from "@badeball/cypress-cucumber-preprocessor";
-import { adminEmailStr, adminPwStr } from './user-creds.js';
+import { gAdminEmailStr, gAdminPwStr } from './user-creds.js';
 
 
-let tableName = 'schools';
-let timeUnixEPOCms = Date.now().toString();
+let gTableName = 'schools';
+let gTimeUnixEPOCms = Date.now().toString();
+let gNameStr = '';
+let gShortNameStr = '';
 
 
-function login( pUsernameStr, pPwStr )
+function login()
 {
-  cy.request( 'POST', '/data/login', { email : pUsernameStr, password : pPwStr } )
+  cy.request( 'POST', '/data/login', { email : gAdminEmailStr, password : gAdminPwStr } )
   .then(
     ( pResponse ) =>
     {
       expect( pResponse.status ).to.be.equal( 200 );
-      expect( pResponse.body ).to.have.property( 'loggedIn', true );
+      expect( pResponse.body ).to.have.property( 'loggedIn' );
+      expect( pResponse.body.loggedIn ).to.be.equal( true );
     }
   );
 
@@ -30,10 +33,10 @@ Given(
   /^Jag är inloggad som administratör och ser listan med skolor$/,
   () =>
   {
-    login( adminEmailStr, adminPwStr );
-    cy.visit( `/admin/#/${tableName}` );
+    login();
+    cy.visit( `/admin/#/${gTableName}` );
 
-    cy.url().should( 'contain', `/admin/#/${tableName}` )
+    cy.url().should( 'contain', `/admin/#/${gTableName}` )
     cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=id]' ).should( 'exist' );
     cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=name]' ).should( 'exist' );
     cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=shortName]' ).should( 'exist' );
@@ -45,7 +48,7 @@ When(
 /^Klickar på länken 'Create'$/,
   () =>
   {
-    cy.get( `div[class~="MuiToolbar-root"] a[href="#/${tableName}/create"]` ).click();
+    cy.get( `div[class~="MuiToolbar-root"] a[href="#/${gTableName}/create"]` ).click();
   }
 );
 
@@ -68,9 +71,9 @@ Given(
   /^Jag ser ett tomt formulär där jag kan mata in uppgifter om en skola$/,
   () =>
   {
-    login( adminEmailStr, adminPwStr );
-    cy.visit( `/admin/#/${tableName}` );
-    cy.get( `div[class~="MuiToolbar-root"] a[href="#/${tableName}/create"]` ).click();
+    login();
+    cy.visit( `/admin/#/${gTableName}` );
+    cy.get( `div[class~="MuiToolbar-root"] a[href="#/${gTableName}/create"]` ).click();
     cy.get( 'div[class~="RaCreate-main"] form' ).should( 'exist' );
     cy.get( 'div[class~="RaCreate-main"] form input[id="name"]' ).should( 'exist' );
     cy.get( 'div[class~="RaCreate-main"] form input[id="name"]' ).should( 'be.empty' );
@@ -82,19 +85,21 @@ Given(
 
 
 When(
-  /^Matar in "mock.<slumpgenererat-nummer>".'([^"]*)' i rutan #name$/,
+  /^Matar in "mock.<slumpgenererat-nummer>.'([^"]*)'" i rutan #name$/,
   ( pNameStr ) =>
   {
-    cy.get( 'div[class~="RaCreate-main"] form input[id="name"]' ).type( `mock.${timeUnixEPOCms}.${pNameStr}` );
+    cy.get( 'div[class~="RaCreate-main"] form input[id="name"]' ).type( `mock.${gTimeUnixEPOCms}.${pNameStr}` );
+    gNameStr = pNameStr;
   }
 );
 
 
 And( 
-  /^Matar in "mock.<slumpgenererat-nummer>".'([^"]*)' i rutan #shortName$/,
+  /^Matar in "mock.<slumpgenererat-nummer>.'([^"]*)'" i rutan #shortName$/,
   ( pShortNameStr ) =>
   {
-    cy.get( 'div[class~="RaCreate-main"] form input[id="shortName"]' ).type( `mock.${timeUnixEPOCms}.${pShortNameStr}` );
+    cy.get( 'div[class~="RaCreate-main"] form input[id="shortName"]' ).type( `mock.${gTimeUnixEPOCms}.${pShortNameStr}` );
+    gShortNameStr = pShortNameStr;
   }
 );
 
@@ -113,7 +118,7 @@ Then(
   () =>
   {
     cy.get( 'div[class~="RaCreate-main"] button[type="submit"]' ).should( 'not.exist' );
-    cy.get( 'div[class~="MuiToolbar-root"] a[href="#/schools/create"]' ).should( 'exist' );
+    cy.get( `div[class~="MuiToolbar-root"] a[href="#/${gTableName}/create"]` ).should( 'exist' );
     cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=id]' ).should( 'exist' );
     cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=name]' ).should( 'exist' );
     cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=shortName]' ).should( 'exist' );
@@ -125,8 +130,24 @@ Given(
   /^Jag ser skollistan sorterad på id och skolan jag precis registrerat på första raden$/,
   () =>
   {
-    login( adminEmailStr, adminPwStr );
-    cy.visit( `/admin/#/${tableName}?sort=id&order=DESC` );
+    login();
+    cy.visit( `/admin/#/${gTableName}?sort=id&order=DESC` );
+    cy.get( 'table[class~=RaDatagrid-table] tbody tr:first td:nth-child(3) span' )
+    .invoke( 'text' )
+    .then(
+      ( text ) =>
+      {
+        expect( text ).to.be.equal( `mock.${gTimeUnixEPOCms}.${gNameStr}` );
+      }
+    );
+    cy.get( 'table[class~=RaDatagrid-table] tbody tr:first td:nth-child(4) span' )
+    .invoke( 'text' )
+    .then(
+      ( text ) =>
+      {
+        expect( text ).to.be.equal( `mock.${gTimeUnixEPOCms}.${gShortNameStr}` );
+      }
+    );
   }
 );
 
@@ -144,8 +165,9 @@ Then(
   /^Skolans uppgifter visas nu i formulärform$/,
   () =>
   {
-    cy.get( 'div[class~="RaEdit-main"] form button[type="submit"]' ).should( 'exist' );
-    cy.get( 'div[class~="RaEdit-main"] form button[type="submit"]' ).should( 'be.disabled' );
+    cy.get( 'div[class~="RaEdit-main"] form button[type="submit"]' )
+    .should( 'exist' )
+    .should( 'be.disabled' );
     cy.get( 'div[class~="RaEdit-main"] form input[id="name"]' ).should( 'exist' );
     cy.get( 'div[class~="RaEdit-main"] form input[id="shortName"]' ).should( 'exist' );
   }
@@ -153,40 +175,40 @@ Then(
 
 
 And(
-  /^Ser att "mock.<slumpgenererat-nummer>".'([^"]*)' står i rutan #name$/,
+  /^Ser att "mock.<slumpgenererat-nummer>.'([^"]*)'" står i rutan #name$/,
   ( pNameStr ) =>
   {
-    cy.get( 'div[class~="RaEdit-main"] form input[id="name"]' ).should( 'have.value', `mock.${timeUnixEPOCms}.${pNameStr}` );
+    cy.get( 'div[class~="RaEdit-main"] form input[id="name"]' ).should( 'have.value', `mock.${gTimeUnixEPOCms}.${pNameStr}` );
   }
 );
 
 
 And(
-  /^Ser att "mock.<slumpgenererat-nummer>".'([^"]*)' står i rutan #shortName$/,
+  /^Ser att "mock.<slumpgenererat-nummer>.'([^"]*)'" står i rutan #shortName$/,
   ( pShortNameStr ) =>
   {
-    cy.get( 'div[class~="RaEdit-main"] form input[id="shortName"]' ).should( 'have.value', `mock.${timeUnixEPOCms}.${pShortNameStr}` );
+    cy.get( 'div[class~="RaEdit-main"] form input[id="shortName"]' ).should( 'have.value', `mock.${gTimeUnixEPOCms}.${pShortNameStr}` );
   }
 );
 
 
 Given(
-  /^"mock.<slumpgenererat-nummer>".'([^"]*)' står i rutan #name$/,
+  /^"mock.<slumpgenererat-nummer>.'([^"]*)'" står i rutan #name$/,
   ( pNameStr ) =>
   {
-    login( adminEmailStr, adminPwStr );
-    cy.visit( `/admin/#/${tableName}?sort=id&order=DESC` );
+    login();
+    cy.visit( `/admin/#/${gTableName}?sort=id&order=DESC` );
     cy.get( `table[class~=RaDatagrid-table] tbody tr:first td:last a`).click();
-    cy.get( 'div[class~="RaEdit-main"] input[id="name"]' ).should( 'have.value', `mock.${timeUnixEPOCms}.${pNameStr}` );
+    cy.get( 'div[class~="RaEdit-main"] input[id="name"]' ).should( 'have.value', `mock.${gTimeUnixEPOCms}.${pNameStr}` );
   }
 );
 
 
 And(
-  /^"mock.<slumpgenererat-nummer>".'([^"]*)' står i rutan #shortName$/,
+  /^"mock.<slumpgenererat-nummer>.'([^"]*)'" står i rutan #shortName$/,
   ( pShortNameStr ) =>
   {
-    cy.get( 'div[class~="RaEdit-main"] form input[id="shortName"]' ).should( 'have.value', `mock.${timeUnixEPOCms}.${pShortNameStr}` );
+    cy.get( 'div[class~="RaEdit-main"] form input[id="shortName"]' ).should( 'have.value', `mock.${gTimeUnixEPOCms}.${pShortNameStr}` );
   }
 );
 
@@ -235,13 +257,37 @@ And(
 
 
 Then(
-  /^Ser listan med skolor igen, ser att uppgifter är ändrade$/,
+  /^Ser listan igen och uppgifter jag precis redigerat på första raden$/,
   () =>
   {
-    cy.visit( `/admin/#/${tableName}?sort=id&order=DESC` );
-    cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=id]' ).should( 'exist' );
-    cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=name]' ).should( 'exist' );
-    cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=shortName]' ).should( 'exist' );
+    cy.visit( `/admin/#/${gTableName}?sort=id&order=DESC` );
+    cy.get( 'table[class~=RaDatagrid-table] thead tr span[data-field=id]' ).should( 'exist' );
+    cy.get( 'table[class~=RaDatagrid-table] thead tr span[data-field=name]' ).should( 'exist' );
+    cy.get( 'table[class~=RaDatagrid-table] thead tr span[data-field=shortName]' ).should( 'exist' );
+  }
+);
+
+
+And(
+  /^Ser att '([^"]*)' har lagts till i #name och #shortName$/,
+  ( pModStr ) =>
+  {
+    cy.get( 'table[class~=RaDatagrid-table] tbody tr:first td:nth-child(3) span' )
+    .invoke( 'text' )
+    .then(
+      ( text ) =>
+      {
+        expect( text ).to.be.equal( `${pModStr}mock.${gTimeUnixEPOCms}.${gNameStr}` );
+      }
+    );
+    cy.get( 'table[class~=RaDatagrid-table] tbody tr:first td:nth-child(4) span' )
+    .invoke( 'text' )
+    .then(
+      ( text ) =>
+      {
+        expect( text ).to.be.equal( `${pModStr}mock.${gTimeUnixEPOCms}.${gShortNameStr}` );
+      }
+    );
   }
 );
 

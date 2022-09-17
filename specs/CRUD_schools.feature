@@ -14,8 +14,8 @@ Feature: Administratörsgränssnitt/Skolor
   Som admin vill jag via användargränssnittet kunna lägga till en skola med uppgifter om skolans 
   name och shortName så att jag har rätt kunduppgifter.
     Given Jag ser ett tomt formulär där jag kan mata in uppgifter om en skola
-    When  Matar in "mock.<slumpgenererat-nummer>".'Lunds Tekniska Högskola' i rutan #name
-    And   Matar in "mock.<slumpgenererat-nummer>".'LTH' i rutan #shortName
+    When  Matar in "mock.<slumpgenererat-nummer>.'Lunds Tekniska Högskola'" i rutan #name
+    And   Matar in "mock.<slumpgenererat-nummer>.'LTH'" i rutan #shortName
     And   Klickar på knappen 'Save' i Create formuläret
     Then  Ser listan med skolor igen
 
@@ -26,22 +26,23 @@ Feature: Administratörsgränssnitt/Skolor
     Given Jag ser skollistan sorterad på id och skolan jag precis registrerat på första raden
     When  Klickar på länken 'Edit' på den raden
     Then  Skolans uppgifter visas nu i formulärform
-    And   Ser att "mock.<slumpgenererat-nummer>".'Lunds Tekniska Högskola' står i rutan #name
-    And   Ser att "mock.<slumpgenererat-nummer>".'LTH' står i rutan #shortName
+    And   Ser att "mock.<slumpgenererat-nummer>.'Lunds Tekniska Högskola'" står i rutan #name
+    And   Ser att "mock.<slumpgenererat-nummer>.'LTH'" står i rutan #shortName
 
 
-  Scenario: Updatera skola
+  Scenario: Uppdatera skola
   Som admin vill jag via användargränssnittet kunna ändra uppgifter för en skola som jag tidigare registrerat så att jag har rätt kunduppgifter
-    Given "mock.<slumpgenererat-nummer>".'Lunds Tekniska Högskola' står i rutan #name
-    And   "mock.<slumpgenererat-nummer>".'LTH' står i rutan #shortName
+    Given "mock.<slumpgenererat-nummer>.'Lunds Tekniska Högskola'" står i rutan #name
+    And   "mock.<slumpgenererat-nummer>.'LTH'" står i rutan #shortName
     When  Lägger till 'modded.' i början av skolans namn i rutan #name
     And   Lägger till 'modded.' i början av skolans kortnamn i rutan #shortName
     And   Klickar på knappen 'Save' i Edit formuläret
-    Then  Ser listan med skolor igen, ser att uppgifter är ändrade
-    # And   "modded.mock.<slumpgenererat-nummer>".'Lunds Tekniska Högskola' står nu som skolans namn
-    # And   "modded.mock.<slumpgenererat-nummer>".'LTH' står nu som skolans kortnamn
+    Then  Ser listan igen och uppgifter jag precis redigerat på första raden
+    And   Ser att 'modded.' har lagts till i #name och #shortName
 
 
-  # Scenario: Ta bort en skola i list
+  # Scenario: Ta bort en skola direkt i listan
   # Som admin vill jag via användargränssnittet kunna radera uppgifterna om 
   # skolans name och shortName så att jag har rätt kunduppgifter.
+
+  # Scenario: Ta bort en skola via formuläret
