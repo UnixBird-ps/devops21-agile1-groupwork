@@ -32,6 +32,7 @@ Given(
   {
     login( adminEmailStr, adminPwStr );
     cy.visit( `/admin/#/${tableName}` );
+
     cy.url().should( 'contain', `/admin/#/${tableName}` )
     cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=id]' ).should( 'exist' );
     cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=name]' ).should( 'exist' );
@@ -113,6 +114,9 @@ Then(
   {
     cy.get( 'div[class~="RaCreate-main"] button[type="submit"]' ).should( 'not.exist' );
     cy.get( 'div[class~="MuiToolbar-root"] a[href="#/schools/create"]' ).should( 'exist' );
+    cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=id]' ).should( 'exist' );
+    cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=name]' ).should( 'exist' );
+    cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=shortName]' ).should( 'exist' );
   }
 );
 
@@ -123,9 +127,6 @@ Given(
   {
     login( adminEmailStr, adminPwStr );
     cy.visit( `/admin/#/${tableName}?sort=id&order=DESC` );
-    cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=id]' ).should( 'exist' );
-    cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=name]' ).should( 'exist' );
-    cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=shortName]' ).should( 'exist' );
   }
 );
 
@@ -231,5 +232,18 @@ And(
     cy.get( 'div[class~="RaEdit-main"] form button[type="submit"]' ).click();
   }
 );
+
+
+Then(
+  /^Ser listan med skolor igen, ser att uppgifter är ändrade$/,
+  () =>
+  {
+    cy.visit( `/admin/#/${tableName}?sort=id&order=DESC` );
+    cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=id]' ).should( 'exist' );
+    cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=name]' ).should( 'exist' );
+    cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=shortName]' ).should( 'exist' );
+  }
+);
+
 /*
 */

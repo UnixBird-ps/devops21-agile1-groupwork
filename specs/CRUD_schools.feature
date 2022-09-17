@@ -37,7 +37,7 @@ Feature: Administratörsgränssnitt/Skolor
     When  Lägger till 'modded.' i början av skolans namn i rutan #name
     And   Lägger till 'modded.' i början av skolans kortnamn i rutan #shortName
     And   Klickar på knappen 'Save' i Edit formuläret
-    Then  Ser listan med skolor igen
+    Then  Ser listan med skolor igen, ser att uppgifter är ändrade
     # And   "modded.mock.<slumpgenererat-nummer>".'Lunds Tekniska Högskola' står nu som skolans namn
     # And   "modded.mock.<slumpgenererat-nummer>".'LTH' står nu som skolans kortnamn
 
