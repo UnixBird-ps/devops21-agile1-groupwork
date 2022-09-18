@@ -348,7 +348,8 @@ Then(
     .then(
       ( text ) =>
       {
-        expect( text ).not.to.be.equal( `mock.${gTimeUnixEPOCms}.${gNameStr}` );
+        console.log( text );
+        expect( text ).not.to.be.equal( `modded.mock.${gTimeUnixEPOCms}.${gNameStr}` );
       }
     );
     cy.get( 'table[class~=RaDatagrid-table] tbody tr:first td:nth-child(4) span' )
@@ -356,7 +357,8 @@ Then(
     .then(
       ( text ) =>
       {
-        expect( text ).not.to.be.equal( `mock.${gTimeUnixEPOCms}.${gShortNameStr}` );
+        console.log( text );
+        expect( text ).not.to.be.equal( `modded.mock.${gTimeUnixEPOCms}.${gShortNameStr}` );
       }
     );
   }
