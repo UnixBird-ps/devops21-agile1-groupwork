@@ -288,8 +288,80 @@ And(
         expect( text ).to.be.equal( `${pModStr}mock.${gTimeUnixEPOCms}.${gShortNameStr}` );
       }
     );
+    //cy.pause();
   }
 );
+
+
+Given(
+  /^Jag ser skollistan sorterad på id och skolan jag precis uppdaterat på första raden$/,
+  () =>
+  {
+    login();
+    // cy.visit( `/admin/#/${gTableName}?sort=id&order=DESC` );
+    cy.get( 'table[class~=RaDatagrid-table] tbody tr:first td:nth-child(3) span' )
+    .invoke( 'text' )
+    .then(
+      ( text ) =>
+      {
+        expect( text ).to.be.equal( `modded.mock.${gTimeUnixEPOCms}.${gNameStr}` );
+      }
+    );
+    cy.get( 'table[class~=RaDatagrid-table] tbody tr:first td:nth-child(4) span' )
+    .invoke( 'text' )
+    .then(
+      ( text ) =>
+      {
+        expect( text ).to.be.equal( `modded.mock.${gTimeUnixEPOCms}.${gShortNameStr}` );
+      }
+    );
+  }
+);
+
+
+When(
+  /^Klickar på kryssrutan på den raden$/,
+  () =>
+  {
+    cy.get( `table[class~=RaDatagrid-table] tbody tr:first td:first span input`).click();
+  }
+);
+
+
+And(
+  /^Klickar på länken 'Delete' ovanför listan$/,
+  () =>
+  {
+    cy.get( `div[class~="RaBulkActionsToolbar-topToolbar"] button` )
+    .contains( 'Delete' )
+    .click();
+  }
+);
+
+
+Then(
+  /^Ser skollistan sorterad på id och skolan är borttagen$/,
+  () =>
+  {
+    cy.get( 'table[class~=RaDatagrid-table] tbody tr:first td:nth-child(3) span' )
+    .invoke( 'text' )
+    .then(
+      ( text ) =>
+      {
+        expect( text ).not.to.be.equal( `mock.${gTimeUnixEPOCms}.${gNameStr}` );
+      }
+    );
+    cy.get( 'table[class~=RaDatagrid-table] tbody tr:first td:nth-child(4) span' )
+    .invoke( 'text' )
+    .then(
+      ( text ) =>
+      {
+        expect( text ).not.to.be.equal( `mock.${gTimeUnixEPOCms}.${gShortNameStr}` );
+      }
+    );
+  }
+);
+
 
 /*
 */

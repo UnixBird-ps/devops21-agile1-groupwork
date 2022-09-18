@@ -41,8 +41,12 @@ Feature: Administratörsgränssnitt/Skolor
     And   Ser att 'modded.' har lagts till i #name och #shortName
 
 
-  # Scenario: Ta bort en skola direkt i listan
-  # Som admin vill jag via användargränssnittet kunna radera uppgifterna om 
-  # skolans name och shortName så att jag har rätt kunduppgifter.
+  Scenario: Ta bort en skola direkt i listan
+  Som admin vill jag via användargränssnittet kunna radera uppgifterna om 
+  skolans name och shortName så att jag har rätt kunduppgifter.
+    Given Jag ser skollistan sorterad på id och skolan jag precis uppdaterat på första raden
+    When  Klickar på kryssrutan på den raden
+    And   Klickar på länken 'Delete' ovanför listan
+    Then  Ser skollistan sorterad på id och skolan är borttagen
 
   # Scenario: Ta bort en skola via formuläret
