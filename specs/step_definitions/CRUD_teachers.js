@@ -3,8 +3,9 @@ import { gAdminEmailStr, gAdminPwStr } from './crud-cred.js';
 
 
 let gTableName = 'teachers';
-// let timeUnixEPOCms = Date.now().toString();
-
+// let gTimeUnixEPOCms = Date.now().toString();
+// let gNameStr = '';
+// let gShortNameStr = '';
 
 function login() {
     cy.request('POST', '/data/login', { email: gAdminEmailStr, password: gAdminPwStr })

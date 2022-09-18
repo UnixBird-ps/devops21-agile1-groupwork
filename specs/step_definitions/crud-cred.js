@@ -1,2 +1,2 @@
-export let gAdminEmailStr = 'exempel@nodehill.com';
-export let gAdminPwStr = 'abc123';
+export const gAdminEmailStr = 'exempel@nodehill.com';
+export const gAdminPwStr = 'abc123';
