@@ -16,6 +16,7 @@ function login() {
                 expect(pResponse.body.loggedIn).to.be.equal(true);
             }
         );
+}
     // Cypress.Commands.add(
     //     'login',
     //     (pEmail, pPw) => {
@@ -32,7 +33,7 @@ function login() {
     // beforeEach(
     //     () => {
     //         cy.login(adminEmailStr, adminPwStr)
-}
+// }
 // );
 
 
