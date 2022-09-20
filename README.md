@@ -1,10 +1,23 @@
-# devops21-agile1-groupwork
+# General overview
 
-# nodehill-schedule
-# version 3.0
-Scheduling & invoicing
-<br>
-<br>
+The project aims to expand the "Nodehill-schedule"-system (a system for scheduling and invoicing at a education company) with a user interface for administrators.
+
+# The Team
+
+The team is working in accordance to SCRUM. The teammembers are:
+
+- Fadel (nodeFadel)
+- Katarina (katarina-pa)
+- Mia (Entitet)
+- Nazir (Naaziir)
+- Norhaan (Norhaan-a)
+- Pawel (UnixBird-ps)
+
+When working remote we communicate as a team in a Discord-group. We keep track of the tasks in the project in this [Trello-board](https://trello.com/b/TSifMMXd/devops21-agile-1-groupwork). You can find additional working materials in our [Miro-workspace](https://miro.com/app/board/uXjVPc82tCk=/).
+
+As the project is part of coursework for us as DevOps-students we strive to meet in person according to the schedule for the course [Agil-utveckling och projekt inom DevOps](https://devop.lms.nodehill.com/article/kursplanering-agil-utveckling-och-projekt-inom-devops-grund). Our goal is to have daily standups digitally through Discord on weekdays there are no lessons scheduled. 
+
+# Getting started
 
 As a first step when setting up the project you will need to install all dependencies. You might not be prompted by the system to run npm audit fix everytime, but if you are please do so:
 
@@ -39,6 +52,8 @@ CTRL+C twice in the terminal to stop the server, then...
 ```bash
 clear && cd admin && npm run build && cd .. && npm run dev
 ```
+
+# General information from the team at Nodehill about nodehill-schedule v. 3.0
 
 ## Schedule
 
