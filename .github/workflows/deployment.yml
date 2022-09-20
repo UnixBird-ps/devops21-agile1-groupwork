@@ -34,7 +34,10 @@ jobs:
         npm ci
         npm install -g pm2
     - name: Start node app in the background
-      run: pm2 start "npm run dev" --name nodehill-schedule
+      run: |
+        pm2 start "npm run dev" --name nodehill-schedule
+    - name: See pm2 list
+      run: pm2 list
     - name: Run actual postman collections  
       run: |
         newman run specs/tests/courses.postman_collection.json
