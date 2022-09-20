@@ -9,6 +9,10 @@ on:
   pull_request:
     branches: [ "dev", "deployment" ]
 
+#github repo name, but I do not know how or where to define this.
+env:
+  BRANCH: ${{ github.ref_name }}
+
 jobs:
   rest-api-test:
 
@@ -71,3 +75,23 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+  
+  goliveDev: 
+     # demand that the 2 tests jobs suceeed before running go live
+     needs: [rest-api-tests,ui-tests]
+     
+     #Only run this job if the environment protection rules are fulfilled
+     # (this case, reviewer need to approves and we need to be on dev branch)
+     if: github.ref == 'refs/heads/dev'
+     
+     runs-on: ubuntu-latest
+     steps:
+    
+          SSH_PORT
+          SSH_KEY
+          SSH_USER
+          SSH_HOST
+    #do we want to use a check out server, I cannot remember if this is necessary.
+    #would need to add a folder with js script for checkout-server
+    # - run: curl http://url/${{secrets.DEPLOYMENT_KEY}}
+    
