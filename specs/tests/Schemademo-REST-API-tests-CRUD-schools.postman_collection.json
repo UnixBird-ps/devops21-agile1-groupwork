@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "7def3132-7077-43e2-b055-a335075402d7",
-		"name": "Schemademo-REST-API-tests-CRUD-school",
+		"name": "Schemademo-REST-API-tests-CRUD-schools",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -163,6 +163,7 @@
 							"\r",
 							"// Get the var that was set in the previous step\r",
 							"let mockSchool = pm.variables.get( \"mockSchool\" );\r",
+							"// Set new ones to be used in the request body\r",
 							"pm.variables.set( \"mockSchoolName\", mockSchool.name );\r",
 							"pm.variables.set( \"mockSchoolShortName\", mockSchool.shortName );\r",
 							""
@@ -212,14 +213,11 @@
 							"\t\tpm.expect( responseJSON ).to.have.property( \"lastInsertRowid\" );\r",
 							"\t\tpm.expect( responseJSON.lastInsertRowid ).to.be.a( \"number\" );\r",
 							"\r",
-							"    // console.log( 'mockSchool:', mockSchool );\r",
-							"\r",
-							"    // // Get new row id\r",
+							"    // Get new row id\r",
 							"    mockSchool.id = responseJSON.lastInsertRowid;\r",
 							"\r",
-							"    // // Update var for use in later steps \r",
+							"    // Update var for use in later requests\r",
 							"    pm.variables.set( \"mockSchool\", mockSchool, Object );\r",
-							"    // console.log( 'mockSchool:', mockSchool );\r",
 							"\t}\r",
 							");\r",
 							""
