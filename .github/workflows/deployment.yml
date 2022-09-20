@@ -31,7 +31,9 @@ jobs:
     - name: Install test dependencies
       run: | 
         cp schedule-data-service/database/nodehill_schedule_org.db schedule-data-service/database/nodehill_schedule.db
-        npm ci
+        cd admin && npm install && npm audit fix && cd ..
+        cd schedule-data-service && npm install && npm audit fix && cd ..
+        npm install && npm audit fix
         npm install -g newman
         npm install -g pm2
     - name: Start node app in the background
