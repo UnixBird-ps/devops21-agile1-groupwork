@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cd schedule-data-service && node index"
+    "dev": "cd schedule-data-service && node index",
+    "build": "cd admin && npm run build"
   },
   "keywords": [],
   "author": "",
@@ -23,8 +24,7 @@
     "@cypress/webpack-preprocessor": "^5.12.2",
     "cypress": "^10.7.0"
   },
-  "cypress-cucumber-preprocessor":
-  {
+  "cypress-cucumber-preprocessor": {
     "json": {
       "enabled": true
     },

@@ -10,7 +10,49 @@ on:
     branches: [ "dev", "deployment" ]
 
 jobs:
-  build:
+  rest-api-test:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+
+    #added a build-script in the package.json in main folder to point to admin folder and run the 
+    #build-script in the package.json there in order to finally build react-admin. Check with team on this.
+    - run: npm run build --if-present
+
+    #install newman globally so we can run our postman collections
+    - run: npm install -g newman
+
+    #need to install pm2 so that we can start the server without tying up the terminal so that
+    #we can run the tests as well. Check with team on this.
+    - run: npm install -g pm2
+    
+    #copy the database 
+    - run: cp schedule-data-service/database/nodehill_schedule_org.db schedule-data-service/database/nodehill_schedule.db
+
+    #start the server
+    - run: pm2 run dev 
+
+    #run our API tests
+    - run: newman run specs/tests/courses.postman_collection.json
+    - run: newman run specs/tests/Scemademo-Rest-API-tests-CRUD-for-teachers.postman_collection.json
+    - run: newman run specs/tests/Schemademo-Rest-API-tests-Auth.postman_collection.json
+    - run: newman run specs/tests/Schemademo-Rest-API-tests-CRUD-school.postman_collection.json
+    - run: newman run specs/tests/tests-API-Crud-classes.postman_collection.json
+
+  ui-test:
 
     runs-on: ubuntu-latest
 
