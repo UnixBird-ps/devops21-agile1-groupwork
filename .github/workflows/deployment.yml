@@ -43,7 +43,7 @@ jobs:
 
     - name: Run actual postman collections  
       run: |
-        newman run specs/tests/Schemademo-Rest-API-tests-CRUD-school.postman_collection.json
+        newman run ./specs/tests/Schemademo-Rest-API-tests-CRUD-school.postman_collection.json
       #   newman run specs/tests/courses.postman_collection.json
       #   newman run specs/tests/Scemademo-Rest-API-tests-CRUD-for-teachers.postman_collection.json
       #   newman run specs/tests/Schemademo-Rest-API-tests-Auth.postman_collection.json
