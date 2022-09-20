@@ -197,7 +197,7 @@
 			"response": []
 		},
 		{
-			"name": "(R in CRUD) Get new class id",
+			"name": "(R in CRUD) Get new class",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -387,7 +387,7 @@
 							"console.info( 'Tests scripts of GET all classes start below' );\r",
 							"// Define local vars to be used in tests\r",
 							"let responseJSON = pm.response.json();\r",
-							"console.log( responseJSON );\r",
+							"//console.log( responseJSON );\r",
 							"// Get the var that was set in the previous step\r",
 							"let moddedClass = pm.variables.get( \"moddedClass\" );\r",
 							"\r",
