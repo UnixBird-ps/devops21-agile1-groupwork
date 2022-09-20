@@ -53,6 +53,19 @@ CTRL+C twice in the terminal to stop the server, then...
 clear && cd admin && npm run build && cd .. && npm run dev
 ```
 
+# Branching
+
+We are working in branches, where the:
+
+**main** branch is for code that is ready to go live. After the first release the main branch will therefore represent the live version of the application.
+
+**dev** branch is our default branch. In this branch you will find the version of the application that is under development.
+
+While working with the code you will create a separate branch from the dev branch. Please give your branch a descriptive name such as feature-descriptive-name-of-feature or test-descriptive-name-of-test. If you are the only one working in the branch end the name with your initials.
+
+The main and dev branches are protected. To be able to merge your work you need to submit a pull request.
+
+
 # General information from the team at Nodehill about nodehill-schedule v. 3.0
 
 ## Schedule
