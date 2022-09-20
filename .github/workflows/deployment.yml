@@ -49,10 +49,10 @@ jobs:
     - name: Run actual postman collections  
       run: |
         newman run specs/tests/Schemademo-REST-API-tests-CRUD-schools.postman_collection.json  
-      # newman run specs/tests/courses.postman_collection.json
         newman run specs/tests/Scemademo-Rest-API-tests-CRUD-for-teachers.postman_collection.json
         newman run specs/tests/Schemademo-REST-API-tests-Auth.postman_collection.json
         newman run specs/tests/tests-API-CRUD-classes.postman_collection.json   
+      # newman run specs/tests/courses.postman_collection.json
 
 
 
