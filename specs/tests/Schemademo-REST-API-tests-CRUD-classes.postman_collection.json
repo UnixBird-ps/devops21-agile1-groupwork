@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "8dc2bece-4891-4407-b117-3185b6b52f7c",
-		"name": "Redoing Laddad ner 12sep Schemademo-REST-API-tests-CRUD-school",
+		"_postman_id": "f26802d7-16c8-492e-9acc-9313339d64d6",
+		"name": "Schemademo-REST-API-tests-CRUD-classes",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -545,7 +545,7 @@
 			"response": []
 		},
 		{
-			"name": "(D in CRUD) Fail delete nonexistant school",
+			"name": "(D in CRUD) Fail delete nonexistant class",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -706,7 +706,7 @@
 					"  {",
 					"    name : `mock.TestClass${randomSix}`,",
 					"    shortName : `mock.Test${randomSix}`,",
-					"    school : 10,",
+					"    school : 1,",
 					"    blog : `mock.Blog${randomSix}Test.se`,",
 					"  };",
 					"  // Create a var to be used in later methods",
