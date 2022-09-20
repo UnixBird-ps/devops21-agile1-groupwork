@@ -1,3 +1,5 @@
+cypress/screenshots
+cypress/videos
 schedule-data-service/database/nodehill_schedule.db
 **/nodehill_schedule.db
 **/.idea

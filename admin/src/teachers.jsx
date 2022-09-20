@@ -75,7 +75,7 @@ const validateEditForm = (values) =>
 
 export const TeacherEdit = () => (
   <Edit title="Edit Teacher">
-    <SimpleForm warnWhenUnsavedChanges validate={validateCreateForm} sx={{ maxWidth: 500 }}>
+    <SimpleForm warnWhenUnsavedChanges validate={validateEditForm} sx={{ maxWidth: 500 }}>
       <TextInput source="email" inputProps={{ autocomplete: 'off' }} defaultValue={""} fullWidth />
       <Separator />
       <Box display={{ xs: 'block', sm: 'flex', width: '100%' }}>

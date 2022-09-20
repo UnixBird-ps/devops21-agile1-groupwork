@@ -6,7 +6,9 @@ module.exports = defineConfig(
   {
     e2e:
     {
-      specPattern: "**/*.feature",
+      specPattern: '**/*.feature',
+      baseUrl: 'http://localhost:7666',
+      video: false,
       setupNodeEvents(on, config)
       {
         // implement node event listeners here
