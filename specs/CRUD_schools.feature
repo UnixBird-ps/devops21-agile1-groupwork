@@ -20,14 +20,22 @@ Feature: Administratörsgränssnittet/Skolor
     Then  Ser listan med skolor igen
 
 
-  Scenario: Läsa skola
-  Som admin vill jag via användargränssnittet kunna se en lista över skolor med uppgifter om
-  skolans name och shortName så jag har en överblick över uppgifterna.
-    Given Jag ser skollistan sorterad på id och skolan jag precis registrerat på första raden
-    When  Klickar på 'Edit' på den raden
-    Then  Skolans uppgifter visas nu i formulärform
-    And   Ser att "mock.<slumpgenererat-nummer>.'Lunds Tekniska Högskola'" står i rutan #name
-    And   Ser att "mock.<slumpgenererat-nummer>.'LTH'" står i rutan #shortName
+  # Scenario: Läsa skola
+  # Som admin vill jag via användargränssnittet kunna se en lista över skolor med uppgifter om
+  # skolans name och shortName så jag har en överblick över uppgifterna.
+  #   Given Jag ser skollistan sorterad på id och skolan jag precis registrerat på första raden
+  #   When  Klickar på 'Edit' på den raden
+  #   Then  Skolans uppgifter visas nu i formulärform
+  #   And   Ser att "mock.<slumpgenererat-nummer>.'Lunds Tekniska Högskola'" står i rutan #name
+  #   And   Ser att "mock.<slumpgenererat-nummer>.'LTH'" står i rutan #shortName
+
+
+  Scenario: Ta bort en skola via formuläret
+  Som admin vill jag kunna ta bort uppgifter om en skola via formuläret så att jag har rätt kunduppgifter
+    Given "mock.<slumpgenererat-nummer>.'Lunds Tekniska Högskola'" står i rutan #name
+    And   "mock.<slumpgenererat-nummer>.'LTH'" står i rutan #shortName
+    When  Klickar på 'Delete' i verktygsfältet under formuläret
+    Then  Ser skollistan sorterad på id och skolan är borttagen
 
 
   Scenario: Uppdatera skola
@@ -41,22 +49,14 @@ Feature: Administratörsgränssnittet/Skolor
     And   Ser att 'modded.' har lagts till i #name och #shortName
 
 
-  Scenario: Ta bort en skola via formuläret
-  Som admin vill jag kunna ta bort uppgifter om en skola via formuläret så att jag har rätt kunduppgifter
-    Given "modded.mock.<slumpgenererat-nummer>.'Lunds Tekniska Högskola'" står i rutan #name
-    And   "modded.mock.<slumpgenererat-nummer>.'LTH'" står i rutan #shortName
-    When  Klickar på 'Delete' i verktygsfältet under formuläret
-    Then  Ser skollistan sorterad på id och skolan är borttagen
-
-
-  Scenario: Registrera ny skola igen för att dema borttagning direkt i listan
-  Som admin vill jag via användargränssnittet kunna lägga till en skola med uppgifter om skolans 
-  name och shortName så att jag har rätt kunduppgifter.
-    Given Jag ser ett tomt formulär där jag kan mata in uppgifter om en skola
-    When  Matar in "mock.<slumpgenererat-nummer>.'Lunds Tekniska Högskola'" i rutan #name
-    And   Matar in "mock.<slumpgenererat-nummer>.'LTH'" i rutan #shortName
-    And   Klickar på 'Save' i Create formuläret
-    Then  Ser listan med skolor igen
+  # Scenario: Registrera ny skola igen för att dema borttagning direkt i listan
+  # Som admin vill jag via användargränssnittet kunna lägga till en skola med uppgifter om skolans 
+  # name och shortName så att jag har rätt kunduppgifter.
+  #   Given Jag ser ett tomt formulär där jag kan mata in uppgifter om en skola
+  #   When  Matar in "mock.<slumpgenererat-nummer>.'Lunds Tekniska Högskola'" i rutan #name
+  #   And   Matar in "mock.<slumpgenererat-nummer>.'LTH'" i rutan #shortName
+  #   And   Klickar på 'Save' i Create formuläret
+  #   Then  Ser listan med skolor igen
 
 
   Scenario: Ta bort en skola direkt i listan

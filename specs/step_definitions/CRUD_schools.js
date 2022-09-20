@@ -3,6 +3,7 @@ import { Given, When, And, Then } from "@badeball/cypress-cucumber-preprocessor"
 import { gAdminEmailStr, gAdminPwStr } from './user-creds.js';
 
 
+let gPauseDelay = 0;
 let gTableName = 'schools';
 let gTimeUnixEPOCms = '';
 let gNameStr = '';
@@ -33,16 +34,18 @@ Given(
     cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=id]' ).should( 'exist' );
     cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=name]' ).should( 'exist' );
     cy.get( 'table[class~="RaDatagrid-table"] thead tr span[data-field=shortName]' ).should( 'exist' );
+
+    if ( gPauseDelay > 0 ) cy.wait( gPauseDelay );
   }
 );
 
 
 When(
-/^Klickar på '([^"]*)' i verktygsfältet ovanför listan$/,
-  ( pClickableStr ) =>
+/^Klickar på 'Create' i verktygsfältet ovanför listan$/,
+  () =>
   {
     cy.get( 'div[class~="MuiToolbar-root"] a,button[class~=MuiButton-root][class~=MuiButton-text][class~=MuiButton-textPrimary][class~=MuiButtonBase-root]' )
-    .contains( pClickableStr )
+    .contains( 'Create' )
     .click();
   }
 );
@@ -58,6 +61,8 @@ Then(
     cy.get( 'div[class~="RaCreate-main"] form input[id="shortName"]' ).should( 'exist' );
     cy.get( 'div[class~="RaCreate-main"] form input[id="shortName"]' ).should( 'be.empty' );
     cy.get( 'div[class~="RaCreate-main"] form button[type="submit"]' ).should( 'be.disabled' );
+
+    if ( gPauseDelay > 0 ) cy.wait( gPauseDelay );
   }
 );
 
@@ -101,11 +106,11 @@ And(
 
 
 And( 
-  /^Klickar på '([^"]*)' i Create formuläret$/,
-  ( pClickableStr ) =>
+  /^Klickar på 'Save' i Create formuläret$/,
+  () =>
   {
-    cy.get( 'div[class~="RaCreate-main"] form button' )
-    .contains( pClickableStr )
+    cy.get( 'div[class~="RaCreate-main"] form div[class~="RaToolbar-defaultToolbar"] a,button[class~=MuiButton-root][class~=MuiButton-contained][class~=MuiButtonBase-root]' )
+    .contains( 'Save' )
     .click();
   }
 );
@@ -146,16 +151,18 @@ Given(
         expect( text ).to.be.equal( `mock.${gTimeUnixEPOCms}.${gShortNameStr}` );
       }
     );
+
+    if ( gPauseDelay > 0 ) cy.wait( gPauseDelay );
   }
 );
 
 
 When(
-  /^Klickar på '([^"]*)' på den raden$/,
-  ( pClickableStr ) =>
+  /^Klickar på 'Edit' på den raden$/,
+  () =>
   {
     cy.get( `table[class~=RaDatagrid-table] tbody tr:first td:last a`)
-    .contains( pClickableStr )
+    .contains( 'Edit' )
     .click();
   }
 );
@@ -188,6 +195,8 @@ And(
   ( pShortNameStr ) =>
   {
     cy.get( 'div[class~="RaEdit-main"] form input[id="shortName"]' ).should( 'have.value', `mock.${gTimeUnixEPOCms}.${pShortNameStr}` );
+
+    if ( gPauseDelay > 0 ) cy.wait( gPauseDelay );
   }
 );
 
@@ -221,6 +230,8 @@ When(
   /^Lägger till '([^"]*)' i början av skolans namn i rutan #name$/,
   ( pNewPrefixStr ) =>
   {
+    if ( gPauseDelay > 0 ) cy.wait( gPauseDelay );
+
     cy.get( 'div[class~="RaEdit-main"] form input[id="name"]' )
       .invoke( 'val' )
       .then(
@@ -252,11 +263,11 @@ And(
 
 
 And( 
-  /^Klickar på '([^"]*)' i Edit formuläret$/, // 'Save'
-  ( pClickableStr ) =>
+  /^Klickar på 'Save' i Edit formuläret$/,
+  () =>
   {
     cy.get( 'div[class~="RaEdit-main"] form button' )
-    .contains( pClickableStr )
+    .contains( 'Save' )
     .click();
   }
 );
@@ -270,6 +281,8 @@ Then(
     cy.get( 'table[class~=RaDatagrid-table] thead tr span[data-field=id]' ).should( 'exist' );
     cy.get( 'table[class~=RaDatagrid-table] thead tr span[data-field=name]' ).should( 'exist' );
     cy.get( 'table[class~=RaDatagrid-table] thead tr span[data-field=shortName]' ).should( 'exist' );
+
+    if ( gPauseDelay > 0 ) cy.wait( gPauseDelay );
   }
 );
 
@@ -295,8 +308,7 @@ And(
       }
     );
 
-    cy.pause();
-
+    if ( gPauseDelay > 0 ) cy.wait( gPauseDelay );
   }
 );
 
@@ -308,9 +320,8 @@ Given(
   {
     login();
     cy.visit( `/admin/#/${gTableName}?sort=id&order=DESC` );
+    // Clicking on 'Edit'
     cy.get( `table[class~=RaDatagrid-table] tbody tr:first td:last a`).click();
-
-    // cy.pause();
 
     cy.get( 'div[class~="RaEdit-main"] form' ).should( 'exist' );
     cy.get( 'div[class~="RaEdit-main"] form input[id="name"]' ).should( 'exist' );
@@ -335,7 +346,7 @@ When(
   /^Klickar på '([^"]*)' i verktygsfältet under formuläret$/,
   ( pClickableStr ) =>
   {
-    cy.get( `div[class~="RaToolbar-defaultToolbar"] button` )
+    cy.get( `div[class~="RaToolbar-defaultToolbar"] a,button[class~=MuiButton-root][class~=MuiButton-text][class~=MuiButton-textPrimary][class~=MuiButtonBase-root]` )
     .contains( pClickableStr )
     .click();
   }
@@ -398,6 +409,17 @@ Then(
         expect( text ).not.to.contain( `mock.${gTimeUnixEPOCms}.${gShortNameStr}` );
       }
     );
+  }
+);
+
+
+When(
+/^Klickar på 'Delete' i verktygsfältet ovanför listan$/,
+  () =>
+  {
+    cy.get( 'div[class~="MuiToolbar-root"] a,button[class~=MuiButton-root][class~=MuiButton-text][class~=MuiButton-textPrimary][class~=MuiButtonBase-root]' )
+    .contains( 'Delete' )
+    .click();
   }
 );
 
