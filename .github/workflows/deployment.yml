@@ -33,6 +33,7 @@ jobs:
         cp schedule-data-service/database/nodehill_schedule_org.db schedule-data-service/database/nodehill_schedule.db
         npm ci
         npm install -g pm2
+        npm install -g newman
     - name: Start node app in the background
       run: |
         pm2 start "npm run dev" --name nodehill-schedule
