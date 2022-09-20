@@ -2,8 +2,8 @@ const db = require("./modules/db.js")()
 const express = require("express")
 const server = express()
 server.use(express.json())
-// const port = process.env.PORT ? process.env.PORT : 7666;
-const port = 7666;
+// const port = 7666;
+const port = process.env.PORT ? process.env.PORT : 7666;
 const host = `http://localhost:${port}`
 const { debugMsg } = require("./debug-funcs.js");
 
