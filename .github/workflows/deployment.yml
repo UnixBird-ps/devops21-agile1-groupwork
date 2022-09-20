@@ -41,16 +41,16 @@ jobs:
       run: |
         sleep 5
         pm2 list
-
+    - name: Check open ports
+      run: ss -puntao
     - name: Run actual postman collections  
       run: |
-        newman run specs/tests/tests-API-CRUD-classes.postman_collection.json
-      #   newman run ./specs/tests/Schemademo-REST-API-tests-CRUD-school.postman_collection.json
+        newman run ./specs/tests/Schemademo-REST-API-tests-CRUD-school.postman_collection.json
+      #   
       #   newman run specs/tests/courses.postman_collection.json
       #   newman run specs/tests/Scemademo-Rest-API-tests-CRUD-for-teachers.postman_collection.json
       #   newman run specs/tests/Schemademo-REST-API-tests-Auth.postman_collection.json
-        
-      #   
+      #   newman run specs/tests/tests-API-CRUD-classes.postman_collection.json   
 
 
 
