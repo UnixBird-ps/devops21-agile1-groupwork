@@ -28,20 +28,18 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Install test dependencies
+    - name: Install dependencies
       run: | 
         cp schedule-data-service/database/nodehill_schedule_org.db schedule-data-service/database/nodehill_schedule.db
-        cd admin && npm install && npm audit fix && cd ..
-        cd schedule-data-service && npm install && npm audit fix && cd ..
-        npm install && npm audit fix
-        npm install -g newman
-        npm install -g pm2
+        cd schedule-data-service && npm ci && npm audit fix && cd ..
+        npm ci && npm audit fix
+        npm i -g -d newman
+        npm i -g pm2
     - name: Start node app in the background
       run: |
         pm2 start "npm run dev" --name nodehill-schedule
     - name: See pm2 list
       run: |
-        sleep 5
         pm2 list
         pm2 logs --nostream
     - name: Check open ports
