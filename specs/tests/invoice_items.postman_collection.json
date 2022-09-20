@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "0d8d73d0-e4f1-439a-81e1-1067678c9974",
+		"name": "invoice_items",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19660886"
+	},
+	"item": [
+		{
+			"name": "Login admin",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Test that we have a successful request\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"That we were able to log in as admin\", function () {\r",
+							"    pm.expect(jsonData).to.have.property(\"loggedIn\");\r",
+							"    pm.expect(jsonData.loggedIn).to.be.true\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "abc123",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "exempel@nodehill.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{userName}}\",\r\n    \"password\": \"{{userPassword}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:7666/data/login",
+					"host": [
+						"localhost"
+					],
+					"port": "7666",
+					"path": [
+						"data",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create new invoice_item",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let testData = {\r",
+							"  \"title\": \"Undervisning\",\r",
+							"  \"unit\": \"timmar\",\r",
+							"  \"netPrice\": 833 }\r",
+							"\r",
+							"pm.variables.set(\"title\", testData.title);\r",
+							"pm.variables.set(\"unit\", testData.unit);\r",
+							"pm.variables.set(\"netPrice\", testData.netPrice);\r",
+							"\r",
+							"pm.variables.set(\"mockInvoiceItem\", testData );\r",
+							"\r",
+							"//pm.variables.set('counter', 0);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Create local variable from the environmentvariable\r",
+							"let mockInvoiceItem = pm.variables.get(\"mockInvoiceItem\");\r",
+							"console.log(mockInvoiceItem);\r",
+							"// Create local variable from environmentvariable and convert to int\r",
+							"let counter = +pm.variables.get(\"counter\");\r",
+							"\r",
+							"// get the response data\r",
+							"let response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Check that the database reports 1 change\", function(){\r",
+							"    pm.expect(response.changes).to.equal(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that we get lastInsertRowid as a number\", function(){\r",
+							"    pm.expect(response.lastInsertRowid).to.be.a('number');\r",
+							"});\r",
+							"\r",
+							"// Add the id to the invoice item in our mock data\r",
+							"mockInvoiceItem.id = response.lastInsertRowid;\r",
+							"// And resave the mock data as an environment variable\r",
+							"pm.variables.set('mockInvoiceItem', mockInvoiceItem);\r",
+							"\r",
+							"//Add to counter\r",
+							"counter++;\r",
+							"//Set counter as environment variable\r",
+							"pm.variables.set('counter', counter);\r",
+							"\r",
+							"// if there exist a invoice item in mockInvoiceItem\r",
+							"// with an index corresponding to the counter\r",
+							"// then run this request\r",
+							"if(mockInvoiceItem[counter]){\r",
+							"    postman.setNextRequest(\"Create new invoice_item\");\r",
+							"}\r",
+							"else {\r",
+							"     // we are done reset the counter to 0\r",
+							"     // the help the script in the next request\r",
+							"    pm.variables.set('counter', '0');\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"title\": \"{{title}}\",\r\n   \"unit\": \"{{unit}}\",\r\n   \"netPrice\": \"{{netPrice}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7666/data/invoice_items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7666",
+					"path": [
+						"data",
+						"invoice_items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get table invoice_items",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Test that we have a successful request\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"//pm.test(\"That the data is displayed as an array\", function () {\r",
+							"//    pm.expect(jsonData).to.be.an('array');\r",
+							"//});\r",
+							"\r",
+							"//If test below fails the scripts in this collection need to be amended to correspond to new updated keys. Id and total_count can be disregarded.\r",
+							"//pm.test(\"That the keys in the database have not been changed\", function () {\r",
+							"//        pm.expect(jsonData[0]).to.have.all.keys(\"id\", \"title\", \"unit\", \"netPrice\");\r",
+							"//        });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7666/data/invoice_items",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7666",
+					"path": [
+						"data",
+						"invoice_items"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update the created invoice item",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get the var that was set in the previous step\r",
+							"let mockInvoiceItem = pm.variables.get( \"mockInvoiceItem\" );\r",
+							"pm.variables.set( \"mockInvoiceItem\", mockInvoiceItem.id);\r",
+							"\r",
+							"\r",
+							"// Set the var to be used in the URL\r",
+							"//pm.variables.set( 'mockInvoiceItem', mockInvoiceItem.id );\r",
+							"\r",
+							"let moddedInvoiceItem =\r",
+							"{\r",
+							"  id: mockInvoiceItem.id,\r",
+							"  title : mockInvoiceItem.title + \".test_modded\",\r",
+							"  unit : mockInvoiceItem.unit + \".test_modded\",\r",
+							"  netPrice : mockInvoiceItem.netPrice + \".test_modded\"\r",
+							"}\r",
+							"\r",
+							"pm.variables.set( \"moddedInvoiceItem\", moddedInvoiceItem, Object );\r",
+							"// Set the var to be used in the URL and the request body\r",
+							"pm.variables.set( \"moddedInvoiceItemId\", moddedInvoiceItem.id );\r",
+							"\r",
+							"pm.variables.set( 'moddedInvoiceItem', JSON.stringify( moddedInvoiceItem ) );\r",
+							"\r",
+							"// Set the var to be used in the request body\r",
+							"// pm.variables.set( \"moddedInvoiceItemTitle\", moddedInvoiceItem.title );\r",
+							"// pm.variables.set( \"moddedInvoiceItemUnit\", moddedInvoiceItem.unit );\r",
+							"// pm.variables.set( \"moddedInvoiceItemNetPrice\", moddedInvoiceItem.netPrice );\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.info( 'Tests scripts of PUT method starts below' );\r",
+							"\r",
+							"let responseJSON = pm.response.json();\r",
+							"console.log( responseJSON );\r",
+							"\r",
+							"// Get the var that was set in the previous step\r",
+							"let mockInvoiceItem = pm.variables.get( 'mockInvoiceItem' );\r",
+							"let moddedClass = pm.variables.get( 'moddedInvoiceItem' );\r",
+							"\r",
+							"\r",
+							"// The tests\r",
+							"\r",
+							"pm.test(\r",
+							"    \"Check that the response code was 200.\",\r",
+							"    function()\r",
+							"    {\r",
+							"        pm.expect( pm.response.code ).to.be.equal( 200 );\r",
+							"    }\r",
+							");\r",
+							"\r",
+							"\r",
+							"pm.test(\r",
+							"    \"Check that the database reports 1 change.\",\r",
+							"    function()\r",
+							"    {\r",
+							"        pm.expect( responseJSON ).to.have.property( \"changes\" );\r",
+							"        pm.expect( responseJSON.changes ).to.equal( 1 );\r",
+							"    }\r",
+							"); "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{moddedInvoiceItem}}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:7666/data/invoice_items/{{moddedInvoiceItemId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7666",
+					"path": [
+						"data",
+						"invoice_items",
+						"{{moddedInvoiceItemId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete the created invoice item",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let mockInvoiceItem = pm.variables.get( \"mockInvoiceItem\" );\r",
+							"pm.variables.set( \"mockInvoiceItem\", mockInvoiceItem.id);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\r",
+							"   \"Check that the response code was 200.\",\r",
+							"   function()\r",
+							"   {\r",
+							"      pm.expect(pm.response.code).to.be.equal(200);\r",
+							"\r",
+							"      let mockInvoiceItem = pm.variables.get(\"mockInvoiceItem\");\r",
+							"//      mockInvoiceItem.shift();\r",
+							"   });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:7666/data/invoice_items/{{moddedInvoiceItemId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "7666",
+					"path": [
+						"data",
+						"invoice_items",
+						"{{moddedInvoiceItemId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
