@@ -65,6 +65,22 @@ While working with the code you will create a separate branch from the dev branc
 
 The main and dev branches are protected. To be able to merge your work you need to submit a pull request.
 
+# Tests
+
+In the project we have:
+- API-tests (Postman/Newman) 
+- GUI-tests (Cypress)
+
+To run the API-tests manually in your terminal you need to install Newman (**npm install newman**) if you haven't done so already. To run one collection of API tests use **newman run** followed by the exact filename of the collection you want to run.
+
+To run GUI-tests manually in your terminal you need to
+
++ CI.
+
+# Deployment
+
+
+
 
 # General information from the team at Nodehill about nodehill-schedule v. 3.0
 
