@@ -37,7 +37,10 @@ jobs:
       run: |
         pm2 start "npm run dev" --name nodehill-schedule
     - name: See pm2 list
-      run: pm2 list
+      run: |
+        sleep 5
+        pm2 list
+
     - name: Run actual postman collections  
       run: |
         newman run specs/tests/courses.postman_collection.json
