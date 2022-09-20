@@ -41,6 +41,7 @@ jobs:
       run: |
         sleep 5
         pm2 list
+        pm2 logs --nostream
     - name: Check open ports
       run: ss -puntao
     - name: Run actual postman collections  
