@@ -86,7 +86,7 @@
 							"let mockClass = pm.variables.get( \"mockClass\" );\r",
 							"pm.variables.set( \"mockClassName\", mockClass.name );\r",
 							"pm.variables.set( \"mockClassShortName\", mockClass.shortName );\r",
-							"parseInt(pm.variables.set( \"mockClassSchool\", mockClass.school ));\r",
+							"pm.variables.set( \"mockClassSchool\", mockClass.school );\r",
 							"pm.variables.set( \"mockClassBlog\", mockClass.blog );\r",
 							"\r",
 							"//pm.variables.set( \"mockClassHide\", mockClass.hide );\r",
@@ -122,7 +122,7 @@
 							"//I did run it again & it finally gave a different one & then it went through with register\r",
 							"pm.variables.set( \"mockClassName\", mockClass.name );\r",
 							"pm.variables.set( \"mockClassShortName\", mockClass.shortName );\r",
-							"parseInt(pm.variables.set( \"mockClassSchool\", mockClass.school ));\r",
+							"//parseInt(pm.variables.set( \"mockClassSchool\", mockClass.school ));\r",
 							"pm.variables.set( \"mockClassBlog\", mockClass.blog );\r",
 							"//pm.variables.set( \"mockClassHide\", mockClass.hide );\r",
 							"//pm.variables.set( \"mockClassDefaultStartTime\", mockClass.defaultStartTime );\r",
@@ -188,9 +188,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{restHost}}{{restApiPath}}{{tableName}}",
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}",
 					"host": [
-						"{{restHost}}{{restApiPath}}{{tableName}}"
+						"{{restHost}}{{restApiPath}}"
+					],
+					"path": [
+						"{{tableName}}"
 					]
 				}
 			},
@@ -203,7 +206,7 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"console.info( 'Pre-req script of GET (single) new class id starts below' );\r",
+							"console.info( 'Pre-req script of GET (single) new class starts below' );\r",
 							"\r",
 							"// Get the var that was set in the previous step\r",
 							"let mockClass = pm.variables.get( 'mockClass' );\r",
@@ -219,7 +222,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"console.info( 'Tests script of GET new class id starts below' );\r",
+							"console.info( 'Tests script of GET new class starts below' );\r",
 							"\r",
 							"let responseJSON = pm.response.json();\r",
 							"console.log( responseJSON );\r",
@@ -270,11 +273,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{restHost}}{{restApiPath}}{{tableName}}/{{mockClassId}}",
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}/{{mockClassId}}",
 					"host": [
-						"{{restHost}}{{restApiPath}}{{tableName}}"
+						"{{restHost}}{{restApiPath}}"
 					],
 					"path": [
+						"{{tableName}}",
 						"{{mockClassId}}"
 					]
 				}
@@ -294,11 +298,11 @@
 							"let mockClass = pm.variables.get( \"mockClass\" );\r",
 							"\r",
 							"// Set the var to be used in the URL\r",
-							"pm.variables.set( 'mockClassId', mockClass.id );\r",
+							"//pm.variables.set( 'mockClassId', mockClass.id );\r",
 							"\r",
 							"let moddedClass =\r",
 							"{\r",
-							"  id: mockClass.id,\r",
+							"  id : mockClass.id,\r",
 							"  name : mockClass.name + \".test_modded\",\r",
 							"  shortName : mockClass.shortName + \".test_modded\"\r",
 							"}\r",
@@ -358,7 +362,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": \"{{moddedClassId}}\",\r\n    \"name\": \"{{moddedClassName}}\",\r\n    \"shortName\": \"{{moddedClassShortName}}\"\r\n}",
+					"raw": "{\r\n  \"id\" : \"{{moddedClassId}}\",\r\n  \"name\" : \"{{moddedClassName}}\",\r\n  \"shortName\" : \"{{moddedClassShortName}}\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -366,12 +370,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{restHost}}{{restApiPath}}{{tableName}}/{{mockClassId}}",
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}/{{moddedClassId}}",
 					"host": [
-						"{{restHost}}{{restApiPath}}{{tableName}}"
+						"{{restHost}}{{restApiPath}}"
 					],
 					"path": [
-						"{{mockClassId}}"
+						"{{tableName}}",
+						"{{moddedClassId}}"
 					]
 				}
 			},
@@ -450,9 +455,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{restHost}}{{restApiPath}}{{tableName}}",
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}",
 					"host": [
-						"{{restHost}}{{restApiPath}}{{tableName}}"
+						"{{restHost}}{{restApiPath}}"
+					],
+					"path": [
+						"{{tableName}}"
 					]
 				}
 			},
@@ -533,11 +541,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{restHost}}{{restApiPath}}{{tableName}}/{{mockClassId}}",
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}/{{mockClassId}}",
 					"host": [
-						"{{restHost}}{{restApiPath}}{{tableName}}"
+						"{{restHost}}{{restApiPath}}"
 					],
 					"path": [
+						"{{tableName}}",
 						"{{mockClassId}}"
 					]
 				}
@@ -608,11 +617,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{restHost}}{{restApiPath}}{{tableName}}/{{mockClassId}}",
+					"raw": "{{restHost}}{{restApiPath}}/{{tableName}}/{{mockClassId}}",
 					"host": [
-						"{{restHost}}{{restApiPath}}{{tableName}}"
+						"{{restHost}}{{restApiPath}}"
 					],
 					"path": [
+						"{{tableName}}",
 						"{{mockClassId}}"
 					]
 				}
@@ -749,7 +759,7 @@
 		},
 		{
 			"key": "restApiPath",
-			"value": "/data/",
+			"value": "/data",
 			"type": "default"
 		},
 		{
