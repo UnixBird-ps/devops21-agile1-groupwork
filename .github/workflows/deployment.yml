@@ -3,6 +3,7 @@
 
 name: Node.js CI
 
+
 on:
   push:
     branches: [ "dev", "deployment" ]
@@ -10,7 +11,8 @@ on:
     branches: [ "dev", "deployment" ]
 
 jobs:
-  build:
+  rest-api-tests:
+    name: Start api-tests with newman
 
     runs-on: ubuntu-latest
 
@@ -26,6 +28,50 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+    - name: Install test dependencies
+      run: | 
+        cp schedule-data-service/database/nodehill_schedule_org.db schedule-data-service/database/nodehill_schedule.db
+        npm ci
+        npm install -g newman
+        npm install -g pm2
+    - name: Start node app in the background
+      run: |
+        pm2 start "npm run dev" --name nodehill-schedule
+    - name: See pm2 list
+      run: |
+        sleep 5
+        pm2 list
+    - name: Check open ports
+      run: ss -puntao
+    - name: Run actual postman collections  
+      run: |
+        newman run ./specs/tests/Schemademo-REST-API-tests-CRUD-school.postman_collection.json
+      #   
+      #   newman run specs/tests/courses.postman_collection.json
+      #   newman run specs/tests/Scemademo-Rest-API-tests-CRUD-for-teachers.postman_collection.json
+      #   newman run specs/tests/Schemademo-REST-API-tests-Auth.postman_collection.json
+      #   newman run specs/tests/tests-API-CRUD-classes.postman_collection.json   
+
+
+
+
+
+  # build:
+
+  #   runs-on: ubuntu-latest
+
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
+  #       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
+  #       cache: 'npm'
+  #   - run: npm ci
+  #   - run: npm run build --if-present
+  #   - run: npm test
