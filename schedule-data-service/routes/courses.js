@@ -6,18 +6,18 @@ module.exports = function(server, db)
 {
 
 
-  //SqliteError: table courses has 11 columns but 10 values were supplied
-  // When had @id in VALUES
   server.post(
     '/data/courses',
     function postCourse(request, response)
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
+      // console.log( 'before:\n', record );
+      // Remove props with nulls and empty strings, let DB decide the value
+      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ) );
       let sql = "INSERT INTO courses";
       sql += ' (' + Object.keys( record ).map( key => key ) + ')';
       sql += ' VALUES(' + Object.keys( record ).map( key => `@${key}` ) + ')';
-      // console.log( 'before:\n', record );
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
       // console.log( 'after:\n', record );
@@ -52,10 +52,12 @@ module.exports = function(server, db)
     {
       // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
+      // console.log( 'before:\n', record );
+      // Remove props with nulls and empty strings, let DB decide the value
+      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ) );
       let sql = "UPDATE courses SET ";
       sql += Object.keys( record ).filter( key => key != 'id' ).map( key => `${key}=@${key}` );
       sql += " WHERE id=@id";
-      // console.log( 'before:\n', record );
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
       // console.log( 'after:\n', record );
