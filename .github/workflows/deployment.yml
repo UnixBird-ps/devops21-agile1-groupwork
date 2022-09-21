@@ -1,0 +1,76 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+
+on:
+  push:
+    branches: [ "dev", "deployment" ]
+  pull_request:
+    branches: [ "dev", "deployment" ]
+
+jobs:
+  rest-api-tests:
+    name: Start api-tests with newman
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Install dependencies
+      run: | 
+        cp schedule-data-service/database/nodehill_schedule_org.db schedule-data-service/database/nodehill_schedule.db
+        cd schedule-data-service && npm ci && npm audit fix && cd ..
+        npm ci && npm audit fix
+        npm i -g -d newman
+        npm i -g pm2
+    - name: Start node app in the background
+      run: |
+        pm2 start "npm run dev" --name nodehill-schedule
+    - name: See pm2 list
+      run: |
+        pm2 list
+        pm2 logs --nostream
+    - name: Check open ports
+      run: ss -puntao
+    - name: Run actual postman collections  
+      run: |
+        newman run specs/tests/Schemademo-REST-API-tests-Auth.postman_collection.json
+        newman run specs/tests/Schemademo-REST-API-tests-CRUD-schools.postman_collection.json  
+      # newman run specs/tests/Scemademo-Rest-API-tests-CRUD-for-teachers.postman_collection.json
+      # newman run specs/tests/Schemademo-REST-API-tests-CRUD-classes.postman_collection.json  
+      # newman run specs/tests/courses.postman_collection.json
+
+
+
+
+  # build:
+
+  #   runs-on: ubuntu-latest
+
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
+  #       # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Use Node.js ${{ matrix.node-version }}
+  #     uses: actions/setup-node@v3
+  #     with:
+  #       node-version: ${{ matrix.node-version }}
+  #       cache: 'npm'
+  #   - run: npm ci
+  #   - run: npm run build --if-present
+  #   - run: npm test
