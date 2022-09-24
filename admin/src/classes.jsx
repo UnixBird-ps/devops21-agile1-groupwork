@@ -1,4 +1,4 @@
-import { required, Datagrid, SimpleForm, List, Edit, Create } from 'react-admin';
+import { Datagrid, SimpleForm, List, Edit, Create } from 'react-admin';
 import { EditButton, ReferenceField, ReferenceInput, TextField, BooleanField, TextInput, NumberInput, BooleanInput, TimeInput, SelectInput } from 'react-admin';
 import { Box } from '@mui/material';
 
@@ -80,10 +80,11 @@ export const ClassEdit = () => (
       </Box>
       <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5} sx={{minWidth:150}}/>
       <Separator />
-      <ReferenceInput source="defaultInvoiceItem" reference="invoice_items" emptyValue={null}>
-        <SelectInput optionValue="id" optionText="title" sx={{minWidth:200}} />
+      <ReferenceInput source="defaultInvoiceItem" reference="invoice_items" emptyValue={null} sort={{ field: 'title', order: 'ASC' }}>
+        <SelectInput optionText="title" sx={{minWidth:200}} />
+        {/* optionValue="id" */}
       </ReferenceInput>
-      <ReferenceInput source="school" reference="schools" emptyValue={null}>
+      <ReferenceInput source="school" reference="schools" emptyValue={null} sort={{ field: 'name', order: 'ASC' }}>
         <SelectInput optionText="name" fullWidth />
       </ReferenceInput>
       <BooleanInput source="hide" emptyValue={null} />
@@ -114,10 +115,11 @@ export const ClassCreate = () => (
       </Box>
       <NumberInput source="defaultHoursPerDay" defaultValue={0} min={0} max={8} step={0.5} sx={{minWidth:150}}/>
       <Separator />
-      <ReferenceInput source="defaultInvoiceItem" reference="invoice_items" emptyValue={null}>
-        <SelectInput optionValue="id" optionText="title" sx={{minWidth:200}} />
+      <ReferenceInput source="defaultInvoiceItem" reference="invoice_items" emptyValue={null} sort={{ field: 'title', order: 'ASC' }}>
+        <SelectInput optionText="title" sx={{minWidth:200}} />
+        {/* optionValue="id" */}
       </ReferenceInput>
-      <ReferenceInput source="school" reference="schools" emptyValue={null}>
+      <ReferenceInput source="school" reference="schools" emptyValue={null} sort={{ field: 'name', order: 'ASC' }}>
         <SelectInput optionText="name" fullWidth />
       </ReferenceInput>
       <BooleanInput source="hide" emptyValue={null} />

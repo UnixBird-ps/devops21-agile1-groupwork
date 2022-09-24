@@ -15,7 +15,7 @@ module.exports = function(server, db)
       let record = request.body;
       // console.log( 'before:\n', record );
       // Remove props with nulls and empty strings, let DB decide the value
-      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ) );
+      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null ) );// && entry[1] != ''
       let sql = 'INSERT INTO schools';
       sql += ' (' + Object.keys( record ).map( key => key ) + ')';
       sql += ' VALUES(' + Object.keys( record ).map( key => `@${key}` ) + ')';
@@ -45,7 +45,7 @@ module.exports = function(server, db)
       let record = request.body;
       // console.log( 'before:\n', record );
       // Remove props with nulls and empty strings, let DB decide the value
-      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ) );
+      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null ) );// && entry[1] != ''
       let sql = "UPDATE schools SET ";
       // Remove the id prop because we don't want to update it
       sql += Object.keys( record ).filter( key => key != 'id' ).map( key => `${key}=@${key}` );

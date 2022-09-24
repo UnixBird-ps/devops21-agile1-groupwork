@@ -13,7 +13,7 @@ module.exports = function(server, db)
       let record = request.body;
       // console.log( 'before:\n', record );
       // Remove props with nulls and empty strings, let DB decide the value
-      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ) );
+      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null ) );// && entry[1] != ''
       // Build the SQL query
       let sql = 'INSERT INTO invoice_items';
       sql += ' (' + Object.keys( record ).map( key => key ) + ')';              // Creates ( column1, column2...
@@ -44,7 +44,7 @@ module.exports = function(server, db)
       let record = request.body;
       // console.log( 'before:\n', record );
       // Remove props with nulls and empty strings, let DB decide the value
-      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ) );
+      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null ) );// && entry[1] != ''
       // Build the SQL query
       let sql = "UPDATE invoice_items SET ";
       // Remove the id prop because we don't want to update it

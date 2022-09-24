@@ -16,18 +16,18 @@ module.exports = function(server, db)
       let record = request.body;
       // console.log( 'before:\n', record );
       // Remove props with nulls and empty strings, let DB decide the value
-      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null && entry[1] != '' ) );
+      record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null ) );// && entry[1] != ''
       let sql = 'INSERT INTO teachers';
       sql += ' (' + Object.keys( record ).map( key => key ) + ')';
       sql += ' VALUES(' + Object.keys( record ).map( key => `@${key}` ) + ')';
+      // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
+      if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
       // Convert the 'roles' prop from an array to a string (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'roles' ) )
       {
         if ( Array.isArray( record.roles ) ) record.roles = record.roles.join( ',' );
         if ( record.roles == null ) record.roles = '';
       }
-      // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
-      if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
       record.password = encrypt( record.password );
       // console.log( 'after:\n', record );
       // console.log( sql );
@@ -89,7 +89,10 @@ module.exports = function(server, db)
         if ( record.roles == null ) record.roles = '';
       }
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
-      if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
+      if ( Object.keys( record ).includes( 'hide' ) )
+      {
+        record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
+      }
       // console.log( 'after:\n', record );
       // console.log( sql );
       const stmt = db.prepare( sql );

@@ -1,6 +1,6 @@
 import { List, Datagrid, SimpleForm, Edit, Create, } from 'react-admin';
 import { ReferenceField, TextField, NumberField, BooleanField } from 'react-admin';
-import { EditButton, ReferenceInput, AutocompleteInput, TextInput, NumberInput, DateInput, BooleanInput, SelectInput } from 'react-admin';
+import { EditButton, ReferenceInput, TextInput, NumberInput, DateInput, BooleanInput, SelectInput } from 'react-admin';
 import { Box } from '@mui/material';
 
 
@@ -14,17 +14,8 @@ const validateCreateForm = (values) =>
       errors.name = 'Name is required';
   }
   if (!values.shortName) {
-      // You can return translation keys
       errors.shortName = 'ra.validation.required';
   }
-  // if (!values.class) {
-  //     // You can return translation keys
-  //     errors.class = 'ra.validation.required';
-  // }
-  // if (!values.invoiceItem) {
-  //     // You can return translation keys
-  //     errors.invoiceItem = 'ra.validation.required';
-  // }
   return errors;
 }
 
@@ -65,7 +56,7 @@ export const CourseEdit = () => (
           <TextInput source="shortName" fullWidth />
         </Box>
       </Box>
-      <ReferenceInput source="class" reference="classes">
+      <ReferenceInput source="class" reference="classes" sort={{ field: 'name', order: 'ASC' }}>
         <SelectInput optionText="name" fullWidth />
       </ReferenceInput>
       <NumberInput source="points" />
@@ -79,7 +70,7 @@ export const CourseEdit = () => (
       </Box>
       <NumberInput source="hoursPerDay" defaultValue={0} min={0} max={8} step={0.5} sx={{minWidth:150}}/>
       <TextInput source="plan" />
-      <ReferenceInput source="invoiceItem" reference="invoice_items">
+      <ReferenceInput source="invoiceItem" reference="invoice_items" sort={{ field: 'title', order: 'ASC' }}>
         <SelectInput optionText="title" sx={{minWidth:200}} />
       </ReferenceInput>
       <BooleanInput source="hide" defaultValue={false} />
@@ -99,7 +90,7 @@ export const CourseCreate = () => (
           <TextInput source="shortName" fullWidth />
         </Box>
       </Box>
-      <ReferenceInput source="class" reference="classes">
+      <ReferenceInput source="class" reference="classes" sort={{ field: 'name', order: 'ASC' }}>
         <SelectInput optionText="name" fullWidth />
       </ReferenceInput>
       <NumberInput source="points" />
@@ -113,7 +104,7 @@ export const CourseCreate = () => (
       </Box>
       <NumberInput source="hoursPerDay" defaultValue={0} min={0} max={8} step={0.5} sx={{minWidth:150}}/>
       <TextInput source="plan" />
-      <ReferenceInput source="invoiceItem" reference="invoice_items">
+      <ReferenceInput source="invoiceItem" reference="invoice_items" sort={{ field: 'title', order: 'ASC' }}>
         <SelectInput optionText="title" sx={{minWidth:200}} />
       </ReferenceInput>
       <BooleanInput source="hide" defaultValue={false} />
