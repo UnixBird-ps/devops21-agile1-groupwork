@@ -11,9 +11,9 @@ module.exports = function(server, db)
     '/data/classes',
     function postClass(request, response)
     {
-      debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
-      console.log( 'before:\n', record );
+      // console.log( 'before:\n', record );
       // Remove props with nulls and empty strings, let DB decide the value
       record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null ) );// && entry[1] != ''
       let sql = "INSERT INTO classes";
@@ -25,8 +25,8 @@ module.exports = function(server, db)
       if ( Object.keys( record ).includes( 'school' ) ) record.school = record.school == '' ? null : record.school;
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = ( record.hide == null || record.hide == false ) ? 0 : 1;
-      console.log( 'after:\n', record );
-      console.log( sql );
+      // console.log( 'after:\n', record );
+      // console.log( sql );
       let result;
       try
       {
@@ -47,9 +47,9 @@ module.exports = function(server, db)
     '/data/classes/:id',
     function putClass(request, response)
     {
-      debugMsg( `${request.method}: ${decodeURI( request.url )}` );
+      // debugMsg( `${request.method}: ${decodeURI( request.url )}` );
       let record = request.body;
-      console.log( 'before:', record );
+      // console.log( 'before:', record );
       // Remove props with nulls and empty strings, let DB decide the value
       record = Object.fromEntries( Object.entries( record ).filter( entry => entry[1] != null ) );// && entry[1] != '' && ( entry[1] == true || entry[1] == false )
       let sql = "UPDATE classes SET ";
@@ -62,8 +62,8 @@ module.exports = function(server, db)
       if ( Object.keys( record ).includes( 'school' ) ) record.school = record.school == '' ? null : record.school;
       // Convert the 'hide' prop from a boolean to an integer (React-Admin -> DB)
       if ( Object.keys( record ).includes( 'hide' ) ) record.hide = record.hide ? 1 : 0;
-      console.log( 'after:', record );
-      console.log( sql );
+      // console.log( 'after:', record );
+      // console.log( sql );
       let result;
       try
       {

@@ -37,9 +37,9 @@ server.listen(port, () => {
 const calendar = require('./services/calendar.js')
 const generateSchedule = require('./services/generate-schedule')
 
-server.use('/', express.static('../frontend/www'))
-server.use('/admin', express.static('../frontend/admin/dist'))
-server.use('/assets', express.static('../frontend/admin/dist/assets'))
+server.use('/', express.static('../www'))
+server.use('/admin', express.static('../admin/dist'))
+server.use('/assets', express.static('../admin/dist/assets'))
 
 // Specialized REST API routes
 require('./routes/login.js')(server, db)
